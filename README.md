@@ -4,7 +4,7 @@
 Sophia Corell(919969) \
 Daniel Mühlbeyer(914019) \
 Leonard Huth (896679) s80387@bht-berlin.de \
-Aysenur Yoleri(898041) \ 
+Aysenur Yoleri(898041) \
 Mehmet Fatih Yilmaz (825864) \
 Elena Witecka(910861) \
 
