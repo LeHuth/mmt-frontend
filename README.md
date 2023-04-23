@@ -1,12 +1,12 @@
 # mmt-frontend
 
 ### Mitglieder:  
-Sophia Corell(919969) 
-Daniel Mühlbeyer(914019), 
-Leonard Huth (896679) s80387@bht-berlin.de, 
-Aysenur Yoleri(898041), 
-Mehmet Fatih Yilmaz (825864)
-Elena Witecka(910861)
+Sophia Corell(919969) \
+Daniel Mühlbeyer(914019) \
+Leonard Huth (896679) s80387@bht-berlin.de \
+Aysenur Yoleri(898041) \ 
+Mehmet Fatih Yilmaz (825864) \
+Elena Witecka(910861) \
 
 ### Beschreibung:
 Ticketverkauf Eventplattformen neu gedacht durch innovatives Design das zu neuen Arten der Interaktion anre(neu gedachte Navigation) 
