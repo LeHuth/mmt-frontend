@@ -1,22 +1,71 @@
-# mmt-frontend
+## Hi there, Full Stack Jack here
+I'm glad you found this awesome repo.
 
-### Mitglieder:  
-Sophia Corell(919969) \
-Daniel Mühlbeyer(914019) \
-Leonard Huth (896679) s80387@bht-berlin.de \
-Aysenur Yoleri(898041) \
-Mehmet Fatih Yilmaz (825864) \
-Elena Witecka(910861) \
+If you'd like a walk through of how nuxt3 and in particular this set up
+works,
 
-### Beschreibung:
-Ticketverkauf Eventplattformen neu gedacht durch innovatives Design das zu neuen Arten der Interaktion anre(neu gedachte Navigation) 
+check out the Full Stack Jack Youtube Channel here :point_right: ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCFDF_U_uoKc6MhIZPZKo5CA?label=FullStackJack&style=social)
+<a href="https://www.youtube.com/channel/UCFDF_U_uoKc6MhIZPZKo5CA">FullStackJack Youtube Channel</a>.
 
-Für Veranstalter bietet eine Vielzahl von Tools zur Verwaltung von Events, wie z.B. die Möglichkeit, (personalisierte Tickets zu erstellen)*, die Integration von Zahlungssystemen, die Verfolgung von Teilnehmerzahlen und die Überwachung von Verkaufsdaten in Echtzeit. Veranstalter können auch ihre Event-Details auf sozialen Medien wie Facebook oder Twitter teilen, um ihre Veranstaltung einem größeren Publikum zu präsentieren. 
-
-Für Besucher bietet MapMyTickets eine neu gedachte künstlerische Art des Tickets Vertriebs und der Präsentation von Events, die sich um dich herum befinden. erfrischende und abwechslungsreiche Präsentation des Contents steht im Mittelpunkt, da wir alle die 0-8-15 Ticket- und Event- Apps kennen aber nicht lieben.
-
-Die Plattform bietet auch eine Ticketing-App, mit der Nutzer ihre Tickets auf ihrem Smartphone speichern und an der Veranstaltung teilnehmen können, ohne ausgedruckte Tickets vorzeigen zu müssen.
-
-Die Anwendung präsentiert Veranstaltungen auf einer Karte, wobei die Darstellung auf der Grundlage des jeweiligen Standorts erfolgt.
+## Connect with me
 
 
+
+<div align="center">
+<a href="https://github.com/rohrig" target="_blank">
+<img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
+</a>
+<a href = "mailto:info@fullstackjack.dev?subject = Feedback&body = Message">
+<img src=https://img.shields.io/badge/gmail-%23EE4831.svg?&style=for-the-badge&logo=gmail&logoColor=white alt=gmail style="margin-bottom: 5px;" />
+</a>
+<a href="https://www.youtube.com/channel/UCFDF_U_uoKc6MhIZPZKo5CA" target="_blank">
+<img src=https://img.shields.io/badge/youtube-%23EE4831.svg?&style=for-the-badge&logo=youtube&logoColor=white alt=youtube style="margin-bottom: 5px;" />
+</a>
+</div>
+
+# Nuxt 3 Fullstack Tutorial
+
+Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+
+## Demo App
+Check out [FullStackJack.dev](https://fullstackjack.dev) to see this code live in action.
+
+## Setup
+
+Make sure to install the dependencies:
+
+```bash
+# yarn
+yarn install
+
+# npm
+npm install
+
+# pnpm
+pnpm install --shamefully-hoist
+```
+
+## Development Server
+
+Start the development server on http://localhost:3000
+
+```bash
+npm run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+npm run build
+```
+
+Locally preview production build:
+
+```bash
+npm run preview
+```
+
+Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+# nuxt3-fullstack-tutorial
