@@ -1,13 +1,19 @@
-// create pinia store called auth
-import {defineStore} from "pinia";
+import { defineStore, skipHydrate } from 'pinia'
+import {useLocalStorage, useStorage} from "@vueuse/core";
+const baseUrl = 'localhost:8000'
 
-const authStore = defineStore({
-    id: 'auth',
-    state: () => ({
-        token: '',
-    }),
-    hydrate: () => {
-        return {}
+export const useAuthStore = defineStore('auth',  {
+    state: () => {
+        return {
+            token: useCookie('token').value,
+        }
     },
-
+    persist: {
+        storage: persistedState.cookiesWithOptions({
+            sameSite: 'strict',
+        }),
+    },
+    hydrate(state,initialState ) {
+        state.token = useCookie<string>('token').value
+    }
 })
