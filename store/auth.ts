@@ -8,6 +8,9 @@ export const useAuthStore = defineStore('auth',  {
     state: () => {
         return {
             token: useCookie('token').value,
+            user: {
+                id: undefined
+            },
         }
     },
     actions: {
@@ -28,9 +31,8 @@ export const useAuthStore = defineStore('auth',  {
                 if (token) {
                     useCookie('token').value = token
                     this.token = token
-                    const config = useRuntimeConfig()
-                    console.log(config.jwtSecret)
-                    const { payload, protectedHeader } = await jwtVerify(this.token || '', new TextEncoder().encode(process.env.JWT_SECRET) )
+                    const { payload, protectedHeader } = await jwtVerify(token, new TextEncoder().encode('secret-jwt-key') )
+                    this.user.id = payload.user.id
                     console.log(payload)
                     return true
                 } else {

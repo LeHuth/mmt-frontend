@@ -46,7 +46,10 @@ const isValid = computed(() => {
 
 
 import auth from "~/middleware/auth";
+import {useAuthStore} from "~/store/auth";
+
 const login = async () => {
+    const store = useAuthStore()
     store.login(email.value, password.value).then((res) => {
         console.log(res)
         emit('success')

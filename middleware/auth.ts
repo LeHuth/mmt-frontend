@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const store = useAuthStore()
 
   // @ts-ignore
-  jwtVerify(store.token, new TextEncoder().encode(process.env.JWT_SECRET)).then((res) => {
+  jwtVerify(store.token, new TextEncoder().encode('secret-jwt-key')).then((res) => {
     console.log(res)
     navigateTo(to)
   }).catch((err) => {
