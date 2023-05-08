@@ -9,6 +9,7 @@
                     <li><a>Homepage</a></li>
                     <li><a>Portfolio</a></li>
                     <li><a>About</a></li>
+                    <li><a @click="authStore.logout()">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -16,7 +17,7 @@
             <a  class="btn btn-ghost normal-case text-xl">MapMyTickets</a>
         </div>
         <div class="navbar-end">
-            <a v-if="true" href="#my-modal-6" class="btn">Get started</a>
+            <label v-if="!authStore.isLoggedIn" class="btn" @click="openPaymentModal">open modal</label>
             <div v-else>
                 <button class="btn btn-ghost btn-circle">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
@@ -30,11 +31,24 @@
             </div>
 
         </div>
+        <input type="checkbox" v-model="paymentModalInput" id="payment-modal" class="modal-toggle" />
+        <MMTLoginModal @success="args => closePaymentModal()"/>
     </div>
 
 </template>
 
-<script>
+<script lang="ts" setup>
+import {useAuthStore} from "~/store/auth";
+const authStore = useAuthStore()
+const paymentModalInput = ref()
+const openPaymentModal = () => {
+    paymentModalInput.value = true
+}
+const closePaymentModal = () => {
+    paymentModalInput.value = false
+}
+</script>
+<script lang="ts">
 import MMTLoginModal from "~/components/MMT-Login-Modal.vue";
 
 export default {

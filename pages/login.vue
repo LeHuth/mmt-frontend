@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {ref} from '@vue/reactivity';
-import {loginWithEmail} from '~/composables/useAuth';
 import type {Ref} from 'vue';
 
 const usernameOrEmail = ref('');

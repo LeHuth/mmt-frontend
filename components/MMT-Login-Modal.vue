@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:ch class="modal" @click:.self="">
+    <div class="modal" @click:.self="">
         <div class="modal-box">
             <div class="form-control">
 
@@ -19,9 +19,11 @@
     </div>
 </template>
 <script setup lang="ts">
+import {def} from "@vue/shared";
+
 const email = ref<string>('')
 const password = ref<string>('')
-let isModalOpen = ref<boolean>(false)
+const emit = defineEmits(['success'])
 /*
 const computeEmail = computed({
     get: () => email.value,
@@ -41,9 +43,18 @@ const isValid = computed(() => {
     let password_length = password.value.length
     return email_length > 0 && password_length > 0
 })
-import {useAuthStore} from "~/store/auth";
+
+
+import auth from "~/middleware/auth";
 const login = async () => {
-    // @ts-ignore
+    store.login(email.value, password.value).then((res) => {
+        console.log(res)
+        emit('success')
+    }).catch((err) => {
+        console.log(err)
+    })
+    }
+    /*
     useFetch('http://localhost:8080/users/user/login', {
         method: 'POST',
         body:{
@@ -57,12 +68,12 @@ const login = async () => {
         const authStore = useAuthStore()
         authStore.token = cookie.value
         console.log(authStore.token, 'store token')
-
+        emit('success')
     }).catch((err) => {
         console.log('herherher')
         console.log(err)
     })
-}
+}*/
 </script>
 <script lang="ts">
 export default {
