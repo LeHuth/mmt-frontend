@@ -1,6 +1,6 @@
 <template>
     <div>
-        <MMTLoginModal id="my-modal-6"/>
+
         <!--<h1>Index</h1>
         <input @change="uploadImage" type="file">
         <img height="200" :src="previewImage">

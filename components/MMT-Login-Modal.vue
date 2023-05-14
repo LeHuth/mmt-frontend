@@ -1,6 +1,9 @@
 <template>
-    <div v-bind:ch class="modal" @click:.self="">
+    <div class="modal">
         <div class="modal-box">
+            <div class="modal-action">
+                <button class="btn" @click="$emit('outside')">close</button>
+            </div>
             <div class="form-control">
 
                 <label class="input-group input-group-vertical mb-6">
@@ -22,6 +25,8 @@
 const email = ref<string>('')
 const password = ref<string>('')
 let isModalOpen = ref<boolean>(false)
+
+const emits = defineEmits(['outside'])
 /*
 const computeEmail = computed({
     get: () => email.value,
@@ -44,22 +49,11 @@ const isValid = computed(() => {
 import {useAuthStore} from "~/store/auth";
 const login = async () => {
     // @ts-ignore
-    useFetch('http://localhost:8080/users/user/login', {
-        method: 'POST',
-        body:{
-            email: email.value,
-            password: password.value
-        }
-    }).then((res) => {
-        console.log(res.data.value.token)
-        const cookie = useCookie<string>('token')
-        cookie.value = res.data.value.token
-        const authStore = useAuthStore()
-        authStore.token = cookie.value
-        console.log(authStore.token, 'store token')
-
-    }).catch((err) => {
-        console.log('herherher')
+    const authStore = useAuthStore()
+    authStore.login(email.value, password.value).then(res => {
+        console.log(res)
+        emits('outside')
+    }).catch(err => {
         console.log(err)
     })
 }
