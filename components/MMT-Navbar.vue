@@ -19,19 +19,25 @@
         <div class="navbar-end">
             <label v-if="!authStore.isLoggedIn" class="btn" @click="openPaymentModal">open modal</label>
             <div v-else>
-                <button @click="navigateTo('/profile')" class="btn btn-ghost btn-sm rounded-btn">My Profile</button>
+                <button @click="navigateToRoute('/profile')" class="btn btn-ghost btn-sm rounded-btn">My Profile</button>
             </div>
 
         </div>
         <input type="checkbox" v-model="paymentModalInput" id="payment-modal" class="modal-toggle" />
         <MMTLoginModal @outside="closePaymentModal" id="my-modal-6"/>
+        <CartDropdown tabindex="0" class="p-5"/>
     </div>
 
 </template>
 
 <script setup lang="ts">
 import {useAuthStore} from "~/store/auth";
+import {useRouter} from "nuxt/app";
 
+const router = useRouter()
+const navigateToRoute = (path) => {
+    router.push(path)
+}
 defineComponent({
     name: "MMT-Navbar",
     components: {
@@ -39,6 +45,7 @@ defineComponent({
     }
 })
 import MMTLoginModal from "~/components/MMT-Login-Modal.vue";
+import CartDropdown from "~/components/CartDropdown.vue";
 
 const authStore = useAuthStore()
 const paymentModalInput = ref()

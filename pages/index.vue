@@ -1,5 +1,6 @@
 <template>
     <div>
+        <EventResults class="p-5"/>
 
         <!--<h1>Index</h1>
         <input @change="uploadImage" type="file">
@@ -12,6 +13,14 @@
 </template>
 
 <script setup lang="ts">
+import {useEventsStore} from "~/store/events";
+import CartDropdown from "~/components/CartDropdown.vue";
+definePageMeta({
+    title: "Home",
+})
+
+const eventStore = useEventsStore()
+await eventStore.fetchEvents()
 
 const previewImage = ref<File | null>(null)
 const raw = ref<File | null>(null)

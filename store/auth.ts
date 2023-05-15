@@ -18,6 +18,21 @@ export const useAuthStore = defineStore('auth',  {
             this.token = undefined
             useCookie('token').value = undefined
         },
+        async register(username: string, email: string, password: string, isAdmin: boolean = false, isOrganizer: boolean = false) {
+            useFetch(`http://localhost:8080/users/user/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({username, email, password, isAdmin, isOrganizer})
+            }).then(async (res)=> {
+                // @ts-ignore
+                const token = res.data.value.token
+                if (token) {
+
+                }
+            })
+        },
         async login(email: string, password: string) {
             console.log(email, password)
             useFetch(`http://localhost:8080/users/user/login`, {
@@ -52,6 +67,9 @@ export const useAuthStore = defineStore('auth',  {
     getters: {
         isLoggedIn: (state) => {
             return !!state.token
+        },
+        getToken: (state) : string => {
+            return state.token || ""
         }
     },
     persist: {

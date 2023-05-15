@@ -7,7 +7,7 @@
                     <img src="https://picsum.photos/200" />
                 </div>
             </div>
-            <div>
+            <div v-if="user">
                 <h2 class="font-bold text-xl">{{ user.username }}</h2>
                 <h2 class="font-bold text-xl mb-2">{{ user.email }}</h2>
                 <div v-if="user.isAdmin" class="badge badge-primary mr-3">Organizer</div>
