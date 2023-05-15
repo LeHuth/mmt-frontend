@@ -90,36 +90,6 @@ watch(
                                 MAP
                             </span>
                         </nuxt-link>
-                        <nuxt-link to="/tutorials">
-                            <span
-                                class="text-base font-medium text-gray-500 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-300"
-                            >
-                                ÜBER UNS
-                            </span>
-                        </nuxt-link>
-                        <nuxt-link to="/subscribe">
-                            <span
-                                class="text-base font-medium text-gray-500 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-300"
-                            >
-                                PREISE
-                            </span>
-                        </nuxt-link>
-                        <nuxt-link to="/ask-jack/search">
-                            <span
-                                class="text-base font-medium text-gray-500 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-300"
-                            >
-                                BHT BERLIN
-                            </span>
-                        </nuxt-link>
-                        <span class="">
-                            <nuxt-link to="/topics/news">
-                                <span
-                                    class="text-base font-medium text-gray-500 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-300"
-                                >
-                                    NEW
-                                </span>
-                            </nuxt-link>
-                        </span>
                     </div>
                 </nav>
 

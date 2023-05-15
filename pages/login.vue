@@ -26,11 +26,7 @@ async function postLoginForm() {
         <div class="flex items-center justify-center px-4 sm:px-6 lg:px-8">
             <div class="max-w-md w-full">
                 <div class="lg:flex mt-10">
-                    <img
-                        class="mx-auto h-24 w-auto"
-                        src="/img/logo_clear_fsj.png"
-                        alt="full stack jack logo"
-                    />
+                    <img class="mx-auto h-24 w-auto" />
                     <h1
                         class="py-9 text-center text-5xl font-extrabold text-gray-900 dark:text-gray-400"
                     >

@@ -1,7 +1,21 @@
 <script setup lang="ts">
 import SiteMapGrid from '~~/components/elements/SiteMapGrid.vue';
+import {onMounted, ref} from 'vue';
+/*
+import {map, tileLayer} from 'leaflet';
 
 const show = ref(true);
+let myMap;
+
+onMounted(() => {
+    myMap = map('map').setView([51.505, -0.09], 13);
+
+    tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(myMap);
+});
+*/
 </script>
 
 <template>
@@ -45,14 +59,14 @@ const show = ref(true);
                     >
                         Ihr Browser unterstützt das Video-Tag nicht.
                     </video>
+                    <!--                    <div class="flex justify-center">
+                        <site-map-grid />
+                        <div id="map" style="height: 600px; width: 100%" />
+
+                    </div>
+-->
                 </div>
             </div>
-            <div class="flex justify-center my-20">
-                <!-- <button @click="show = !show">Toggle Slide + Fade</button> -->
-            </div>
-        </div>
-        <div class="flex justify-center">
-            <site-map-grid />
         </div>
     </div>
 </template>
