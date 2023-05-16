@@ -1,6 +1,9 @@
 <template>
     <div>
-        <EventResults class="p-5"/>
+
+        <MMTMap/>
+        <!--<EventResults class="p-5"/>-->
+
 
         <!--<h1>Index</h1>
         <input @change="uploadImage" type="file">
@@ -13,11 +16,15 @@
 </template>
 
 <script setup lang="ts">
+import { config, Map, MapOptions, Marker } from '@maptiler/sdk';
+import EventMapCard from "~/components/EventMapCard.vue";
+import "@maptiler/sdk/dist/maptiler-sdk.css";
 import {useEventsStore} from "~/store/events";
-import CartDropdown from "~/components/CartDropdown.vue";
+import MMTMap from "~/components/MMT-Map.vue";
 definePageMeta({
     title: "Home",
 })
+
 
 const eventStore = useEventsStore()
 await eventStore.fetchEvents()
@@ -56,4 +63,5 @@ const uploadImage = (e) => {
 
 <style scoped>
 
+#map { position: relative; width: 100%; height: 700px}
 </style>

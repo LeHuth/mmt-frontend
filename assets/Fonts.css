@@ -1,0 +1,66 @@
+@font-face {
+    font-family: "AkzidenzGrotesk";
+    src: url("~/assets/Akzidenz-grotesk-bold.ttf") format("truetype");
+}
+
+h1 {
+    font: normal normal 44px/44px AkzidenzGrotesk;
+}
+
+h2 {
+    font: normal normal 36px/36px AkzidenzGrotesk;
+}
+
+h3 {
+    font: normal normal 30px/30px AkzidenzGrotesk;
+}
+
+h4 {
+    font: normal normal 24px/24px AkzidenzGrotesk;
+}
+
+h5 {
+    font: normal normal 20px/20px AkzidenzGrotesk;
+}
+
+h6 {
+    font: normal normal 16px/16px AkzidenzGrotesk;
+}
+
+h1.huge {
+    font-size: 230px;
+    line-height: 1;
+    text-align: left;
+    letter-spacing: 0.094em;
+    color: #1f2937;
+}
+
+.text-outline {
+    color: black;
+    text-shadow: 0px 0px rgb(31, 41, 55);
+    transform: translate(0px, 0px);
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    transition: text-shadow 0.1s ease-in-out, color 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.text-shadow:hover{
+    text-shadow: 10px 10px rgb(31, 41, 55);
+    transform: translate(-10px, -10px);
+    color: greenyellow;
+    -webkit-text-fill-color: unset; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: unset;
+    -webkit-text-stroke-color: unset;
+    transition: transform 0.1s ease-in-out, text-shadow 0.1s ease-in-out, color 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+
+p {
+    font: normal normal 16px/16px AkzidenzGrotesk;
+}
+
+span {
+    font: normal normal 16px/16px AkzidenzGrotesk;
+}

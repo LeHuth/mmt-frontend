@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar bg-base-300">
+    <div v-if="false" class="navbar bg-base-300">
         <div class="navbar-start">
             <div class="dropdown">
                 <label tabindex="0" class="btn btn-ghost btn-circle">
@@ -27,7 +27,13 @@
         <MMTLoginModal @outside="closePaymentModal" id="my-modal-6"/>
         <CartDropdown tabindex="0" class="p-5"/>
     </div>
+    <div class="whitespace-nowrap overflow-visible">
+        <h1 class="huge -ml-4 inline-block w-fit overflow-hidden whitespace-nowrap">MAP</h1>
+        <h1 class="huge text-shadow text-outline inline-block overflow-hidden whitespace-nowrap">MY</h1>
+        <h1 class="huge text-shadow text-outline inline-block overflow-hidden whitespace-nowrap">TICKETS</h1>
 
+        <div class="divider -mt-7 mb-0"></div>
+    </div>
 </template>
 
 <script setup lang="ts">

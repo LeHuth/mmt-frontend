@@ -23,7 +23,9 @@
     "nuxt": "^3.4.2"
   },
   "dependencies": {
+    "@maptiler/sdk": "^1.0.12",
     "@nuxt/types": "^2.16.3",
+    "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.6.7",
     "@pinia/nuxt": "^0.4.9",
     "@vueuse/core": "^10.1.2",

@@ -1,5 +1,5 @@
 <template>
-    <div style="max-width: 1280px; margin: auto">
+    <div style="max-width: 1920px; margin: auto">
         <MMT-Navbar/>
         <slot/>
     </div>
