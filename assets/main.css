@@ -1,0 +1,12 @@
+
+@font-face {
+    font-family: '1';
+    font-display: block;
+    src: url('public/fonts/static/1.woff2');
+}
+
+@font-face {
+    font-family: '2';
+    font-display: block;
+    src: url('public/fonts/static/2.woff2');
+}
