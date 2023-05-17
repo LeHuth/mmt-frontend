@@ -9,6 +9,11 @@
             <h1 class="video-h1">MapMyTickets</h1>
             <div class="main-video-text-btm">Kaufen</div>
         </div>
+        <div class="scroll__down">
+            <span class="scroll__mouse">
+                <span class="scroll__wheel"></span>
+            </span>
+        </div>
     </div>
 </template>
 
@@ -79,5 +84,73 @@
 
 .main-video-text-btm:hover {
     background: #fd0202;
+}
+
+@keyframes scrollDown {
+    0% {
+        top: 14px;
+        opacity: 0;
+    }
+
+    15% {
+        top: 14px;
+        opacity: 1;
+    }
+
+    30% {
+        top: 14px;
+        opacity: 1;
+    }
+
+    45% {
+        top: 34px;
+        opacity: 1;
+    }
+
+    100% {
+        top: 34px;
+        opacity: 0;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body {
+    background-color: #30363f;
+}
+
+.scroll__down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.scroll__mouse {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 54px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+}
+
+.scroll__wheel {
+    position: absolute;
+    top: 14px;
+    left: 13px;
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 50%;
+    animation: scrollDown 2.5s infinite;
 }
 </style>
