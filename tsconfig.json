@@ -23,7 +23,8 @@
     },
     "types": [
       "@types/node",
-      "@nuxt/types"
+      "@nuxt/types",
+      "@vue/runtime-dom"
     ]
   },
   "exclude": [

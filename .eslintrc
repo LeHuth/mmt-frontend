@@ -4,6 +4,6 @@
     "@nuxtjs/eslint-config-typescript"
   ],
   "rules": {
-    "no-console": "off"
+    "vue/html-indent": "off"
   }
 }
