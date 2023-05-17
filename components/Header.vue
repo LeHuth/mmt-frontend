@@ -1,12 +1,10 @@
-<!-- eslint-disable vue/singleline-html-element-content-newline -->
-<!--https://github.com/jonsuh/hamburgers/tree/master hamburger von github-->
 <template>
     <!-- eslint-disable vue/html-indent -->
     <div>
         <header class="navbar">
             <div class="logo">mmt_website</div>
             <div class="menu-btm">
-                <div class="hamburger hamburger--elastic">
+                <div class="hamburger hamburger--elastic" :class="{ 'is-active': isMenuActive }" @click="toggleMenu">
                     <div class="hamburger-box">
                         <div class="hamburger-inner"></div>
                     </div>
@@ -16,7 +14,20 @@
     </div>
 </template>
 
-<script></script>
+<script>
+export default {
+    data() {
+        return {
+            isMenuActive: false
+        };
+    },
+    methods: {
+        toggleMenu() {
+            this.isMenuActive = !this.isMenuActive;
+        }
+    }
+};
+</script>
 
 <style>
 .navbar {
