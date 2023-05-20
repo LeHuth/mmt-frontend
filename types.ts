@@ -1,6 +1,16 @@
 //create event type
+
+export interface TicketInfo {
+    price: number;
+    //currency: string;
+    //currencySymbol: string;
+    available: number;
+    ticketTypes: object[];
+    name: string;
+}
+
 export interface Event {
-    _id: string;
+    _id?: string;
     title: string;
     description: string;
     date: Date;
@@ -11,4 +21,6 @@ export interface Event {
     organizer: string;
     maxParticipants: number;
     image: string;
+    imageName: string;
+    ticketInfo: TicketInfo;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-wrap justify-between">
         <div v-for="event in eventStore.getEvents" class="card w-96 bg-accent-focus/40 shadow-xl mb-10">
-            <div class="rounded-lg"><img class="object-cover w-full max-h-72 rounded-lg" src="https://picsum.photos/200" alt="EventTIle" /></div>
+            <div class="rounded-lg"><img class="object-cover w-full max-h-72 rounded-lg" :src="event.image == 'test-image-url' ? 'https://picsum.photos/200' : event.image" alt="EventTIle" /></div>
             <div class="card-body">
                 <h2 class="card-title">{{ event.title }}</h2>
                 <p>If a dog chews shoes whose shoes does he choose?</p>
