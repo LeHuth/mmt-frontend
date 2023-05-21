@@ -4,7 +4,7 @@
             <div class="rounded-lg"><img class="object-cover w-full max-h-72 rounded-lg" :src="event.image == 'test-image-url' ? 'https://picsum.photos/200' : event.image" alt="EventTIle" /></div>
             <div class="card-body">
                 <h2 class="card-title">{{ event.title }}</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <p>{{event.description}}</p>
                 <div class="card-actions justify-end">
                     <button v-if="ItemIsNotInCart(event._id)" @click="cartStore.addToCart('',event._id,true)" class="btn btn-primary">Add to Cart</button>
                     <button v-else @click="cartStore.removeFromCart('',event._id, true)" class="btn btn-primary">Remove from Cart</button>

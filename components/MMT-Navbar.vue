@@ -28,9 +28,9 @@
         <CartDropdown tabindex="0" class="p-5"/>
     </div>
     <div class="whitespace-nowrap overflow-visible">
-        <h1 class="huge -ml-4 inline-block w-fit overflow-hidden whitespace-nowrap">MAP</h1>
-        <h1 class="huge text-shadow text-outline inline-block overflow-hidden whitespace-nowrap">MY</h1>
-        <h1 class="huge text-shadow text-outline inline-block overflow-hidden whitespace-nowrap">TICKETS</h1>
+        <h1 @click="navigateTo('/')" :class="'huge -ml-4 inline-block w-fit overflow-hidden whitespace-nowrap ' + addOutline('/')">MAP</h1>
+        <h1 @click="navigateTo('/my')" :class="'huge inline-block overflow-hidden whitespace-nowrap ' + addOutline('/my')">MY</h1>
+        <h1 @click="navigateTo('/tickets')" :class="'huge inline-block overflow-hidden whitespace-nowrap ' + addOutline('/tickets')">TICKETS</h1>
 
         <div class="divider -mt-7 mb-0"></div>
     </div>
@@ -60,6 +60,18 @@ const openPaymentModal = () => {
 }
 const closePaymentModal = () => {
     paymentModalInput.value = false
+}
+
+const currentRoute = computed(() => {
+    return router.currentRoute.value.path
+})
+
+const addOutline = (path) => {
+    console.log(router.currentRoute.value.path, path)
+    if (router.currentRoute.value.path != path) {
+        return "text-shadow text-outline"
+    }
+    return ""
 }
 
 </script>

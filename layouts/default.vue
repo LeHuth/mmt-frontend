@@ -1,7 +1,7 @@
 <template>
     <div style="max-width: 1920px; margin: auto">
-        <MMT-Navbar/>
-        <slot/>
+        <MMTNavbar />
+        <slot />
     </div>
 </template>
 <script>
