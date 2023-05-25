@@ -39,8 +39,8 @@ const cart = computed(() => {
 
 const cartTotal = computed(() => {
     if (!cart.value) return 0
-    console.log(cart.value)
     console.log(cart)
+    console.log(cartStore.getCart)
     let sum = 0
     try{
         cart.value.forEach((item) => {
