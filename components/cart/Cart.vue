@@ -38,6 +38,7 @@ const cart = computed(() => {
 })
 
 const cartTotal = computed(() => {
+    if (!cart.value) return 0
     return cart.value.reduce((acc, item) => {
         return acc + item.ticketInfo.price
     }, 0)
