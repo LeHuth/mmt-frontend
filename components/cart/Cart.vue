@@ -32,7 +32,7 @@ const eventStore = useEventsStore()
 eventStore.fetchEvents()
 const cart = computed(() => {
     return cartStore.getCart.map((id) => {
-        if(!eventStore.getEvents) return console.log('no events')
+        if(!eventStore.getEvents) return []
         return eventStore.getEvents.find((event) => event._id === id)
     })
 })
