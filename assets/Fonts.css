@@ -3,16 +3,28 @@
     src: url("~/assets/Akzidenz-grotesk-bold.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "NewYork";
+    src: url("~/assets/NewYork.otf") format("opentype");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Etheral";
+    src: url("~/assets/Etheral-Thin.otf") format("opentype");
+    font-weight: 400;
+}
+
 h1 {
-    font: normal normal 44px/44px AkzidenzGrotesk;
+    font: normal normal 44px/44px Etheral;
 }
 
 h2 {
-    font: normal normal 36px/36px AkzidenzGrotesk;
+    font: normal normal 36px/36px Etheral;
 }
 
 h3 {
-    font: normal normal 30px/30px AkzidenzGrotesk;
+    font: normal normal 30px/30px Etheral;
 }
 
 h4 {
@@ -31,7 +43,7 @@ h1.huge {
     font-size: 230px;
     line-height: 1;
     text-align: left;
-    letter-spacing: 0.094em;
+    letter-spacing: 0.054em;
     color: #1f2937;
 }
 
@@ -58,9 +70,13 @@ h1.huge {
 
 
 p {
-    font: normal normal 16px/16px AkzidenzGrotesk;
+    font: normal normal 16px/16px NewYork;
 }
 
 span {
     font: normal normal 16px/16px AkzidenzGrotesk;
+}
+
+.mmt-outline {
+    border: 1px solid black;
 }

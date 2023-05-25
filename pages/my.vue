@@ -18,27 +18,7 @@
                 <button class="btn" v-if="authStore.isLoggedIn" @click="authStore.logout()">Logout</button>
             </div>
         </div>
-        <div class="mmt-outline">
-            <h1 class="text-end h1-no-line-height">CART</h1>
-            <div v-if="cart && cart.length !=0">
-                <div v-for="item in cart"  :key="item.id">
-                    <h3>{{ item.title }} -- {{ item.ticketInfo.price }}$</h3>
-                    <img width="150" height="150" :src="item.image" alt="">
-                    <button class="bg-red-800" @click="removeFromCart(item.id)">Remove</button>
-                </div>
-                <div>
-                    <h3>Total: {{ cartTotal }}</h3>
-                </div>
-                <div>
-                    <button class="btn" @click="cartStore.checkout">Checkout</button>
-                </div>
-            </div>
-
-            <div v-else>
-                <h1 class="semi-huge text-red-500 outline outline-with-1px rotate-90 spin-animation inline-block">EMPTY :[</h1>
-            </div>
-
-        </div>
+            <Cart class="mmt-outline"/>
     </div>
 </template>
 
@@ -76,7 +56,7 @@ const login = async () => {
 const removeFromCart = (id) => {
     cartStore.removeFromCart('', id, true)
 }
-
+/*
 const cartTotal = computed(() => {
     return cart.value.reduce((acc, item) => {
         return acc + item.ticketInfo.price
@@ -84,15 +64,15 @@ const cartTotal = computed(() => {
 })
 
 
+ */
+
 onMounted(()=>{
     console.log(window.location.host)
 })
 </script>
 
 <style scoped>
-.mmt-outline {
-    border: 1px solid black;
-}
+
 
 .h1-no-line-height{
     line-height: 31px;

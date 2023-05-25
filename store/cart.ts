@@ -1,15 +1,16 @@
 import {defineStore} from "pinia";
+import {Event} from "~/types";
 
 export const useCartStore = defineStore('cart', {
     state: () => ({
-        cart: [] as any[],
+        cart: [] as string[],
         loading: false,
         error: false,
         errorMessage: "",
         sync: true,
     }),
     getters: {
-        getCart: (state) => {
+        getCart: (state) : string[] => {
             return state.cart;
 
         },
@@ -55,12 +56,13 @@ export const useCartStore = defineStore('cart', {
                 }
             }).then((response) => {
                 console.log(response);
+                // @ts-ignore
                 navigateTo(response.data._rawValue.url, {external: true});
             }).catch((error) => {
                 console.log(error);
             })
         },
-        async addToCart(id: string, product: any, anonymous: boolean) {
+        async addToCart(id: string, product_id: string, anonymous: boolean) {
             this.loading = true;
             if (!anonymous) {
                 try {
@@ -69,7 +71,7 @@ export const useCartStore = defineStore('cart', {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(product)
+                        body: JSON.stringify(product_id)
                     })
                     // @ts-ignore
                     this.cart = response.data;
@@ -81,7 +83,7 @@ export const useCartStore = defineStore('cart', {
                     this.loading = false;
                 }
             } else {
-                this.cart.push(product);
+                this.cart.push(product_id);
                 this.sync = false;
                 this.loading = false;
             }

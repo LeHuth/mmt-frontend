@@ -4,17 +4,18 @@ import {useAuthStore} from "~/store/auth";
 
 //
 // @ts-ignore
+// @ts-ignore
 export const useEventsStore = defineStore({
     id: 'events',
     state: () => ({
-        events: [] as any[],
+        events: [] as Event[],
         event: {} as any,
         loading: false,
         error: false,
         errorMessage: "",
     }),
     getters: {
-        getEvents: (state) => {
+        getEvents: (state) : Event[] => {
             return state.events;
         },
         getEventName: (state) => (id: string) => {
@@ -28,6 +29,11 @@ export const useEventsStore = defineStore({
         },
         getErrorMessage: (state) => {
             return state.errorMessage;
+        },
+        // @ts-ignore
+        getEventById: (state) =>  (id: string) : Event  =>  {
+            // @ts-ignore
+            return state.events.find(event => event._id === id);
         }
     },
     actions: {
