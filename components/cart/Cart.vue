@@ -39,14 +39,10 @@ const cart = computed(() => {
 
 const cartTotal = computed(() => {
     if (!cart.value) return 0
-    console.log(cart)
-    console.log(cartStore.getCart)
     let sum = 0
     try{
-        cart.value.forEach((item) => {
-            if ("ticketInfo" in item) {
-                sum += item.ticketInfo.price
-            }
+        cartStore.getCart.forEach((id) => {
+            sum += eventStore.getEventPrice(id)
         })
         return sum
     }catch (e) {

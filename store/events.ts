@@ -34,7 +34,10 @@ export const useEventsStore = defineStore({
         getEventById: (state) =>  (id: string) : Event  =>  {
             // @ts-ignore
             return state.events.find(event => event._id === id);
-        }
+        },
+        getEventPrice: (state) => (id: string) => {
+            return state.events.find(event => event._id === id)?.ticketInfo.price;
+        },
     },
     actions: {
         async fetchEvents() {
