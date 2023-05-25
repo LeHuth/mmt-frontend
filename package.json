@@ -20,7 +20,8 @@
     "@typescript-eslint/parser": "^5.0.0",
     "@vueuse/nuxt": "^10.1.2",
     "eslint": "^8.39.0",
-    "nuxt": "^3.4.2"
+    "nuxt": "^3.4.2",
+    "vue-stripe-js": "^1.0.1"
   },
   "dependencies": {
     "@maptiler/sdk": "^1.0.12",
@@ -28,6 +29,7 @@
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.6.7",
     "@pinia/nuxt": "^0.4.9",
+    "@stripe/stripe-js": "^1.53.0",
     "@vueuse/core": "^10.1.2",
     "daisyui": "^2.51.6",
     "jose": "^4.14.3",

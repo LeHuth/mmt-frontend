@@ -29,6 +29,9 @@
                 <div>
                     <h3>Total: {{ cartTotal }}</h3>
                 </div>
+                <div>
+                    <button class="btn" @click="cartStore.checkout">Checkout</button>
+                </div>
             </div>
 
             <div v-else>
@@ -78,6 +81,11 @@ const cartTotal = computed(() => {
     return cart.value.reduce((acc, item) => {
         return acc + item.ticketInfo.price
     }, 0)
+})
+
+
+onMounted(()=>{
+    console.log(window.location.host)
 })
 </script>
 

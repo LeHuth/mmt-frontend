@@ -42,6 +42,24 @@ export const useCartStore = defineStore('cart', {
             }
 
         },
+        async checkout(id: string) {
+            console.log("CHECKOUT")
+            useFetch(`http://localhost:8080/payment/create-checkout-session`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: {
+                    items: this.cart,
+                    baseUrl: window.location.host + "/payment"
+                }
+            }).then((response) => {
+                console.log(response);
+                navigateTo(response.data._rawValue.url, {external: true});
+            }).catch((error) => {
+                console.log(error);
+            })
+        },
         async addToCart(id: string, product: any, anonymous: boolean) {
             this.loading = true;
             if (!anonymous) {
