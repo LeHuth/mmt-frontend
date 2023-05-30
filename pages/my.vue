@@ -18,7 +18,9 @@
                 <button class="btn" v-if="authStore.isLoggedIn" @click="authStore.logout()">Logout</button>
             </div>
         </div>
+        <client-only>
             <Cart class="mmt-outline"/>
+        </client-only>
     </div>
 </template>
 
