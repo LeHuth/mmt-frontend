@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import {Event} from "@/types";
 import {useAuthStore} from "~/store/auth";
+import * as process from "process";
 
 //
 // @ts-ignore
@@ -43,7 +44,7 @@ export const useEventsStore = defineStore({
         async fetchEvents() {
             this.loading = true;
             try {
-                const response = await useFetch("http://localhost:8080/events/get/all")
+                const response = await useFetch(`http://localhost:8080/events/get/${process.env.BASE_URL}`)
                 // @ts-ignore
                 this.events = response.data.value;
                 this.loading = false;
