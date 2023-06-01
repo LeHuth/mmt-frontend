@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import {Event} from "@/types";
 import {useAuthStore} from "~/store/auth";
 import * as process from "process";
+import runtimeConfig from "nitropack/dist/runtime/config";
 
 //
 // @ts-ignore
@@ -43,8 +44,9 @@ export const useEventsStore = defineStore({
     actions: {
         async fetchEvents() {
             this.loading = true;
+            const config = useRuntimeConfig()
             try {
-                const response = await useFetch(`http://localhost:8080/events/get/${process.env.BASE_URL}`)
+                const response = await useFetch(`${config.public.baseUrl}/events/get/all`)
                 // @ts-ignore
                 this.events = response.data.value;
                 this.loading = false;

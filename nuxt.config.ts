@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     // Will be available in both server and client
     public: {
       jwtSecret: process.env.JWT_SECRET,
+        baseUrl: process.env.BASE_URL,
     }
   }
 })
