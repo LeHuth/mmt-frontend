@@ -2,7 +2,7 @@
     <div class="">
         <h1 class="text-end h1-no-line-height">CART</h1>
         <div  v-if="cartStore.getCart.length > 0">
-            <CartItem v-for="item in cart" :key="item" :event="eventStore.getEventById(item)"></CartItem>
+            <CartItem v-for="item in cartStore.getCart" :key="item" :event="eventStore.getEventById(item)"></CartItem>
             <h3>Total: {{cartTotal}}</h3>
             <button v-if="authStore.isLoggedIn" @click="cartStore.checkout('')">Checkout</button>
             <div v-else class="flex">
