@@ -17,18 +17,34 @@
                 <h1 class="semi-huge">LOGGED IN </h1>
                 <button class="btn" v-if="authStore.isLoggedIn" @click="authStore.logout()">Logout</button>
             </div>
+
         </div>
         <client-only>
             <Cart class="mmt-outline"/>
+
+
         </client-only>
+
+        <div id="order-hisory">
+            <h1 class="semi-huge">Order History</h1>
+            <div v-if="data" v-for="item in data.products">
+              <h2>{{item.name}}</h2>
+              <h2>{{item.description}}</h2>
+                <img v-for="img in item.images" :src="img" width="200" height="200" alt="">
+            </div>
+        </div>
+
     </div>
 </template>
 
 <script lang="ts" setup>
+import {loadStripe} from "@stripe/stripe-js";
+
 definePageMeta({
     title: "My Events",
 })
 
+// @ts-ignore
 import {useCartStore} from "~/store/cart";
 import {useAuthStore} from "~/store/auth";
 import {useEventsStore} from "~/store/events";
@@ -38,12 +54,20 @@ const authStore = useAuthStore()
 const eventStore = useEventsStore()
 const email = ref<string>('')
 const password = ref<string>('')
+
+const prod = ref([])
 eventStore.fetchEvents()
 const cart = computed(() => {
     return cartStore.getCart.map((id) => {
         return eventStore.getEvents.find((event) => event._id === id)
     })
 })
+
+
+const userId = authStore.getUserId
+const url = `http://localhost:8080/users/get-order-history/${userId}`
+const {data} = useFetch(url)
+
 
 const login = async () => {
     // @ts-ignore
@@ -68,9 +92,6 @@ const cartTotal = computed(() => {
 
  */
 
-onMounted(()=>{
-    console.log(window.location.host)
-})
 </script>
 
 <style scoped>
@@ -92,5 +113,28 @@ onMounted(()=>{
 }
 .outline-with-1px{
     outline: 1px solid black;
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+    transition: all 0.2s;
+}
+.slide-left-enter-from {
+    opacity: 0;
+    transform: translate(50px, 0);
+}
+.slide-left-leave-to {
+    opacity: 0;
+    transform: translate(50px, 0);
+}
+.slide-right-enter-from {
+    opacity: 0;
+    transform: translate(-50px, 0);
+}
+.slide-right-leave-to {
+    opacity: 0;
+    transform: translate(-50px, 0);
 }
 </style>

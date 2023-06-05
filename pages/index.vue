@@ -1,7 +1,10 @@
 <template>
     <div>
-        <MMTMap />
-        <SeSection />
+        <client-only>
+                <MMTMap />
+            <SeSection />
+        </client-only>
+
     </div>
 </template>
 
@@ -12,6 +15,11 @@ import {useEventsStore} from '~/store/events';
 import MMTMap from '~/components/MMT-Map.vue';
 definePageMeta({
     title: 'Home',
+    keepalive: true,
+    pageTransition: {
+        name: 'slide-right',
+        mode: 'default'
+    },
 });
 
 const authStore = useAuthStore();
@@ -83,5 +91,16 @@ body::-webkit-scrollbar-thumb {
     position: relative;
     width: 100%;
     height: 1000px;
+}
+</style>
+
+<style scoped>
+.slide-right-enter-from {
+    opacity: 0;
+    transform: translate(-150px, 0);
+}
+.slide-right-leave-to {
+    opacity: 0;
+    transform: translate(-150px, 0);
 }
 </style>

@@ -18,19 +18,20 @@ export const useAuthStore = defineStore('auth',  {
             this.token = undefined
             useCookie('token').value = undefined
         },
-        async register(username: string, email: string, password: string, isAdmin: boolean = false, isOrganizer: boolean = false) {
-            useFetch(`http://localhost:8080/users/user/register`, {
+        async signup(email: string, password: string, first_name: string, last_name: string,isOrganizer: boolean) {
+            useFetch(`http://localhost:8080/users/user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({username, email, password, isAdmin, isOrganizer})
+                body: JSON.stringify({email, password, first_name, last_name, isOrganizer})
             }).then(async (res)=> {
                 // @ts-ignore
                 const token = res.data.value.token
-                if (token) {
-
-                }
+                //verify token
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
             })
         },
         async login(email: string, password: string) {
@@ -62,6 +63,12 @@ export const useAuthStore = defineStore('auth',  {
                 return false
             })
 
+        },
+        async getOrderHistory() {
+            let user_id = this.user.id
+            const response = await useFetch(`http://localhost:8080/users/get-order-history/647b84ab5bd5797d65794f92`)
+            console.log(response)
+            return response
         }
     },
     getters: {
@@ -70,6 +77,9 @@ export const useAuthStore = defineStore('auth',  {
         },
         getToken: (state) : string => {
             return state.token || ""
+        },
+        getUserId: (state) => {
+            return state.user.id
         }
     },
     persist: {
