@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     dataValue: 'theme', // activate data-theme in <html> tag
     classSuffix: '',
   },
-  css: ['~/assets/Fonts.css'],
+  css: ['~/assets/Fonts.css','~/assets/index.scss'],
   runtimeConfig: {
     // Will be available in both server and client
     public: {
