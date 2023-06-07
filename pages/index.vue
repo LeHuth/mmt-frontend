@@ -1,18 +1,19 @@
 <template>
     <div>
         <client-only>
-                <MMTMap />
-            <SeSection />
+            <MMTMap/>
+            <SeSection/>
         </client-only>
 
     </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useAuthStore} from '~/store/auth';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import {useEventsStore} from '~/store/events';
 import MMTMap from '~/components/MMT-Map.vue';
+
 definePageMeta({
     title: 'Home',
     keepalive: true,
@@ -99,8 +100,21 @@ body::-webkit-scrollbar-thumb {
     opacity: 0;
     transform: translate(-150px, 0);
 }
+
 .slide-right-leave-to {
     opacity: 0;
     transform: translate(-150px, 0);
 }
+</style>
+
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Monument Extended', sans-serif;
+    background: url(https://media.giphy.com/media/3oEduMhFrYvKk4giac/giphy.gif) no-repeat 50% 50%;
+    background-size: 100% 100%;
+}
+
+
 </style>
