@@ -78,4 +78,8 @@ const addOutline = (path) => {
 
 <style scoped>
 
+h1 {
+    font-family: "Arial", sans-serif;
+    /* oder eine andere gewünschte Schriftart */
+}
 </style>

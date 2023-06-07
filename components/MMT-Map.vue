@@ -34,9 +34,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
+import Button from './Button.vue';
+
+import { ref, onMounted, computed, defineComponent } from 'vue';
 import Popup from '~/components/Popup.vue';
-import {config, Map, MapOptions, Marker} from '@maptiler/sdk';
+import { config, Map, MapOptions, Marker } from '@maptiler/sdk';
 import EventMapCard from '~/components/EventMapCard.vue';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 
@@ -46,13 +48,15 @@ defineComponent({
         EventMapCard,
     },
 });
+
+const showPopup = ref(false);
+const showPopup1 = ref(false);
+
 const mapZoom = ref(10);
 let mapOptions: MapOptions;
 let myMap: Map;
 let marker: Marker;
 
-const showPopup = ref(false);
-const showPopup1 = ref(false);
 const logZoom = () => {
     //console.log(Math.floor(myMap.getZoom()))
     mapZoom.value = myMap.getZoom() || 10;
@@ -71,7 +75,7 @@ onMounted(() => {
     config.apiKey = 'tQT7W72zRJXId5YzduvP';
     let options: MapOptions = {
         container: document.getElementById('map') as HTMLElement, // container's id or the HTML element in which SDK will render the map
-        style: 'https://api.maptiler.com/maps/00c8e802-dfa6-432b-bac2-d329360d33e2/style.json',
+        style: 'https://api.maptiler.com/maps/16709723-1898-467b-bc2b-083dbe94dcfa/style.json?key=luHiVJHYFAkokuoL2QwT',
         center: [13.4, 52.5],
         pitch: 85,
         zoom: 12,
@@ -117,33 +121,63 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.map-and-popup {
-    display: flex;
-    height: 800px;
-}
+    .map-and-popup {
+        display: flex;
+        height: 800px;
+        box-shadow: 0 2px 4px rgb(255, 255, 255);
+    }
 
-#map {
-    flex: 2;
-    height: 100%;
-}
+    #map {
+        flex: 2;
+        height: 100%;
+        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+        background-color: #21D4FD;
+        background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        box-shadow: 15px 15px 50px rgba(0,0,0,0.2);
+        animation: morphing 10s infinite;
+        overflow: hidden;
+    }
 
-.btn {
-    display: inline-block;
-    margin-bottom: 10px;
-    border-radius: 50%;
-    padding: 10px;
-    cursor: pointer;
-}
+    .btn {
+        display: inline-block;
+        margin-bottom: 10px;
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        padding: 10px;
+        cursor: pointer;
+        animation: morphing 10s infinite;
+    }
 
-.btn-e1 {
-    background-color: #ff01f2;
-}
+    .btn:hover {
+        animation-play-state: paused;
+    }
 
-.btn-e2 {
-    background-color: #00aaff;
-}
+    .btn-e1 {
+        background-color: #ff01f2;
+    }
 
-.btn-e3 {
-    background-color: #ff7700;
-}
+    .btn-e2 {
+        background-color: #00aaff;
+    }
+
+    .btn-e3 {
+        background-color: #ff7700;
+    }
+
+    @keyframes morphing {
+        0% {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            box-shadow: 15px 15px 50px rgba(0,0,0,0.2);
+        }
+        25% {
+            border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+        }
+        50% {
+            border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+            box-shadow: -10px -5px 50px rgba(0,0,0,0.2);
+        }
+        75% {
+            border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+        }
+    }
 </style>
