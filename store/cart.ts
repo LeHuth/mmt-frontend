@@ -44,11 +44,13 @@ export const useCartStore = defineStore('cart', {
 
         },
         async checkout(id: string) {
+            const token = useCookie('token')
             console.log("CHECKOUT")
             useFetch(`http://localhost:8080/payment/create-checkout-session`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token.value,
                 },
                 body: {
                     items: this.cart,
@@ -56,6 +58,7 @@ export const useCartStore = defineStore('cart', {
                 }
             }).then((response) => {
                 console.log(response);
+
                 // @ts-ignore
                 navigateTo(response.data._rawValue.url, {external: true});
             }).catch((error) => {

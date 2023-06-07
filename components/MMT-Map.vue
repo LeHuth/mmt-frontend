@@ -57,6 +57,8 @@ let mapOptions: MapOptions;
 let myMap: Map;
 let marker: Marker;
 
+let marker : Marker;
+/*
 const logZoom = () => {
     //console.log(Math.floor(myMap.getZoom()))
     mapZoom.value = myMap.getZoom() || 10;
@@ -69,9 +71,10 @@ const readZoom = computed(() => {
     } catch (e) {
         return 10;
     }
-});
-
+})
+*/
 onMounted(() => {
+    let myMap : Map;
     config.apiKey = 'tQT7W72zRJXId5YzduvP';
     let options: MapOptions = {
         container: document.getElementById('map') as HTMLElement, // container's id or the HTML element in which SDK will render the map
@@ -81,8 +84,7 @@ onMounted(() => {
         zoom: 12,
     };
     myMap = new Map(options);
-    myMap.on('zoom', logZoom);
-
+    //myMap.on('zoom', logZoom)
     const marker3 = new Marker({
         color: '#fc1414',
         draggable: false,

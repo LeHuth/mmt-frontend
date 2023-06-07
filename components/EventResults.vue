@@ -1,36 +1,53 @@
 <template>
-  <div class="flex flex-wrap justify-between">
-        <div v-for="event in eventStore.getEvents" class="card w-96 bg-accent-focus/40 shadow-xl mb-10">
-            <div class="rounded-lg"><img class="object-cover w-full max-h-72 rounded-lg" :src="event.image == 'test-image-url' ? 'https://picsum.photos/200' : event.image" alt="EventTIle" /></div>
-            <div class="card-body">
-                <h2 class="card-title">{{ event.title }}</h2>
-                <p>{{event.description}}</p>
-                <div class="card-actions justify-end">
-                    <button v-if="ItemIsNotInCart(event._id)" @click="cartStore.addToCart('',event._id,true)" class="btn btn-primary">Add to Cart</button>
-                    <button v-else @click="cartStore.removeFromCart('',event._id, true)" class="btn btn-primary">Remove from Cart</button>
-                </div>
-            </div>
-        </div>
+    <div class="scroll-container" @mouseleave="startScroll()" @mouseenter="stopScroll()" style="max-height: calc(100dvh - 230px); overflow-y: scroll; scroll-snap-type: y mandatory;">
+        <Card style="scroll-snap-align: start" v-for="event in eventStore.getEvents" :event="event"/>
     </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useEventsStore} from "~/store/events";
 import {useCartStore} from "~/store/cart";
 
 defineComponent({
     name: "EventResults",
 })
-
+const counter = ref(0)
 const eventStore = useEventsStore()
-const cartStore = useCartStore()
 
-const isId = (id) => {
-    return
+const determineScrollDirection = () => {
+    const scrollContainer = document.querySelector('.scroll-container')
+    const scrollDirection = scrollContainer.scrollTop > 0 ? 'up' : 'down'
+    console.log(scrollDirection)
+    return scrollDirection
 }
-const ItemIsNotInCart = (id) => {
-    return !cartStore.getCart.includes(id)
+
+const scrollfn = () => {
+    const scrollContainer = document.querySelector('.scroll-container')
+    console.log(scrollContainer.scrollTop, scrollContainer.scrollHeight)
+    if (scrollContainer.scrollTop >= scrollContainer.scrollHeight - scrollContainer.clientHeight) {
+        scrollContainer.scrollTop = 0
+    }
+    scrollContainer.scrollBy({
+        top: 100,
+        behavior: 'smooth'
+    })
 }
+
+
+
+let scrollInterval = null
+
+const startScroll = () => {
+    scrollInterval = setInterval(scrollfn, 1000)
+}
+
+const stopScroll = () => {
+    clearInterval(scrollInterval)
+}
+
+onMounted(() => {
+    startScroll()
+})
 
 </script>
 

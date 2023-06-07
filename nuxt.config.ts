@@ -15,5 +15,14 @@ export default defineNuxtConfig({
       jwtSecret: process.env.JWT_SECRET,
         baseUrl: process.env.BASE_URL,
     }
-  }
+  },
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+    head:{
+      script:[
+        { src: 'https://js.stripe.com/v3/' }
+      ]
+    }
+  },
+
 })

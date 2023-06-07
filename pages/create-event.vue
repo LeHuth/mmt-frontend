@@ -39,6 +39,7 @@ import {useEventsStore} from "~/store/events";
 import {useAuthStore} from "~/store/auth";
 import {Event} from "~/types";
 const store = useEventsStore()
+const authStore = useAuthStore()
 definePageMeta({
     title: "Create Event",
     middleware: 'auth'
@@ -68,7 +69,7 @@ const createEvent = () => {
         date: date.value,
         time: time.value,
         location: location.value,
-        organizer: useAuthStore().getToken,
+        organizer: authStore.getUserId,
         category: 'TestCategory',
         tags: ['tag1', 'tag2'],
         maxParticipants: 100,

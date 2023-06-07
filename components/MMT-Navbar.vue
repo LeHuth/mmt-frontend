@@ -67,7 +67,6 @@ const currentRoute = computed(() => {
 })
 
 const addOutline = (path) => {
-    console.log(router.currentRoute.value.path, path)
     if (router.currentRoute.value.path != path) {
         return "text-shadow text-outline"
     }

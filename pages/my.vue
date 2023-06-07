@@ -44,63 +44,70 @@
                     Logout
                 </button>
             </div>
+
         </div>
         <client-only>
             <Cart class="mmt-outline" />
         </client-only>
+
+        <div id="order-hisory">
+            <h1 class="semi-huge">Order History</h1>
+            <div v-if="prod.products" v-for="item in prod.products">
+              <h2>{{item.name}}</h2>
+              <h2>{{item.description}}</h2>
+                <img v-for="img in item.images" :src="img" width="200" height="200" alt="">
+            </div>
+        </div>
+
     </div>
 </template>
 
 <script lang="ts" setup>
+import {loadStripe} from "@stripe/stripe-js";
+
 definePageMeta({
     title: 'My Events',
 });
 
-import {useCartStore} from '~/store/cart';
-import {useAuthStore} from '~/store/auth';
-import {useEventsStore} from '~/store/events';
 
-const cartStore = useCartStore();
-const authStore = useAuthStore();
-const eventStore = useEventsStore();
-const email = ref<string>('');
-const password = ref<string>('');
-eventStore.fetchEvents();
-const cart = computed(() => {
-    return cartStore.getCart.map((id) => {
-        return eventStore.getEvents.find((event) => event._id === id);
-    });
-});
 
-const login = async () => {
-    // @ts-ignore
-    const authStore = useAuthStore();
-    authStore
-        .login(email.value, password.value)
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-};
+// @ts-ignore
+import {useCartStore} from "~/store/cart";
+import {useAuthStore} from "~/store/auth";
+import {useEventsStore} from "~/store/events";
 
-const removeFromCart = (id) => {
-    cartStore.removeFromCart('', id, true);
-};
-/*
-const cartTotal = computed(() => {
-    return cart.value.reduce((acc, item) => {
-        return acc + item.ticketInfo.price
-    }, 0)
+const cartStore = useCartStore()
+const authStore = useAuthStore()
+const eventStore = useEventsStore()
+const email = ref<string>('')
+const password = ref<string>('')
+const prod = reactive({
+    products: null
 })
 
 
- */
+const getOrderHistory = async () => {
+    const userId = authStore.getUserId
+    const url = `http://localhost:8080/users/get-order-history/${userId}`
+    const {data} = await useFetch(url)
+    prod.products = data.value.products
+}
 
-onMounted(() => {
-    console.log(window.location.host);
-});
+const login = async () => {
+    // @ts-ignore
+    const authStore = useAuthStore()
+    authStore.login(email.value, password.value).then(res => {
+        console.log(res)
+        getOrderHistory()
+    }).catch(err => {
+        console.log(err)
+    })
+}
+getOrderHistory()
+const removeFromCart = (id) => {
+    cartStore.removeFromCart('', id, true)
+}
+
 </script>
 
 <style scoped>
