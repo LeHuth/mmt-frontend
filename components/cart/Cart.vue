@@ -30,7 +30,7 @@
           </div>
         </div>
         <!-- Schließen des Popup-Fensters -->
-        <button class="close-button" @click="showCartPopup = false">Close</button>
+        <button class="close-button" @click="$emit('close')">Close</button>
       </div>
     </div>
   </div>

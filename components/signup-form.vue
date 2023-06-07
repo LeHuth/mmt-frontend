@@ -2,7 +2,6 @@
   <!-- create form to sign up for service -->
     <div class="form-container">
         <form class="form" @submit.prevent="signup">
-            <h1 class="semi-huge">Sign Up</h1>
             <div class="form-control gap-1">
                 <div>
                     <label for="email">Email</label>
@@ -26,16 +25,9 @@
                     <label for="password2">Confirm Password</label>
                     <input id="password2" v-model="password2" placeholder="Confirm password" required type="password"/>
                 </div>
-
-                <div>
-                    <label for="card-elem">Credit or debit card</label>
-                    <div id="card-elem"/>
-                </div>
             </div>
             <button class="btn">Sign Up</button>
-            <p class="mmt-text">
-                Already have an account? <a href="/login">Sign In</a>
-            </p>
+            {{backend_message}}
         </form>
     </div>
 </template>
@@ -56,6 +48,7 @@ const lastName = ref<string>('')
 const isOrganizer = ref<boolean>(false)
 const password2 = ref<string>('')
 const s_elemetns = ref<any>(null)
+const backend_message = ref<string>('')
 
 const stripe = await loadStripe('pk_test_51NAw6TI4xbizdZ9kng3EHWZIQIiwpHiA0L9IfcBCnmVyGfMOnJixBepX4W3u7wcdpeIPtgYaoY0wuNSAmRZDPV7a00nkzfGvoF');
 if(!stripe) {
@@ -75,6 +68,7 @@ const signup = () => {
     }
     authStore.signup(email.value, password.value, firstName.value, lastName.value, isOrganizer.value).then(res => {
         console.log(res)
+        backend_message.value = res._rawValue.msg
     }).catch(err => {
         console.log(err)
     })

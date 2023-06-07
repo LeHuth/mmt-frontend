@@ -71,7 +71,7 @@ const login = async () => {
       .login(email.value, password.value)
       .then((res) => {
           console.log(res);
-          emits('close'); // Das Popup-Fenster ausblenden
+          hide()
       })
       .catch((err) => {
           console.log(err);

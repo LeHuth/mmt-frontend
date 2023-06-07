@@ -4,7 +4,7 @@
         <span class="circle" aria-hidden="true">
           <span class="icon arrow"></span>
         </span>
-        <span @click="cartStore.addToCart('','',true)" class="button-text">Add to Cart</span>
+        <span class="button-text">Add to Cart</span>
       </button>
     </div>
   </template>

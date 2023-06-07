@@ -5,7 +5,7 @@
           <div class="description-container">
             <p class="popup-description">{{ description }}</p>
           </div>
-          <Button @click="alert('clikee')" />
+          <Button @click="cartStore.addToCart(event_id,true)" />
         </div>
       </div>
     </div>
@@ -14,12 +14,18 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Button from './Button.vue'; // Import Button component
+import {useCartStore} from "~/store/cart";
+const cartStore = useCartStore()
 
 const props = defineProps({
   show: Boolean,
   image: String,
   imageAlt: String,
-  description: String
+  description: String,
+  event_id: {
+    type: String,
+    required: true
+  }
 });
 </script>
 

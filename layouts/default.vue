@@ -1,7 +1,6 @@
 <template>
     <div style="max-width: 1920px; margin: auto">
         <MMTNavbar />
-        <login />
         <slot />
     </div>
 </template>

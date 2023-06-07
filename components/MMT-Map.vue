@@ -35,7 +35,7 @@
                             :description="selectedEvent.title"
                             :image="selectedEvent.image == 'test-image-url' ? 'https://picsum.photos/200' : selectedEvent.image"
                             imageAlt="Popup Image"
-                            @close="showPopup = false"
+                            :event_id="selectedEvent._id"
                     />
                 </ul>
             </div>

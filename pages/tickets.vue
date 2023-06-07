@@ -9,6 +9,7 @@
                             :description="event.title"
                             :image="event.image == 'test-image-url' ? 'https://picsum.photos/200' : event.image"
                             imageAlt="Popup Image"
+                            :event_id="event._id"
                     />
                 </figure><!--
                 <figure><img src="apache-sommer-tickets-poster.jpg"></figure>

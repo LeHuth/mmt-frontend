@@ -8,7 +8,7 @@
             <p>{{ props.event.description }}</p>
             <div class="card-actions justify-end">
                 <button v-if="ItemIsNotInCart(props.event?._id)" class="btn btn-primary"
-                        @click="cartStore.addToCart('',props.event._id,true)">Add to Cart
+                        @click="cartStore.addToCart(props.event._id,true)">Add to Cart
                 </button>
                 <button v-else class="btn btn-primary" @click="cartStore.removeFromCart('',props.event._id, true)">Remove
                     from Cart

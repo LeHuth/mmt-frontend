@@ -3,6 +3,7 @@ import { defineStore, skipHydrate } from 'pinia';
 import * as process from 'process';
 
 import { useLocalStorage, useStorage } from '@vueuse/core';
+import {reload} from "vite-node/hmr";
 
 const baseUrl = 'localhost:8000'
 
@@ -24,24 +25,20 @@ export const useAuthStore = defineStore('auth',  {
             reloadNuxtApp()
         },
         async signup(email: string, password: string, first_name: string, last_name: string,isOrganizer: boolean) {
-            useFetch(`http://localhost:8080/users/user/signup`, {
+            const {data} = await useFetch(`http://localhost:8080/users/user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({email, password, first_name, last_name, isOrganizer})
-            }).then(async (res)=> {
-                // @ts-ignore
-                const token = res.data.value.token
-                //verify token
-                console.log(res)
-            }).catch((err) => {
-                console.log(err)
             })
+
+            return data
         },
         async login(email: string, password: string) {
+            const config = useRuntimeConfig()
             console.log(email, password)
-            const {data} = await useFetch(`https://api.mapmytickets.de/users/user/login`, {
+            const {data} = await useFetch(`${config.public.baseUrl}/users/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -55,9 +52,11 @@ export const useAuthStore = defineStore('auth',  {
                 this.token = token
                 const config = useRuntimeConfig()
                 const { payload, protectedHeader } = await jwtVerify(token, new TextEncoder().encode(config.public.jwtSecret))
+                console.log(payload)
                 // @ts-ignore
                 this.user.id = payload.user.id
                 // @ts-ignore
+                reloadNuxtApp()
                 return payload.user.id
             } else {
                 return Promise.reject("No token")

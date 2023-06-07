@@ -65,9 +65,9 @@ export const useCartStore = defineStore('cart', {
                 console.log(error);
             })
         },
-        async addToCart(id: string, product_id: string, anonymous: boolean) {
+        async addToCart(product_id: string, anonymous: boolean) {
             this.loading = true;
-            if (!anonymous) {
+           /* if (!anonymous) {
                 try {
                     const response = await useFetch(`http://localhost:8080/cart/add/${id}`, {
                         method: 'POST',
@@ -85,11 +85,10 @@ export const useCartStore = defineStore('cart', {
                     this.errorMessage = error.message;
                     this.loading = false;
                 }
-            } else {
+            } else {*/
                 this.cart.push(product_id);
                 this.sync = false;
                 this.loading = false;
-            }
         },
         async removeFromCart(id: string, product: any, anonymous: boolean) {
             this.loading = true;

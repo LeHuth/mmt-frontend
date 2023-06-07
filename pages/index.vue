@@ -16,7 +16,6 @@ import MMTMap from '~/components/MMT-Map.vue';
 
 definePageMeta({
     title: 'Home',
-    keepalive: true,
     pageTransition: {
         name: 'slide-right',
         mode: 'default'
@@ -26,6 +25,7 @@ definePageMeta({
 const authStore = useAuthStore();
 const eventStore = useEventsStore();
 await eventStore.fetchEvents();
+
 
 const previewImage = ref<File | null>(null);
 const raw = ref<File | null>(null);

@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="menu__item">
+            <div v-if="authStore.isLoggedIn" class="menu__item">
                 <a class="menu__item-link" @click="authStore.logout()">Logout</a>
                 <img class="menu__item-img" src="https://images.unsplash.com/photo-1550605355-e83808a20860?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"/>
                 <div class="marquee">
@@ -61,9 +61,8 @@
         <div>
             <!-- Dein Navigations-Code... -->
             <login-popup v-if="showLoginPopup" @close="showLoginPopup = false"></login-popup>
-      <register-popup v-if="showRegisterPopup"></register-popup>
-      <cart v-if="showCartPopup" />
-      <cart v-if="showCartPopup" @close="showCartPopup = false"></cart>
+      <register-popup v-if="showRegisterPopup" @close="showRegisterPopup=false"></register-popup>
+      <cart v-if="showCartPopup" @close="showCartPopup = false"/>
     </div>
   </div>
 </template>
