@@ -4,10 +4,23 @@
         <span class="circle" aria-hidden="true">
           <span class="icon arrow"></span>
         </span>
-        <span class="button-text">Learn More</span>
+        <span @click="cartStore.addToCart('','',true)" class="button-text">Add to Cart</span>
       </button>
     </div>
   </template>
+
+<script lang="ts" setup>
+import {useCartStore} from "~/store/cart";
+import {PropType} from "@vue/runtime-core";
+const cartStore = useCartStore()
+
+const props = defineProps({
+  event: {
+    type: Object as PropType<Event>,
+    required: true
+  }
+})
+</script>
 
   <style scoped lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Mukta:700');

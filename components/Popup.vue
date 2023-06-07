@@ -5,7 +5,7 @@
           <div class="description-container">
             <p class="popup-description">{{ description }}</p>
           </div>
-          <Button @click="$emit('close')" />
+          <Button @click="alert('clikee')" />
         </div>
       </div>
     </div>
@@ -42,10 +42,9 @@ const props = defineProps({
     left: 0;
     right: 0;
     margin: auto;
-    width: 80%;
-    height: 80%;
     background-position: center;
     background-repeat: no-repeat;
+
     background-size: 80%;
     padding: 0;
     overflow: auto;
