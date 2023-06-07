@@ -1,7 +1,9 @@
-import { defineStore, skipHydrate } from 'pinia'
-import {useLocalStorage, useStorage} from "@vueuse/core";
-import * as process from "process";
-import {jwtVerify} from "jose";
+import { jwtVerify } from 'jose';
+import { defineStore, skipHydrate } from 'pinia';
+import * as process from 'process';
+
+import { useLocalStorage, useStorage } from '@vueuse/core';
+
 const baseUrl = 'localhost:8000'
 
 export const useAuthStore = defineStore('auth',  {
@@ -39,7 +41,7 @@ export const useAuthStore = defineStore('auth',  {
         },
         async login(email: string, password: string) {
             console.log(email, password)
-            const {data} = await useFetch(`http://localhost:8080/users/user/login`, {
+            const {data} = await useFetch(`https://api.mapmytickets.de/users/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

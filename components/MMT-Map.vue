@@ -55,7 +55,7 @@ const showPopup1 = ref(false);
 const mapZoom = ref(10);
 let mapOptions: MapOptions;
 let myMap: Map;
-let marker: Marker;
+
 
 let marker : Marker;
 /*
