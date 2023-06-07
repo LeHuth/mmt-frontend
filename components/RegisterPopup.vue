@@ -1,5 +1,5 @@
 <template>
-    <div v-if="visible" class="popup-container">
+    <div class="popup-container">
       <div class="popup">
         <h2>Registrierung</h2>
         <form @submit.prevent="register" class="flex flex-col">

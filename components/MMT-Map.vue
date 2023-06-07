@@ -56,8 +56,6 @@ const mapZoom = ref(10);
 let mapOptions: MapOptions;
 let myMap: Map;
 let marker: Marker;
-
-let marker : Marker;
 /*
 const logZoom = () => {
     //console.log(Math.floor(myMap.getZoom()))

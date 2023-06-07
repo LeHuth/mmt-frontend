@@ -2,32 +2,32 @@
     <div class="grid grid-cols-2">
         <div class="mmt-outline">
             <form
-                v-if="!authStore.isLoggedIn"
-                class="flex flex-col"
-                @submit.prevent="login"
+                    v-if="!authStore.isLoggedIn"
+                    class="flex flex-col"
+                    @submit.prevent="login"
             >
                 <div class="z-10">
                     <label class="" for="email"
-                        ><h1 class="h1-no-line-height">E-MAIL</h1></label
+                    ><h1 class="h1-no-line-height">E-MAIL</h1></label
                     >
                     <input
-                        required
-                        class="input input-bordered rounded-none bg-black text-white w-full"
-                        type="email"
-                        id="email"
-                        v-model="email"
+                            id="email"
+                            v-model="email"
+                            class="input input-bordered rounded-none bg-black text-white w-full"
+                            required
+                            type="email"
                     />
                 </div>
                 <div class="z-10">
                     <label class="" for="password"
-                        ><h1 class="h1-no-line-height">PASSWORD</h1></label
+                    ><h1 class="h1-no-line-height">PASSWORD</h1></label
                     >
                     <input
-                        required
-                        class="z-10 input input-bordered rounded-none bg-black text-white w-full"
-                        type="password"
-                        id="password"
-                        v-model="password"
+                            id="password"
+                            v-model="password"
+                            class="z-10 input input-bordered rounded-none bg-black text-white w-full"
+                            required
+                            type="password"
                     />
                 </div>
                 <button type="submit">
@@ -37,9 +37,9 @@
             <div v-else>
                 <h1 class="semi-huge">LOGGED IN</h1>
                 <button
-                    class="btn"
-                    v-if="authStore.isLoggedIn"
-                    @click="authStore.logout()"
+                        v-if="authStore.isLoggedIn"
+                        class="btn"
+                        @click="authStore.logout()"
                 >
                     Logout
                 </button>
@@ -47,15 +47,15 @@
 
         </div>
         <client-only>
-            <Cart class="mmt-outline" />
+            <Cart class="mmt-outline"/>
         </client-only>
 
         <div id="order-hisory">
             <h1 class="semi-huge">Order History</h1>
-            <div v-if="prod.products" v-for="item in prod.products">
-              <h2>{{item.name}}</h2>
-              <h2>{{item.description}}</h2>
-                <img v-for="img in item.images" :src="img" width="200" height="200" alt="">
+            <div v-for="item in prod.products" v-if="prod.products">
+                <h2>{{ item.name }}</h2>
+                <h2>{{ item.description }}</h2>
+                <img v-for="img in item.images" :src="img" alt="" height="200" width="200">
             </div>
         </div>
 
@@ -63,18 +63,15 @@
 </template>
 
 <script lang="ts" setup>
-import {loadStripe} from "@stripe/stripe-js";
+// @ts-ignore
+import {useCartStore} from "~/store/cart";
+import {useAuthStore} from "~/store/auth";
+import {useEventsStore} from "~/store/events";
 
 definePageMeta({
     title: 'My Events',
 });
 
-
-
-// @ts-ignore
-import {useCartStore} from "~/store/cart";
-import {useAuthStore} from "~/store/auth";
-import {useEventsStore} from "~/store/events";
 
 const cartStore = useCartStore()
 const authStore = useAuthStore()
@@ -114,6 +111,7 @@ const removeFromCart = (id) => {
 .h1-no-line-height {
     line-height: 31px;
 }
+
 .semi-huge {
     font-size: 100px;
 }
@@ -125,6 +123,7 @@ const removeFromCart = (id) => {
 .spin-animation {
     animation: spin 5s linear infinite;
 }
+
 .outline-with-1px {
     outline: 1px solid black;
 }

@@ -1,76 +1,78 @@
 <template>
-  <div>
-    <nav class="menu">
-      <div class="menu__item">
-        <a class="menu__item-link" @click="showLoginPopup = true">Anmelden</a>
-        <img
-          class="menu__item-img"
-          src="https://images.unsplash.com/photo-1572883475077-fb5aca766ace?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"
-        />
-        <div class="marquee">
-          <div class="marquee__inner">
-            <span>Anmelden</span>
-            <span>Anmelden</span>
-            <span>Anmelden</span>
-            <span>Anmelden</span>
-          </div>
-        </div>
-      </div>
-      <div class="menu__item">
-        <a class="menu__item-link" @click="showRegisterPopup = true">Registrieren</a>
-        <img
-          class="menu__item-img"
-          src="https://images.unsplash.com/photo-1550605355-e83808a20860?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"
-        />
-        <div class="marquee">
-          <div class="marquee__inner">
-            <span>Registrieren</span>
-            <span>Registrieren</span>
-            <span>Registrieren</span>
-            <span>Registrieren</span>
-          </div>
-        </div>
-      </div>
-      <!-- ... Weitere Menüpunkte ... -->
-    </nav>
     <div>
-      <!-- Dein Navigations-Code... -->
-      <login-popup :visible.sync="showLoginPopup"></login-popup>
-      <register-popup :visible.sync="showRegisterPopup"></register-popup>
+        <nav class="menu">
+            <div class="menu__item">
+                <a class="menu__item-link" @click="showPopUp('login')">Anmelden</a>
+                <img
+                        class="menu__item-img"
+                        src="https://images.unsplash.com/photo-1572883475077-fb5aca766ace?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"
+                />
+                <div class="marquee">
+                    <div class="marquee__inner">
+                        <span>Anmelden</span>
+                        <span>Anmelden</span>
+                        <span>Anmelden</span>
+                        <span>Anmelden</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu__item">
+                <a class="menu__item-link" @click="showPopUp('register')">Registrieren</a>
+                <img
+                        class="menu__item-img"
+                        src="https://images.unsplash.com/photo-1550605355-e83808a20860?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"
+                />
+                <div class="marquee">
+                    <div class="marquee__inner">
+                        <span>Registrieren</span>
+                        <span>Registrieren</span>
+                        <span>Registrieren</span>
+                        <span>Registrieren</span>
+                    </div>
+                </div>
+            </div>
+            <!-- ... Weitere Menüpunkte ... -->
+        </nav>
+        <div>
+            <!-- Dein Navigations-Code... -->
+            <login-popup v-if="showLoginPopup" @close="showLoginPopup=false"></login-popup>
+            <register-popup v-if="showRegisterPopup"></register-popup>
+        </div>
     </div>
-  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import {defineComponent, ref} from 'vue';
 import LoginPopup from '~/components/LoginPopup.vue';
 import RegisterPopup from '~/components/RegisterPopup.vue';
-import { useAuthStore } from '~/store/auth';
+import {useAuthStore} from '~/store/auth';
 
-export default defineComponent({
-  components: {
-    LoginPopup,
-    RegisterPopup
-  },
-  setup() {
-    const authStore = useAuthStore();
-    const showLoginPopup = ref(false);
-    const showRegisterPopup = ref(false);
-
-    return {
-      showLoginPopup,
-      showRegisterPopup,
-      isLoggedIn: authStore.isLoggedIn,
-    };
-  },
+const authStore = useAuthStore();
+const showLoginPopup = ref(false);
+const showRegisterPopup = ref(false);
+defineComponent({
+    components: {
+        LoginPopup,
+        RegisterPopup,
+    },
 });
+
+const showPopUp = (popuptype: string) => {
+    if (popuptype == "login") {
+        showRegisterPopup.value = false;
+        showLoginPopup.value = true;
+    } else if (popuptype == "register") {
+        console.log('show register popup');
+        showLoginPopup.value = false;
+        showRegisterPopup.value = true;
+    }
+};
 </script>
 <style>
 body {
     margin: 0;
     font-family: 'Monument Extended', sans-serif;
-    background: url(https://media.giphy.com/media/3oEduMhFrYvKk4giac/giphy.gif)
-        no-repeat 50% 50%;
+    background: url(https://media.giphy.com/media/3oEduMhFrYvKk4giac/giphy.gif) no-repeat 50% 50%;
     background-size: 100% 100%;
 }
 

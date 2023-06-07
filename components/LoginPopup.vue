@@ -1,9 +1,9 @@
 <!-- LoginPopup.vue -->
 <template>
-    <div v-if="visible" class="popup-container">
+    <div class="popup-container">
         <div class="popup">
             <h2>Anmeldung</h2>
-            <form @submit.prevent="login" class="flex flex-col">
+            <form v-if="!authStore.isLoggedIn" @submit.prevent="login" class="flex flex-col">
                 <label class="" for="email">
                     <h1 class="h1-no-line-height">E-MAIL</h1>
                 </label>
@@ -28,50 +28,58 @@
                     <h1 class="huge text-outline text-shadow -mt-10">LOGIN</h1>
                 </button>
             </form>
+            <div v-else>
+                <h1 class="semi-huge">LOGGED IN</h1>
+                <button
+                  v-if="authStore.isLoggedIn"
+                  class="btn"
+                  @click="authStore.logout()"
+                >
+                    Logout
+                </button>
+            </div>
+
             <button @click="hide">Schließen</button>
         </div>
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useAuthStore } from '~/store/auth';
-
-export default defineComponent({
+defineComponent({
     props: {
         visible: {
             type: Boolean,
             default: false,
         },
     },
-    setup(props, { emit }) {
-        const email = ref<string>('');
-        const password = ref<string>('');
-        const authStore = useAuthStore();
-
-        const login = async () => {
-            authStore
-                .login(email.value, password.value)
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        };
-
-        const hide = () => {
-            emit('update:visible', false); // Das Popup-Fenster ausblenden
-        };
-
-        return {
-            email,
-            password,
-            login,
-            hide,
-        };
-    },
+    emits: ['update:visible'],
 });
+
+const email = ref<string>('');
+const password = ref<string>('');
+const authStore = useAuthStore();
+const emits = defineEmits(['update:visible','close']);
+const props = defineProps(['visible']);
+const hide = () => {
+    //emits('update:visible', false); // Das Popup-Fenster ausblenden
+    emits('close'); // Das Popup-Fenster ausblenden
+};
+const login = async () => {
+    authStore
+      .login(email.value, password.value)
+      .then((res) => {
+          console.log(res);
+          emits('close'); // Das Popup-Fenster ausblenden
+      })
+      .catch((err) => {
+          console.log(err);
+      });
+};
+
+
+
 </script>
 <style scoped>
 
