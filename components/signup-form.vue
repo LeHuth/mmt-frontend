@@ -5,10 +5,6 @@
             <h1 class="semi-huge">Sign Up</h1>
             <div class="form-control gap-1">
                 <div>
-                    <input id="is-organizer" v-model="isOrganizer" type="checkbox"/>
-                    <label for="is-organizer">Organizer</label>
-                </div>
-                <div>
                     <label for="email">Email</label>
                     <input id="email" v-model="email" placeholder="Enter email" required type="email"/>
                 </div>
