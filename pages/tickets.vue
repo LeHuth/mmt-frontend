@@ -2,15 +2,15 @@
     <div>
         <div class="content-all">
             <div class="content-carrousel">
-                <figure>
+                <figure v-for="event in events.slice(0,9)">
                     <Popup
                             v-if="true"
                             :show="true"
-                            description="Fusion: 07-07 bis 11-07"
-                            image="/tickets/peter-fox-tickets-poster.jpg"
+                            :description="event.title"
+                            :image="event.image == 'test-image-url' ? 'https://picsum.photos/200' : event.image"
                             imageAlt="Popup Image"
                     />
-                </figure>
+                </figure><!--
                 <figure><img src="apache-sommer-tickets-poster.jpg"></figure>
                 <figure><img src="coldplay-tickets-poster-ta-vage.jpg"></figure>
                 <figure><img src="cro-tickets-poster.jpg"></figure>
@@ -18,7 +18,7 @@
                 <figure><img src="peter-fox-tickets-poster.jpg"></figure>
                 <figure><img src="tanz-der-vampire-25j-tickets-poster.jpg"></figure>
                 <figure><img src="taylor-swift-tickets-poster-vager-ta.jpg"></figure>
-                <figure><img src="the-weeknd-tickets-poster.jpg"></figure>
+                <figure><img src="the-weeknd-tickets-poster.jpg"></figure>-->
             </div>
         </div>
         <!--      <div class="msg">OkayyLetssGoo</div>-->
@@ -40,7 +40,8 @@ definePageMeta({
 
 import {useEventsStore} from "~/store/events";
 const eventStore = useEventsStore();
-const events = eventStore.fetchEvents();
+eventStore.fetchEvents();
+const events = eventStore.getEvents
 
 
 </script>
@@ -73,7 +74,7 @@ a {
 .content-carrousel {
     width: 100%;
     position: absolute;
-    /*animation: rotar 20s infinite linear;*/
+    animation: rotar 20s infinite linear;
     transform-style: preserve-3d;
 }
 

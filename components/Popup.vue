@@ -32,7 +32,7 @@ const props = defineProps({
     flex: 1;
     height: 100%;
     position: relative;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: white;
 }
 
 .popup {
@@ -45,7 +45,7 @@ const props = defineProps({
     background-position: center;
     background-repeat: no-repeat;
 
-    background-size: 80%;
+    background-size: 100%;
     padding: 0;
     overflow: auto;
 }
