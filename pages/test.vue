@@ -1,6 +1,7 @@
 <template>
-    <signup-form/>
-
+    <client-only>
+        <qr-stream/>
+    </client-only>
 </template>
 
 <script>
