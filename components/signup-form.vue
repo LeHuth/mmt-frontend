@@ -34,7 +34,6 @@
 
 <script lang="ts" setup>
 import {useAuthStore} from "~/store/auth";
-import {loadStripe} from "@stripe/stripe-js";
 
 defineComponent({
     name: "SignupForm",
@@ -47,15 +46,8 @@ const firstName = ref<string>('')
 const lastName = ref<string>('')
 const isOrganizer = ref<boolean>(false)
 const password2 = ref<string>('')
-const s_elemetns = ref<any>(null)
 const backend_message = ref<string>('')
 
-const stripe = await loadStripe('pk_test_51NAw6TI4xbizdZ9kng3EHWZIQIiwpHiA0L9IfcBCnmVyGfMOnJixBepX4W3u7wcdpeIPtgYaoY0wuNSAmRZDPV7a00nkzfGvoF');
-if(!stripe) {
-    console.log("Stripe not loaded")
-} else {
-    s_elemetns.value = stripe.elements()
-}
 
 const checkIfPassowordsMatch = () => {
     return password.value === password2.value
