@@ -25,7 +25,8 @@ export const useAuthStore = defineStore('auth',  {
             reloadNuxtApp()
         },
         async signup(email: string, password: string, first_name: string, last_name: string,isOrganizer: boolean) {
-            const {data} = await useFetch(`http://localhost:8080/users/user/signup`, {
+            const config = useRuntimeConfig()
+            const {data} = await useFetch(`${config.public.baseUrl}/users/user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

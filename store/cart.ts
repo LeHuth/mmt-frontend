@@ -46,7 +46,8 @@ export const useCartStore = defineStore('cart', {
         async checkout(id: string) {
             const token = useCookie('token')
             console.log("CHECKOUT")
-            useFetch(`http://localhost:8080/payment/create-checkout-session`, {
+            const config = useRuntimeConfig()
+            useFetch(`${config.public.baseUrl}/payment/create-checkout-session`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
