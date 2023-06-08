@@ -17,12 +17,6 @@ export default defineNuxtConfig({
     }
   },
   app: {
-    pageTransition: { name: 'page', mode: 'out-in' },
-    head:{
-      script:[
-        { src: 'https://js.stripe.com/v3/' }
-      ]
-    }
   },
 
 })
