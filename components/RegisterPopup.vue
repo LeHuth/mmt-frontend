@@ -36,6 +36,7 @@ export default defineComponent({
 
 .popup {
   position: relative;
+  width: 400px;
 }
 
 h2 {

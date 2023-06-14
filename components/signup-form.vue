@@ -21,7 +21,9 @@
         <label for="password2">Confirm Password</label>
         <input id="password2" v-model="password2" placeholder="Confirm password" required type="password" />
       </div>
-      <button class="btn" type="submit">Sign Up</button>
+      <div class="form-control center">
+        <button class="btn" type="submit">Sign Up</button>
+      </div>
       <p class="backend-message">{{ backend_message }}</p>
     </form>
   </div>
@@ -102,6 +104,12 @@ input {
   border-radius: 4px;
   background-color: transparent;
   color: #000;
+  width: 370px;
+}
+
+.center {
+  display: flex;
+  justify-content: center; /* Zentriert den Inhalt horizontal */
 }
 
 .btn {
@@ -112,6 +120,7 @@ input {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  margin-top: 20px;
 }
 
 .backend-message {
