@@ -21,10 +21,10 @@
         <label for="password2">Confirm Password</label>
         <input id="password2" v-model="password2" placeholder="Confirm password" required type="password" />
       </div>
-      <div class="button-container">
-        <button class="btn signup-button">Sign Up</button>
-        <button class="btn close-button" @click="hide">Close</button>
-      </div>
+      <button class="btn">Sign Up</button>
+      <button class="close-button" @click="hide">
+      Schließen
+    </button>
       <p class="backend-message">{{ backend_message }}</p>
     </form>
   </div>
@@ -54,14 +54,33 @@ export default {
 <style scoped>
 .form-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000;
+  padding: 20px;
+  width: 400px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.close-button {
+  margin-top: 20px;
   background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #333;
 }
 
 .form {
@@ -96,21 +115,6 @@ input {
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-}
-.button-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.signup-button {
-  flex-grow: 1;
-  margin-right: 10px;
-}
-
-.close-button {
-  flex-grow: 1;
-  margin-left: 10px;
 }
 
 .backend-message {
