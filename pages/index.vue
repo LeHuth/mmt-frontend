@@ -66,27 +66,7 @@ const login = () => {
 };
 </script>
 
-<style>
-body {
-    width: 100%;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-}
-
-body::-webkit-scrollbar {
-    width: 5px;
-    display: none;
-}
-
-body::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-body::-webkit-scrollbar-thumb {
-    background-color: #fd0202;
-    outline: 1px solid rgb(0, 0, 0);
-}
+<style scoped>
 
 #map {
     position: relative;
@@ -105,16 +85,4 @@ body::-webkit-scrollbar-thumb {
     opacity: 0;
     transform: translate(-150px, 0);
 }
-</style>
-
-
-<style>
-body {
-    margin: 0;
-    font-family: 'Monument Extended', sans-serif;
-    background: url(https://media.giphy.com/media/3oEduMhFrYvKk4giac/giphy.gif) no-repeat 50% 50%;
-    background-size: 100% 100%;
-}
-
-
 </style>

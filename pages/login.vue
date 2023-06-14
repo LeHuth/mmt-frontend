@@ -164,7 +164,6 @@ const showPopUp = (popuptype: string) => {
     position: absolute;
     top: 0;
     left: 0;
-    overflow: hidden;
     color: #fff;
     pointer-events: none;
     mix-blend-mode: difference;
