@@ -21,54 +21,68 @@
         <label for="password2">Confirm Password</label>
         <input id="password2" v-model="password2" placeholder="Confirm password" required type="password" />
       </div>
-      <div class="button-container">
-        <button class="btn signup-button">Sign Up</button>
-        <button class="btn close-button" @click="hide">Close</button>
-      </div>
+      <button class="btn" type="submit">Sign Up</button>
       <p class="backend-message">{{ backend_message }}</p>
     </form>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import { useAuthStore } from '~/store/auth';
+
+export default defineComponent({
   name: 'SignupForm',
-  data() {
+  setup() {
+    const email = ref('');
+    const password = ref('');
+    const firstName = ref('');
+    const lastName = ref('');
+    const password2 = ref('');
+    const backend_message = ref('');
+
+    const authStore = useAuthStore();
+
+    const checkIfPasswordsMatch = () => {
+      return password.value === password2.value;
+    };
+
+    const signup = () => {
+      if (!checkIfPasswordsMatch()) {
+        console.log('Passwords do not match');
+        return;
+      }
+
+      authStore
+        .signup(email.value, password.value, firstName.value, lastName.value)
+        .then(res => {
+          console.log(res);
+          backend_message.value = res._rawValue.msg;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+
     return {
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      password2: '',
-      backend_message: '',
+      email,
+      password,
+      firstName,
+      lastName,
+      password2,
+      backend_message,
+      signup,
     };
   },
-  methods: {
-    signup() {
-      // Registrierungsfunktion
-    },
-  },
-};
+});
 </script>
 
 <style scoped>
 .form-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000;
-}
-
-.form {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
 }
 
 .form-control {
@@ -93,28 +107,16 @@ input {
 .btn {
   background-color: #000;
   color: #fff;
-  border: none;
   padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-}
-.button-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.signup-button {
-  flex-grow: 1;
-  margin-right: 10px;
-}
-
-.close-button {
-  flex-grow: 1;
-  margin-left: 10px;
+  font-size: 16px;
 }
 
 .backend-message {
-  font-size: 12px;
-  color: #000;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
 }
 </style>

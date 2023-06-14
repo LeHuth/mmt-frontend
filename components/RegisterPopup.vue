@@ -1,9 +1,9 @@
 <template>
-  <div class="registration-page">
-    <div class="registration-container">
+  <div class="popup-container">
+    <div class="popup">
       <h2>Registrierung</h2>
-      <signup-form/>
-      <button class="btn" @click="hide">Schließen</button>
+      <signup-form />
+      <button class="btn" @click="hide">X</button>
     </div>
   </div>
 </template>
@@ -20,23 +20,11 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const email = ref<string>('');
-    const password = ref<string>('');
-    const authStore = useAuthStore();
-
-    const register = async () => {
-      authStore
-      // Fügen Sie hier den Registrierungscode hinzu
-    };
-
     const hide = () => {
       emit('close', false);
     };
 
     return {
-      email,
-      password,
-      register,
       hide,
     };
   },
@@ -44,28 +32,30 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.registration-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f2f2f2;
+
+
+.popup {
+  position: relative;
 }
 
-.registration-container {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 100%;
+h2 {
+  color: #000;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  background-color: #dddddd;
+.btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
   border: none;
-  border-radius: 5px;
+  color: #000;
+  font-size: 24px;
   cursor: pointer;
+}
+
+.btn:hover {
+  color: #333;
 }
 </style>
