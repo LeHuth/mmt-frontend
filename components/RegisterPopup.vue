@@ -1,7 +1,7 @@
 <template>
   <div class="popup-container">
     <div class="popup">
-      <h2>Registrierung</h2>
+      <h2>Registration</h2>
       <signup-form />
       <button class="btn" @click="hide">X</button>
     </div>
