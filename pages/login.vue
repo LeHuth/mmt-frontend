@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div v-if="authStore.isLoggedIn" class="menu__item">
                 <a class="menu__item-link" @click="authStore.logout()">Logout</a>
                 <img class="menu__item-img" src="https://images.unsplash.com/photo-1550605355-e83808a20860?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"/>
@@ -60,7 +60,8 @@
         </nav>
         <div>
             <!-- Dein Navigations-Code... -->
-            <login-popup v-if="showLoginPopup" @close="showLoginPopup = false"></login-popup>
+            <loginBlackWhite v-if="showLoginPopup" @close="showLoginPopup = false"></loginBlackWhite>
+            <!-- <login-popup v-if="showLoginPopup" @close="showLoginPopup = false"></login-popup> -->
       <register-popup v-if="showRegisterPopup" @close="showRegisterPopup=false"></register-popup>
       <cart v-if="showCartPopup" @close="showCartPopup = false"/>
     </div>
@@ -69,7 +70,8 @@
 
 <script lang="ts" setup>
 import { defineComponent, ref } from 'vue';
-import LoginPopup from '~/components/LoginPopup.vue';
+// import LoginPopup from '~/components/LoginPopup.vue'; 
+import loginBlackWhite from '~/components/loginBlackWhite.vue';
 import RegisterPopup from '~/components/RegisterPopup.vue';
 import { useAuthStore } from '~/store/auth';
 import Cart from '~/components/cart/Cart.vue';
@@ -81,7 +83,7 @@ const showRegisterPopup = ref(false);
 const showCartPopup = ref(false);
 defineComponent({
   components: {
-    LoginPopup,
+    loginBlackWhite,
     RegisterPopup,
     Cart,
   },
