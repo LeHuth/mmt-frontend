@@ -25,9 +25,9 @@
 
                     <button class="btn rounded-none w-full mt-10 mb-3">ADD TO CART</button>
                     <div class="border border-black h-12 flex justify-between p-2">
-                        <button class="btn btn-sm rounded-none" @click="amount--">-</button>
+                        <button :disabled="amount < 2" class="btn btn-sm rounded-none" @click="amount--">-</button>
                         <p>{{ amount }}</p>
-                        <button class="btn btn-sm rounded-none" @click="amount++">+</button>
+                        <button :disabled="amount > 4" class="btn btn-sm rounded-none" @click="amount++">+</button>
                     </div>
                     <p class="text-center mt-10 small">You can pay securely with Credit Card or Paypal.</p>
 
