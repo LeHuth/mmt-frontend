@@ -3,6 +3,7 @@
     <div v-if="showCartPopup" class="overlay">
       <div class="cart-popup">
         <div class="cart-popup-content">
+
           <div v-if="cartStore.getCart.length > 0">
             <CartItem
               v-for="item in cartStore.getCart"
@@ -20,10 +21,11 @@
             </div>
           </div>
           <div v-else>
-            <p class="inline-block">It´s empty in here</p>
+            <p class="empty-message">Dein Warenkorb ist leer</p>
           </div>
         </div>
         <button class="close-button" @click="$emit('close')">X</button>
+        <button class="bottom-button">Tickets finden</button> <!-- Neuer Button am unteren Rand -->
       </div>
     </div>
   </div>
@@ -80,12 +82,12 @@ const showCartPopup = ref(true);
 
 .cart-popup {
   top: 100px;
-  width: 600px;
+  width: 850px;
   height: 600px;
   background-color: white;
   padding: 20px;
   border-radius: 4px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  //box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -113,6 +115,20 @@ const showCartPopup = ref(true);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 50px;
+}
+.bottom-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #fff;
+  color: black;
+  border: solid #000 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 400px;
 }
 
 /* Add any additional styling you require */
