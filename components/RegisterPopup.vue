@@ -1,7 +1,6 @@
 <template>
   <div class="popup-container">
     <div class="popup">
-      <h2>Registration</h2>
       <signup-form />
       <button class="btn" @click="hide">X</button>
     </div>
@@ -32,27 +31,30 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-
-.popup {
-  position: relative;
-  width: 400px;
+.popup-container {
+  position: fixed;
+  top: 300px;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
-h2 {
-  color: #000;
-  font-size: 24px;
-  margin-bottom: 20px;
+.popup {
+  width: 60%; /* Anpassung: Popup erstreckt sich über 60% der Bildschirmbreite */
+  background-color: #fff;
+  padding: 30px; /* Anpassung: Größerer Innenabstand */
 }
 
 .btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: -20px; /* Anpassung: Button weiter oben positionieren */
+  right: -20px; /* Anpassung: Button weiter rechts positionieren */
   background-color: transparent;
   border: none;
   color: #000;
-  font-size: 24px;
+  font-size: 28px; /* Anpassung: Größere Schriftgröße */
   cursor: pointer;
 }
 

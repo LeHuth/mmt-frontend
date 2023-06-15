@@ -88,44 +88,44 @@ export default defineComponent({
 }
 
 .form-control {
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Anpassung: Größerer Abstand zwischen den Formularfeldern */
 }
 
 label {
-  font-size: 14px;
+  font-size: 16px; /* Anpassung: Größere Schriftgröße */
   font-weight: bold;
   color: #000;
 }
 
 input {
   width: 100%;
-  padding: 10px;
+  padding: 12px; /* Anpassung: Größerer Innenabstand */
   border: 1px solid #000;
   border-radius: 4px;
   background-color: transparent;
   color: #000;
-  width: 370px;
+  width: 400px; /* Anpassung: Breiteres Eingabefeld */
 }
 
 .center {
   display: flex;
-  justify-content: center; /* Zentriert den Inhalt horizontal */
+  justify-content: center;
 }
 
 .btn {
   background-color: #000;
   color: #fff;
-  padding: 10px 20px;
+  padding: 12px 24px; /* Anpassung: Größerer Innenabstand */
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
+  font-size: 18px; /* Anpassung: Größere Schriftgröße */
+  margin-top: 30px;
 }
 
 .backend-message {
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 15px; /* Anpassung: Größerer Abstand zur oberen Kante */
+  font-size: 16px; /* Anpassung: Größere Schriftgröße */
   color: #333;
 }
 </style>

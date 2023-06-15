@@ -112,7 +112,6 @@ body::-webkit-scrollbar-thumb {
 body {
     margin: 0;
     font-family: 'Monument Extended', sans-serif;
-    background: url(https://media.giphy.com/media/3oEduMhFrYvKk4giac/giphy.gif) no-repeat 50% 50%;
     background-size: 100% 100%;
 }
 
