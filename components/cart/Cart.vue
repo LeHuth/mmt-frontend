@@ -69,24 +69,24 @@ const showCartPopup = ref(true);
 .overlay {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%; /* Geändert auf 50% */
+  transform: translateX(-30%); /* Hinzugefügt */
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: flex-end; /* Ausrichtung auf der rechten Seite */
+  justify-content: center;
   align-items: center;
-  padding-right: 20px; /* Platz für rechten Abstand */
 }
 
 .cart-popup {
-  top: 300px;
-  width: 600px; /* Reduzierte Breite */
+  top: 100px;
+  width: 600px;
   height: 600px;
   background-color: white;
   padding: 20px;
   border-radius: 4px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-  position: fixed;
+  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -106,6 +106,13 @@ const showCartPopup = ref(true);
   color: #000;
   font-size: 28px; /* Anpassung: Größere Schriftgröße */
   cursor: pointer;
+}
+
+.empty-message {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Add any additional styling you require */
