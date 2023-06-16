@@ -40,17 +40,24 @@ export default defineComponent({
   align-items: center;
   z-index: 999;
 }
+/*
+.popup {
+  width: 80%;  Anpassung: Popup erstreckt sich über 60% der Bildschirmbreite
+  background-color: #fff;
+  padding: 30px;  Anpassung: Größerer Innenabstand
+}
+*/
 
 .popup {
-  width: 60%; /* Anpassung: Popup erstreckt sich über 60% der Bildschirmbreite */
-  background-color: #fff;
+  width: calc(100% - 40px); /* Anpassung: Popup-Fenster ist 20px breiter auf beiden Seiten */
+  background-color: transparent;
   padding: 30px; /* Anpassung: Größerer Innenabstand */
 }
 
 .btn {
   position: absolute;
-  top: -20px; /* Anpassung: Button weiter oben positionieren */
-  right: -20px; /* Anpassung: Button weiter rechts positionieren */
+  top: -50px; /* Anpassung: Button weiter oben positionieren */
+  right: 150px; /* Anpassung: Button weiter rechts positionieren */
   background-color: transparent;
   border: none;
   color: #000;

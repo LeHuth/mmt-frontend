@@ -80,6 +80,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+/*
 .form-container {
   display: flex;
   justify-content: center;
@@ -87,8 +89,26 @@ export default defineComponent({
   height: 100%;
 }
 
+*/
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.form {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  width: calc(400px + 400px); /* Anpassung: Popup-Fenster ist 20px breiter auf beiden Seiten */
+}
+
+/* legt die abstände zwischen den einzelnen Eingabefeldern und deren Beschrifzungen fest*/
 .form-control {
-  margin-bottom: 30px; /* Anpassung: Größerer Abstand zwischen den Formularfeldern */
+  margin-bottom: 10px; /* Anpassung: Größerer Abstand zwischen den Formularfeldern /*
 }
 
 label {

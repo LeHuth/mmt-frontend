@@ -52,6 +52,7 @@ export default {
 </script>
 
 <style scoped>
+/*
 .form-container {
   position: fixed;
   top: 50%;
@@ -63,6 +64,23 @@ export default {
   height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+*/
+.form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #000;
+  padding: 20px;
+  width: calc(400px + 40px); /* Anpassung: Popup-Fenster ist 20px breiter auf beiden Seiten */
+  height: auto;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -110,8 +128,8 @@ input {
 }
 
 .btn {
-  background-color: #000;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
