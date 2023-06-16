@@ -1,11 +1,14 @@
 <template>
     <div class="sticky grid z-50 top-0 bg-white">
-        <div :class="'flex z-30 justify-between bg-white ' + (isBordered ? 'p-2 border-black border-y border-x' : '')" >
+        <div :class="'flex z-30 justify-between bg-white ' + (isBordered ? 'p-2 border-black border-y border-x' : '')">
             <h5 v-if="showResultCount" class="text-center self-center">{{ props.events.length }} Ergebnisse</h5>
-            <input @input="runFilter" v-model="searchQuery" @focus="showSearchResultSection=true" @blur="showSearchResultSection=false" class="input border-black w-full rounded-none" placeholder="Search" type="text"/>
+            <input v-model="searchQuery" class="input border-black w-full rounded-none" placeholder="Search"
+                   type="text" @blur="showSearchResultSection=false"
+                   @focus="showSearchResultSection=true" @input="runFilter"/>
             <button v-if="showFilter" class="btn rounded-none">Filter</button>
         </div>
-        <search-result-section :events="results.value" id="search-result-container" :class="(showSearchResultSection ?  resultSectionOffset : 'invisible') + ' absolute z-10' "/>
+        <search-result-section id="search-result-container" :class="(showSearchResultSection ?  resultSectionOffset : 'invisible') + ' absolute z-10' "
+                               :events="feedResults"/>
     </div>
 
 </template>
@@ -45,15 +48,26 @@ const props = defineProps({
     isBordered: {
         type: Boolean,
         default: true
+    },
+    emitInput: {
+        type: Boolean,
+        default: false
     }
 })
+
+const emit = defineEmits(['input'])
 const results = ref([])
 const searchQuery = ref('')
 const showSearchResultSection = ref(false)
 
 const runFilter = async () => {
-    if(searchQuery.value == '') return results.value = []
-    const {data} = await useFetch('http://localhost:8080/events/filter',{
+    if (searchQuery.value == '') return results.value = []
+    if (props.emitInput) {
+        emit('input', searchQuery.value)
+        return
+    }
+
+    const {data} = await useFetch('http://localhost:8080/events/filter', {
         query: {
             title: searchQuery.value
         }
@@ -61,8 +75,12 @@ const runFilter = async () => {
     results.value = data
 }
 
-const resultSectionOffset = computed(()=> {
+const resultSectionOffset = computed(() => {
     return props.isBordered ? 'translate-y-16' : 'translate-y-12'
+})
+
+const feedResults = computed(() => {
+    return props.emitInput ? props.events : results.value
 })
 </script>
 

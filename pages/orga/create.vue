@@ -29,7 +29,13 @@
                         <label class="join-item self-center py-3  text-center h-12 rounded-none w-20 bg-gray-300">
                             <span class="label-text">Place</span>
                         </label>
-                        <searchbar :events="[]" :is-bordered="false" class="join-item w-full"/>
+                        <searchbar
+                                :emit-input="true"
+                                :events="placesArray.value"
+                                :is-bordered="false"
+                                class="join-item w-full"
+                                @input="value => filterPlaces(value)"
+                        />
 
                     </div>
                     <div class="flex w-full mb-6">
@@ -60,6 +66,7 @@ definePageMeta({
     description: 'Create',
 
 })
+const placesArray = ref([])
 const uploadImgArray = ref([])
 // show the image
 const upload = (e) => {
@@ -69,6 +76,15 @@ const upload = (e) => {
     reader.onload = () => {
         uploadImgArray.value.push(reader.result)
     }
+}
+
+const filterPlaces = async (query_param) => {
+    const {data} = await useFetch('http://localhost:8080/event-locations/filter', {
+        query: {
+            name: query_param
+        }
+    })
+    placesArray.value = data
 }
 </script>
 
