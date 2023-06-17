@@ -24,3 +24,27 @@ export interface Event {
     imageName: string;
     ticketInfo: TicketInfo;
 }
+
+export interface IEventPlace {
+    _id: string;
+    name: string;
+}
+
+export interface IEventHappening {
+    place: IEventPlace;
+    date: Date;
+    time: string;
+}
+
+export interface IEvent {
+    name: string;
+    price: number;
+    quip: string;
+    happenings: IEventHappening[];
+    description: string;
+    images: string[];
+    tags?: string[];
+    organizer: string;
+    openinghours?: string[];
+    available: number;
+}

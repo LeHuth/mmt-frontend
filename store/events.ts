@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import {Event} from "@/types";
+import {IEvent, Event} from "@/types";
 import {useAuthStore} from "~/store/auth";
 import * as process from "process";
 import runtimeConfig from "nitropack/dist/runtime/config";
@@ -71,7 +71,7 @@ export const useEventsStore = defineStore({
                 this.loading = false;
             }
         },
-        async createEvent(event: Event) {
+        async createEvent(event: IEvent) {
             this.loading = true;
             const auth = useAuthStore();
             if(!auth.isLoggedIn || auth.getToken === "") {

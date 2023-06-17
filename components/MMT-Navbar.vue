@@ -1,8 +1,8 @@
 <template>
     <div class="whitespace-nowrap flex justify-center overflow-visible">
         <h1 @click="navigateTo('/')" :class="'huge -ml-4 inline-block w-fit overflow-hidden whitespace-nowrap ' + addOutline('/')">MAP</h1>
-        <h1 @click="navigateTo('/login')" :class="'huge inline-block overflow-hidden whitespace-nowrap ' + addOutline('/login')">MY</h1>
-        <h1 @click="navigateTo('/tickets')" :class="'huge inline-block overflow-hidden whitespace-nowrap ' + addOutline('/tickets')">TICKETS</h1>
+        <h1 @click="navigateTo('/login/')" :class="'huge inline-block overflow-hidden whitespace-nowrap ' + addOutline('/login')">MY</h1>
+        <h1 @click="navigateTo('/tickets/')" :class="'huge inline-block overflow-hidden whitespace-nowrap ' + addOutline('/tickets')">TICKETS</h1>
     </div>
 </template>
 

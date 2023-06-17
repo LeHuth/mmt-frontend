@@ -8,7 +8,7 @@
             <button v-if="showFilter" class="btn rounded-none">Filter</button>
         </div>
         <search-result-section id="search-result-container" :class="(showSearchResultSection ?  resultSectionOffset : 'invisible') + ' absolute z-10' "
-                               :events="feedResults"/>
+                               :events="feedResults" @select="value => {$emit('select', value); searchQuery = value.name}"/>
     </div>
 
 </template>
@@ -55,7 +55,7 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['input'])
+const emit = defineEmits(['input', 'select'])
 const results = ref([])
 const searchQuery = ref('')
 const showSearchResultSection = ref(false)
