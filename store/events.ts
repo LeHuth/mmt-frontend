@@ -17,7 +17,7 @@ export const useEventsStore = defineStore({
         errorMessage: "",
     }),
     getters: {
-        getEvents: (state) : Event[] => {
+        getEvents: (state) : IEvent[] => {
             return state.events;
         },
         getEventName: (state) => (id: string) => {
