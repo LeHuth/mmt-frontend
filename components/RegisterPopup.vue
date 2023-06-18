@@ -2,7 +2,9 @@
   <div class="popup-container">
     <div class="popup">
       <signup-form />
-      <button class="btn" @click="hide">X</button>
+      <button class="closeBtn" @click="hide">
+          <span class="close-icon">X</span>
+        </button>
     </div>
   </div>
 </template>
@@ -40,13 +42,6 @@ export default defineComponent({
   align-items: center;
   z-index: 999;
 }
-/*
-.popup {
-  width: 80%;  Anpassung: Popup erstreckt sich über 60% der Bildschirmbreite
-  background-color: #fff;
-  padding: 30px;  Anpassung: Größerer Innenabstand
-}
-*/
 
 .popup {
   width: calc(100% - 40px); /* Anpassung: Popup-Fenster ist 20px breiter auf beiden Seiten */
@@ -54,7 +49,7 @@ export default defineComponent({
   padding: 30px; /* Anpassung: Größerer Innenabstand */
 }
 
-.btn {
+.closeBtn {
   position: absolute;
   top: -50px; /* Anpassung: Button weiter oben positionieren */
   right: 150px; /* Anpassung: Button weiter rechts positionieren */
@@ -65,7 +60,16 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.btn:hover {
+.close-icon {
+    color: #fff;
+    font-size: 24px;
+    top: -50px; /* Anpassung: Button weiter oben positionieren */
+    right: 150px; /* Anpassung: Button weiter rechts positionieren */
+    color: #000;
+    font-size: 28px;
+  }
+
+.closeBtn:hover {
   color: #333;
 }
 </style>

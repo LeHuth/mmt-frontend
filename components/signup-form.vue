@@ -2,23 +2,23 @@
   <div class="form-container">
     <form class="form" @submit.prevent="signup">
       <div class="form-control">
-        <label for="email">Email</label>
+        <h1 class="popup-label-text" style="margin-bottom: -9px">Email</h1>
         <input id="email" v-model="email" placeholder="Enter email" required type="email" />
       </div>
       <div class="form-control">
-        <label for="first-name">First Name</label>
+        <h1 class="popup-label-text" style="margin-bottom: -9px">First Name</h1>
         <input id="first-name" v-model="firstName" placeholder="Enter first name" required type="text" />
       </div>
       <div class="form-control">
-        <label for="last-name">Last Name</label>
+        <h1 class="popup-label-text" style="margin-bottom: -9px">Last Name</h1>
         <input id="last-name" v-model="lastName" placeholder="Enter last name" required type="text" />
       </div>
       <div class="form-control">
-        <label for="password">Password</label>
+        <h1 class="popup-label-text" style="margin-bottom: -9px">Password</h1>
         <input id="password" v-model="password" placeholder="Enter password" required type="password" />
       </div>
       <div class="form-control">
-        <label for="password2">Confirm Password</label>
+        <h1 class="popup-label-text" style="margin-bottom: -9px">Confirm Password</h1>
         <input id="password2" v-model="password2" placeholder="Confirm password" required type="password" />
       </div>
       <div class="form-control center">
@@ -81,16 +81,6 @@ export default defineComponent({
 
 <style scoped>
 
-/*
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-*/
-
 .form-container {
   display: flex;
   justify-content: center;
@@ -99,16 +89,10 @@ export default defineComponent({
 }
 
 .form {
-  background-color: #fff;
-  padding: 40px;
+  background-color: #fff; /* bestimmt tatsächlich die backround color */
+  padding: 20px;
   border-radius: 8px;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
   width: calc(400px + 400px); /* Anpassung: Popup-Fenster ist 20px breiter auf beiden Seiten */
-}
-
-/* legt die abstände zwischen den einzelnen Eingabefeldern und deren Beschrifzungen fest*/
-.form-control {
-  margin-bottom: 10px; /* Anpassung: Größerer Abstand zwischen den Formularfeldern /*
 }
 
 label {
@@ -140,7 +124,7 @@ input {
   border-radius: 4px;
   cursor: pointer;
   font-size: 18px; /* Anpassung: Größere Schriftgröße */
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .backend-message {
@@ -148,4 +132,12 @@ input {
   font-size: 16px; /* Anpassung: Größere Schriftgröße */
   color: #333;
 }
+
+.popup-label-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+  margin-bottom: 1px; /* Anpassung: Verringern des Abstands nach unten */
+}
+  
 </style>
