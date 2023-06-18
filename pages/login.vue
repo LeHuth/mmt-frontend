@@ -74,7 +74,7 @@ const showPopUp = (popuptype: string) => {
 .menu__item {
   padding: 20px 6vw; /* Hinzugefügt: Vertikaler Abstand */
   margin-bottom: 30px; /* Hinzugefügt: Vertikaler Abstand */
-  margin-top: 30px;
+  margin-top: 70px;
 }
 
 .menu__item-link {
