@@ -2,7 +2,7 @@
   <div class="form-container">
     <form class="form" @submit.prevent="signup">
       <div class="form-control">
-        <label for="email">Email</label>
+        <h1 class="popup-label-text">E-MAIL</h1>
         <input id="email" v-model="email" placeholder="Enter email" required type="email" />
       </div>
       <div class="form-control">
@@ -59,10 +59,9 @@ export default {
   transform: translate(-50%, -50%);
   background-color: #000;
   padding: 20px;
-  width: 400px;
+  width: calc(400px + 40px); /* Anpassung: Popup-Fenster ist 20px breiter auf beiden Seiten */
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -110,8 +109,8 @@ input {
 }
 
 .btn {
-  background-color: #000;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
