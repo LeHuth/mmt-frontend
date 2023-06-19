@@ -3,61 +3,41 @@
     <div class="popup">
       <signup-form />
       <button class="closeBtn" @click="hide">
-          <span class="close-icon">X</span>
-        </button>
+        <span class="close-icon">X</span>
+      </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { useAuthStore } from '~/store/auth';
-
-export default defineComponent({
-  props: {
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, { emit }) {
-    const hide = () => {
-      emit('close', false);
-    };
-
-    return {
-      hide,
-    };
-  },
-});
 </script>
 
 <style scoped>
 .popup-container {
-  position: fixed;
-  top: 300px;
-  left: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+    position: fixed;
+    top: 300px;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 
 .popup {
-  width: calc(100% - 40px); /* Anpassung: Popup-Fenster ist 20px breiter auf beiden Seiten */
-  background-color: transparent;
-  padding: 30px; /* Anpassung: Größerer Innenabstand */
+    width: calc(100% - 40px); /* Anpassung: Popup-Fenster ist 20px breiter auf beiden Seiten */
+    background-color: transparent;
+    padding: 30px; /* Anpassung: Größerer Innenabstand */
 }
 
 .closeBtn {
-  position: absolute;
-  top: -50px; /* Anpassung: Button weiter oben positionieren */
-  right: 150px; /* Anpassung: Button weiter rechts positionieren */
-  background-color: transparent;
-  border: none;
-  color: #000;
-  font-size: 28px; /* Anpassung: Größere Schriftgröße */
-  cursor: pointer;
+    position: absolute;
+    top: -50px; /* Anpassung: Button weiter oben positionieren */
+    right: 150px; /* Anpassung: Button weiter rechts positionieren */
+    background-color: transparent;
+    border: none;
+    color: #000;
+    font-size: 28px; /* Anpassung: Größere Schriftgröße */
+    cursor: pointer;
 }
 
 .close-icon {
@@ -67,9 +47,9 @@ export default defineComponent({
     right: 150px; /* Anpassung: Button weiter rechts positionieren */
     color: #000;
     font-size: 28px;
-  }
+}
 
 .closeBtn:hover {
-  color: #333;
+    color: #333;
 }
 </style>

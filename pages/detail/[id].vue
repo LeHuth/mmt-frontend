@@ -22,7 +22,7 @@
                         </option>
                     </select>
 
-                    <button class="btn rounded-none w-full mt-10 mb-3">ADD TO CART</button>
+                    <button class="btn rounded-none w-full mt-10 mb-3" @click="addToCart">ADD TO CART</button>
                     <div class="border border-black h-12 flex justify-between p-2">
                         <button :disabled="amount < 2" class="btn btn-sm rounded-none" @click="amount--">-</button>
                         <p>{{ amount }}</p>
@@ -40,7 +40,8 @@
                                     Supporting Artists with Every Purchase at MapMyTickets
                                 </div>
                                 <div class="collapse-content">
-                                    <p>At MapMyTickets, we believe in championing the artists who create the
+                                    <p class="nofont">At MapMyTickets, we believe in championing the artists who create
+                                        the
                                         performances
                                         you love. As a testament to our commitment, we ensure that a substantial portion
                                         of
@@ -73,7 +74,8 @@
                                     Secure Payment
                                 </div>
                                 <div class="collapse-content">
-                                    <p>At MapMyTicktes, we prioritize your online security and privacy. We've
+                                    <p class="nofont">At MapMyTicktes, we prioritize your online security and privacy.
+                                        We've
                                         implemented
                                         robust measures to ensure safe and hassle-free transactions.
 
@@ -102,7 +104,8 @@
                                     Free Shipping, No Returns
                                 </div>
                                 <div class="collapse-content">
-                                    <p>At MapMyTickets, we're not just committed to providing you with an easy and
+                                    <p class="nofont">At MapMyTickets, we're not just committed to providing you with an
+                                        easy and
                                         secure
                                         booking experience, but also ensuring you receive your tickets without any
                                         additional costs. That's why we're proud to offer Free Shipping on all orders.
@@ -140,8 +143,10 @@
 
 <script lang="ts" setup>
 import {useEventsStore} from "~/store/events";
+import {useCartStore} from "~/store/cart";
 
 const EventStore = useEventsStore()
+const CartStore = useCartStore()
 const amount = ref(1)
 const route = useRoute()
 
@@ -152,6 +157,11 @@ const event = computed(() => EventStore.event)
 const formatDate = (isodate: string) => {
     const [year, month, day] = isodate.split('-')
     return `${day.substring(0, 2)}.${month}.${year}`
+}
+
+const addToCart = () => {
+    CartStore.addToCart(event.value._id, true)
+    amount.value = 1
 }
 </script>
 

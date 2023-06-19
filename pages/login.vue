@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 p-10 h-fit">
+  <div class="grid grid-cols-2 p-10">
     <div>
       <div v-if="!authStore.isLoggedIn">
         <h1
