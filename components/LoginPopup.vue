@@ -109,7 +109,6 @@ const login = async () => {
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     box-shadow: 15px 15px 50px rgba(0,0,0,0.2);
     animation: morphing 10s infinite;
-    overflow: hidden;
 }
 
 @keyframes morphing {

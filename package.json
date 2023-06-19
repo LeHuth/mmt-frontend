@@ -25,12 +25,13 @@
   },
   "dependencies": {
     "@maptiler/sdk": "^1.0.12",
+    "@nuxt/devtools": "^0.6.0",
     "@nuxt/types": "^2.16.3",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.6.7",
     "@pinia/nuxt": "^0.4.9",
     "@vueuse/core": "^10.1.2",
-    "daisyui": "^3.1.0",
+    "daisyui": "3.1.0",
     "jose": "^4.14.3",
     "pinia": "^2.0.35",
     "typescript": "^5.0.4"

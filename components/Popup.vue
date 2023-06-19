@@ -53,7 +53,6 @@ const props = defineProps({
 
     background-size: 100%;
     padding: 0;
-    overflow: auto;
 }
 
 .content {

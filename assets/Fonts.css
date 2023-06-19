@@ -70,7 +70,11 @@ h1.huge {
 
 
 p {
-    font: normal normal 16px/16px NewYork;
+    font: normal normal 16px/16px AkzidenzGrotesk;
+}
+
+p.small{
+    font: normal normal 14px/14px AkzidenzGrotesk;
 }
 
 span {
