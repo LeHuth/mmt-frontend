@@ -57,7 +57,7 @@ h1.huge {
     transition: text-shadow 0.1s ease-in-out, color 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
 
-.text-shadow:hover{
+.text-shadow:hover {
     text-shadow: 10px 10px rgb(31, 41, 55);
     transform: translate(-10px, -10px);
     color: greenyellow;
@@ -76,6 +76,11 @@ p {
 span {
     font: normal normal 16px/16px AkzidenzGrotesk;
 }
+
+span.nofont {
+    font: normal normal 16px/16px unset;
+}
+
 
 .mmt-outline {
     border: 1px solid black;

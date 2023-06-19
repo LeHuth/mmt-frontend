@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <div class="content-all">
-            <div class="content-carrousel">
-                <figure v-for="event in events.slice(0,9)">
-                    <Popup
-                            v-if="true"
-                            :show="true"
-                            :description="event.title"
-                            :image="event.image == 'test-image-url' ? 'https://picsum.photos/200' : event.image"
-                            imageAlt="Popup Image"
-                            :event_id="event._id"
-                    />
-                </figure><!--
+  <div>
+    <div class="content-all">
+      <div class="content-carrousel">
+        <figure v-for="event in events.slice(0,9)">
+          <Popup
+            v-if="true"
+            :description="event.title"
+            :event_id="event._id"
+            :image="event.image == 'test-image-url' ? 'https://picsum.photos/200' : event.image"
+            :show="true"
+            image-alt="Popup Image"
+          />
+        </figure><!--
                 <figure><img src="apache-sommer-tickets-poster.jpg"></figure>
                 <figure><img src="coldplay-tickets-poster-ta-vage.jpg"></figure>
                 <figure><img src="cro-tickets-poster.jpg"></figure>
@@ -20,33 +20,31 @@
                 <figure><img src="tanz-der-vampire-25j-tickets-poster.jpg"></figure>
                 <figure><img src="taylor-swift-tickets-poster-vager-ta.jpg"></figure>
                 <figure><img src="the-weeknd-tickets-poster.jpg"></figure>-->
-            </div>
-        </div>
-        <!--      <div class="msg">OkayyLetssGoo</div>-->
-        <div id="console"></div>
-        <div class="marker-container">
-            <!--      <Marker />-->
-        </div>
+      </div>
     </div>
+    <!--      <div class="msg">OkayyLetssGoo</div>-->
+    <div id="console" />
+    <div class="marker-container">
+      <!--      <Marker />-->
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import Popup from "~/components/Popup.vue";
+import Popup from '~/components/Popup.vue'
+import { useEventsStore } from '~/store/events'
 
 definePageMeta({
-    title: 'Tickets',
-    description: 'Tickets',
+  title: 'Tickets',
+  description: 'Tickets'
 
 })
 
-import {useEventsStore} from "~/store/events";
-const eventStore = useEventsStore();
-eventStore.fetchEvents();
+const eventStore = useEventsStore()
+eventStore.fetchEvents()
 const events = eventStore.getEvents
 
-
 </script>
-
 
 <style scoped>
 a {
