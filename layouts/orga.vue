@@ -1,6 +1,5 @@
 <template>
   <div style="max-width: 1920px; height: 100dvh; margin: auto">
-    <MMTNavbar />
     <div style="min-height: calc(100dvh - 450px)">
       <slot />
     </div>
@@ -29,9 +28,10 @@
     </footer>
   </div>
 </template>
+
 <script>
 export default {
-  name: 'Default'
+  name: 'Orga'
 }
 </script>
 
@@ -71,5 +71,4 @@ export default {
     border-radius: 20px;
     border: 3px solid var(--primary);
 }
-
 </style>
