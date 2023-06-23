@@ -31,6 +31,7 @@
     "@pinia/nuxt": "^0.4.9",
     "@stripe/stripe-js": "^1.54.0",
     "@vueuse/core": "^10.1.2",
+    "axios": "^1.4.0",
     "daisyui": "^2.51.6",
     "jose": "^4.14.3",
     "pinia": "^2.0.35",

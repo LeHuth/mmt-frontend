@@ -1,75 +1,89 @@
 <template>
-    <div>
-        <p class="decode-result">Last result: <b>{{ result }}</b></p>
+  <div>
+    <p class="decode-result">Last result: {{ result }}</p>
+    <p class="validation-message">
+      Validation message: {{ validationMessage }}
+    </p>
+    <p class="validation-success">
+      Validation success: {{ validationSuccess }}
+    </p>
 
-
-        <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit">
-            <div v-show="showScanConfirmation" class="scan-confirmation">
-                <img alt="Checkmark" width="128px" />
-            </div>
-        </qrcode-stream>
-    </div>
+    <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit">
+      <div v-show="showScanConfirmation" class="scan-confirmation">
+        <img alt="Checkmark" width="128px" />
+      </div>
+    </qrcode-stream>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
+  data() {
+    return {
+      camera: "HD Camera",
+      result: null,
+      showScanConfirmation: false,
+      validationMessage: null,
+      validationSuccess: null,
+    };
+  },
 
-    data () {
-        return {
-            camera: 'auto',
-            result: null,
-            showScanConfirmation: false
-        }
+  methods: {
+    async onInit(promise) {
+      try {
+        await promise;
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.showScanConfirmation = this.camera === "off";
+      }
     },
 
-    methods: {
+    async onDecode(content) {
+      this.result = content;
 
-        async onInit (promise) {
-            try {
-                await promise
-            } catch (e) {
-                console.error(e)
-            } finally {
-                this.showScanConfirmation = this.camera === "off"
-            }
-        },
+      this.pause();
 
-        async onDecode (content) {
-            this.result = content
+      await this.validateTicket(content);
+    },
 
-            this.pause()
-            //await this.timeout(500)
-            //this.unpause()
-        },
+    async validateTicket(uuid) {
+      try {
+        const response = await axios.post(
+          `http://localhost:8080/ticket/validate/${uuid}`,
+          {},
+          {
+            validateStatus: function (status) {
+              return status < 500;
+            },
+          }
+        );
 
-        unpause () {
-            this.camera = 'auto'
-        },
+        this.validationSuccess = response.data.success;
+        this.validationMessage = response.data.message;
 
-        pause () {
-            this.camera = 'off'
-        },
+      } catch (err) {
+        console.error(err);
+        this.validationSuccess = false;
+        this.validationMessage = "Fehler beim Validieren des Tickets";
+      }
+    },
 
-        timeout (ms) {
-            return new Promise(resolve => {
-                window.setTimeout(resolve, ms)
-            })
-        }
-    }
-}
+    unpause() {
+      this.camera = "auto";
+    },
+
+    pause() {
+      this.camera = "off";
+    },
+
+    timeout(ms) {
+      return new Promise((resolve) => {
+        window.setTimeout(resolve, ms);
+      });
+    },
+  },
+};
 </script>
-
-<style scoped>
-.scan-confirmation {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
-    background-color: rgba(255, 255, 255, .8);
-
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-}
-</style>
