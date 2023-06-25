@@ -160,7 +160,7 @@ const formatDate = (isodate: string) => {
 }
 
 const addToCart = () => {
-    CartStore.addToCart(event.value._id, true)
+    CartStore.addToCart(event.value._id, true, amount.value, event.value.price)
     amount.value = 1
 }
 </script>

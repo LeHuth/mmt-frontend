@@ -1,19 +1,28 @@
 <template>
-  <div class="whitespace-nowrap flex justify-center overflow-visible">
+  <div class="whitespace-nowrap flex justify-between overflow-visible max-w-[1475px] ml-auto mr-auto">
     <h1
-      :class="'huge -ml-4 inline-block w-fit overflow-hidden whitespace-nowrap ' + addOutline('/')"
+      :class="{ 'active-tab': router.currentRoute.value.path == '/'}"
+      class="huge inline-block text-outline cursor-pointer nav-item"
       @click="navigateTo('/')"
     >
       MAP
     </h1>
+    <div class="relative">
+      <h1
+        :class="{ 'active-tab': router.currentRoute.value.path == '/login/'}"
+        class="huge inline-block text-outline cursor-pointer nav-item"
+        @click="navigateTo('/login/')"
+      >
+        MY
+      </h1>
+      <div v-if="authStore.isLoggedIn" id="nav-username" class="fixed top-10 bg-black text-white rotate-12">
+        <h1>User's</h1>
+      </div>
+    </div>
+
     <h1
-      :class="'huge inline-block overflow-hidden whitespace-nowrap ' + addOutline('/login')"
-      @click="navigateTo('/login/')"
-    >
-      MY
-    </h1>
-    <h1
-      :class="'huge inline-block overflow-hidden whitespace-nowrap ' + addOutline('/tickets')"
+      :class="{'active-tab': router.currentRoute.value.path == '/tickets/'}"
+      class="huge inline-block text-outline cursor-pointer nav-item"
       @click="navigateTo('/tickets/')"
     >
       TICKETS
@@ -36,7 +45,7 @@ defineComponent({
     MMTLoginModal
   }
 })
-
+const active = 'tickets'
 const authStore = useAuthStore()
 
 const addOutline = (path) => {
@@ -49,4 +58,22 @@ const addOutline = (path) => {
 </script>
 
 <style scoped>
+h1.nav-item {
+    transition: transform 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+h1:hover {
+    /* border-bottom: 4px solid greenyellow;*/
+
+    border-bottom: 4px solid greenyellow;
+    transform: translateY(-2px);
+}
+
+.nav-item.active-tab {
+    transform: translateY(-2px);
+    border-bottom: greenyellow 4px solid !important;
+    -webkit-text-fill-color: unset;
+    -webkit-text-stroke-width: unset;
+    -webkit-text-stroke-color: black;
+}
 </style>

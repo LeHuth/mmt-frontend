@@ -1,6 +1,9 @@
 <template>
-  <div class="grid grid-cols-2 p-10">
-    <div>
+  <div
+    class="grid grid-cols-2 gap-3 py-10 ml-auto mr-auto w-fit"
+    style="grid-template-columns: 480px 984px; min-height: calc(100vh - 376px)"
+  >
+    <div class="border-l border-black">
       <div v-if="!authStore.isLoggedIn">
         <h1
           :class="{ active: showLoginPopup }"
@@ -27,6 +30,22 @@
           @click="showPopUp('cart')"
         >
           Warenkorb
+        </h1>
+      </div>
+      <div v-if="authStore.isLoggedIn">
+        <h1
+          class="menu__item-link cursor-pointer"
+          @click="authStore.logout()"
+        >
+          Order History
+        </h1>
+      </div>
+      <div v-if="authStore.isLoggedIn">
+        <h1
+          class="menu__item-link cursor-pointer"
+          @click="authStore.logout()"
+        >
+          Profile
         </h1>
       </div>
       <div v-if="authStore.isLoggedIn">

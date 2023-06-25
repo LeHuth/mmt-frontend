@@ -1,11 +1,11 @@
 <template>
-  <div style="max-width: 1920px; height: 100dvh; margin: auto">
+  <div class="noise" style="max-width: 1920px; margin: auto">
     <MMTNavbar />
-    <div style="min-height: calc(100dvh - 450px)">
+    <div>
       <slot />
     </div>
 
-    <footer class="footer p-10 bg-white text-black border border-black">
+    <footer class="footer ml-auto p-10 mr-auto text-black border border-black max-w-[1475px]">
       <div>
         <span class="footer-title">Services</span>
         <a class="link link-hover">Branding</a>

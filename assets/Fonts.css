@@ -15,8 +15,18 @@
     font-weight: 400;
 }
 
+@font-face {
+    font-family: "PlayfairDisplay";
+    src: url("~/assets/fonts/Playfair/PlayfairDisplay.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("~/assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+}
+
 h1 {
-    font: normal normal 44px/44px Etheral;
+    font: normal normal 44px/44px PlayfairDisplay;
 }
 
 h2 {
@@ -28,11 +38,12 @@ h3 {
 }
 
 h4 {
-    font: normal normal 24px/24px AkzidenzGrotesk;
+    font: normal normal 26px/26px PlayfairDisplay;
+    font-weight: 200;
 }
 
 h5 {
-    font: normal normal 20px/20px AkzidenzGrotesk;
+    font: normal normal 22px/22px PlayfairDisplay;
 }
 
 h6 {
@@ -40,11 +51,10 @@ h6 {
 }
 
 h1.huge {
-    font-size: 230px;
-    line-height: 1;
+    font-size: 170px;
+    line-height: 170px;
     text-align: left;
     letter-spacing: 0.054em;
-    color: #1f2937;
 }
 
 .text-outline {
@@ -70,11 +80,17 @@ h1.huge {
 
 
 p {
-    font: normal normal 16px/16px AkzidenzGrotesk;
+    font: normal normal 16px/16px Roboto;
 }
 
 p.small {
     font: normal normal 14px/14px AkzidenzGrotesk;
+}
+
+a {
+    font: normal normal 16px/16px Roboto;
+    text-decoration: none;
+    color: black;
 }
 
 p.nofont {
@@ -82,7 +98,7 @@ p.nofont {
 }
 
 span {
-    font: normal normal 16px/16px AkzidenzGrotesk;
+    font: normal normal 16px/16px Roboto;
 }
 
 span.nofont {
@@ -92,4 +108,14 @@ span.nofont {
 
 .mmt-outline {
     border: 1px solid black;
+}
+
+#__nuxt {
+    background-image: url('~/assets/images/white.png');
+    background-repeat: repeat;
+    background-size: 50px 50px;
+}
+
+.font-size-26 {
+    font-size: 20px;
 }

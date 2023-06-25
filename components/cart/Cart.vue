@@ -3,23 +3,44 @@
     <div v-if="showCartPopup" class="overlay">
       <div class="cart-popup">
         <div class="cart-popup-content">
-          <div v-if="cartStore.getCart.length > 0">
+          <div class="grid pl-3" style="grid-template-columns: 70px 300px 100px 100px 100px">
+            <p class="">
+              Product
+            </p>
+            <div />
+            <p>Price</p>
+            <p>Amount</p>
+            <p>Subtotal</p>
+            <p />
+          </div>
+          <div v-if="showBackendCart">
             <CartItem
-              v-for="item in cartStore.getCart"
+              v-for="item in backendCart.shoppingCart.items"
               :key="item"
-              :event="eventStore.getEventById(item)"
+              :amount="item.amount"
+              :event="eventStore.getEventById(item.event_id)"
+              @update-amount="value => updateItemInCart(value.event_id, value.amount)"
             />
-            <button v-if="authStore.isLoggedIn" @click="cartStore.checkout('')">
-              Checkout
-            </button>
-            <div v-else class="flex">
-              <div>
-                <h1>&#8612;</h1>
-                <h1>&#8612;</h1>
+            <div class="mt-6 flex">
+              <h5 class="inline-block self-center">
+                Total: <span class="pl-3 font-bold">{{ backendCart.shoppingCart.totalPrice }}$</span>
+              </h5>
+              <button
+                v-if="authStore.isLoggedIn"
+                class="btn bg-black text-white hover:bg-white hover:border-black hover:text-black rounded-none ml-auto"
+                @click="cartStore.checkout('')"
+              >
+                Checkout
+              </button>
+              <div v-else class="flex">
+                <div>
+                  <h1>&#8612;</h1>
+                  <h1>&#8612;</h1>
+                </div>
+                <h1 class="inline-block">
+                  LOGIN TO CHECKOUT
+                </h1>
               </div>
-              <h1 class="inline-block">
-                LOGIN TO CHECKOUT
-              </h1>
             </div>
           </div>
           <div v-else>
@@ -28,12 +49,6 @@
             </p>
           </div>
         </div>
-        <button class="close-button" @click="$emit('close')">
-          X
-        </button>
-        <button class="bottom-button">
-          Tickets finden
-        </button> <!-- Neuer Button am unteren Rand -->
       </div>
     </div>
   </div>
@@ -50,6 +65,8 @@ const authStore = useAuthStore()
 const cartStore = useCartStore()
 const eventStore = useEventsStore()
 eventStore.fetchEvents()
+const backendCart = ref({})
+const showBackendCart = ref(false)
 
 const cart = computed(() => {
   return cartStore.getCart.map((id) => {
@@ -60,23 +77,20 @@ const cart = computed(() => {
   })
 })
 
-const cartTotal = computed(() => {
-  if (!cart.value) {
-    return 0
-  }
-  let sum = 0
-  try {
-    cartStore.getCart.forEach((id) => {
-      sum += eventStore.getEventPrice(id)
-    })
-    return sum
-  } catch (e) {
-    console.log(e)
-    return sum
-  }
-})
+const fetchCart = async () => {
+  const temp = await cartStore.fetchCart(authStore.getUserId)
+  backendCart.value = temp._rawValue
+  showBackendCart.value = true
+}
+
+// eslint-disable-next-line camelcase
+const updateItemInCart = async (event_id: string, amount: number) => {
+  backendCart.value = await cartStore.updateItem(event_id, amount) as object
+}
 
 const showCartPopup = ref(true)
+
+fetchCart()
 </script>
 
 <style scoped>

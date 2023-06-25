@@ -1,20 +1,44 @@
 <template>
-  <div class="top-bottom-outline flex p-2">
-    <div class="flex">
+  <div class="top-bottom-outline flex p-3">
+    <div class="grid w-full" style="grid-template-columns: 70px 300px 100px 100px 100px">
       <img
         :src="props.event?.images[0]"
         alt="event image"
-        height="200"
-        style="width: 100px; height: 100px; object-fit: cover"
-        width="200"
+        height="60"
+        style="width: 70px; height: 70px; object-fit: cover"
+        width="60"
       >
-      <div>
-        <h3>{{ props.event.name }}</h3>
-        <h3>{{ props.event.price }}$</h3>
+      <h4 class="self-center pl-3">
+        {{ props.event.name }}
+      </h4>
+      <p class="self-center">
+        {{ props.event.price }}$
+      </p>
+      <div class="flex gap-3">
+        <p class="self-center">
+          {{ props.amount }}
+        </p>
+        <div class="flex align-middle flex-col justify-center">
+          <button
+            class="btn btn-xs rounded-none border-black"
+            @click="$emit('updateAmount', {'amount':amount+1, event_id: props.event?._id})"
+          >
+            +
+          </button>
+          <button
+            class="btn btn-xs rounded-none"
+            @click="$emit('updateAmount', {'amount':amount-1, event_id: props.event?._id})"
+          >
+            -
+          </button>
+        </div>
       </div>
+      <p class="self-center">
+        {{ props.event.price * props.amount }}$
+      </p>
     </div>
     <button class="ml-auto self-end" @click="cartStore.removeFromCart('',props.event?._id, true)">
-      <span>REMOVE</span>
+      <span class="link">REMOVE</span>
     </button>
   </div>
 </template>
@@ -31,17 +55,26 @@ defineComponent({
     event: {
       type: Object as PropType<Event>,
       required: true
+    },
+    amount: {
+      type: Number,
+      default: 1
     }
   }
-}
-)
+})
 
 const props = defineProps({
   event: {
     type: Object as PropType<Event>,
     required: true
+  },
+  amount: {
+    type: Number,
+    default: 1
   }
 })
+
+const emit = defineEmits(['updateAmount'])
 </script>
 
 <style scoped>

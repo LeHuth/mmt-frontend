@@ -1,54 +1,43 @@
 <template>
-    <div  class="card w-96 bg-accent-focus/40 shadow-xl mb-10">
-        <div class="rounded-lg"><img :src="props.event.image == 'test-image-url' ? 'https://picsum.photos/200' : props.event.image"
-                                     alt="EventTIle"
-                                     class="object-cover w-full max-h-72 rounded-lg"/></div>
-        <div class="card-body">
-            <h2 class="card-title">{{ props.event.title }}</h2>
-            <p>{{ props.event.description }}</p>
-            <div class="card-actions justify-end">
-                <button v-if="ItemIsNotInCart(props.event?._id)" class="btn btn-primary"
-                        @click="cartStore.addToCart(props.event._id,true)">Add to Cart
-                </button>
-                <button v-else class="btn btn-primary" @click="cartStore.removeFromCart('',props.event._id, true)">Remove
-                    from Cart
-                </button>
-            </div>
-        </div>
+  <div>
+    <div class="p-3">
+      <nuxt-img :src="props.eventData?.images[0]" format="webp" quality="10" />
     </div>
+    <div class="px-3 my-3">
+      <div class="flex justify-between align-middle text-center">
+        <h5>{{ props.eventData?.name }}</h5>
+        <span class="self-center">
+          {{ props.eventData?.price }}$
+        </span>
+      </div>
+      <a class="mt-3 block">
+        Event Category
+      </a>
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts">
-import {Event} from "~/types";
-import {PropType} from "@vue/runtime-core";
+<script lang="ts" setup>
+import { PropType } from 'vue'
+import { IEvent } from '~/types'
+
 defineComponent({
-    name: "Card",
-    props: {
-        event: {
-            type: Object as PropType<Event>,
-            required: true
-        }
+  name: 'Card',
+  props: {
+    eventData: {
+      type: Object as PropType<IEvent>,
+      required: true
     }
+  }
 })
 
 const props = defineProps({
-    event: {
-        type: Object as PropType<Event>,
-        required: true
-    }
+  eventData: {
+    type: Object as PropType<IEvent>,
+    required: true
+  }
 })
-
-import {useCartStore} from "~/store/cart";
-import {useEventsStore} from "~/store/events";
-
-const cartStore = useCartStore()
-const eventStore = useEventsStore()
-
-const ItemIsNotInCart = (id) => {
-    return !cartStore.getCart.includes(id)
-}
 </script>
 
 <style scoped>
-
 </style>

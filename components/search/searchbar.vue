@@ -1,13 +1,13 @@
 <template>
-  <div class="sticky grid z-50 top-0 bg-white">
-    <div :class="'flex z-30 justify-between bg-white ' + (isBordered ? 'p-2 border-black border-y border-x' : '')">
+  <div class="sticky grid z-50 top-0 searchbar-bg ">
+    <div :class="'flex z-30 justify-between searchbar-bg ' + (isBordered ? 'p-2 border-black border-y border-x' : '')">
       <h5 v-if="showResultCount" class="text-center self-center min-w-fit mr-6">
         {{ props.events.length }}
         Ergebnisse
       </h5>
       <input
         v-model="searchQuery"
-        class="input border-black w-full rounded-none"
+        class="input w-full searchbar-bg rounded-none"
         placeholder="Search"
         type="text"
         @blur="showSearchResultSection=false"
@@ -20,7 +20,7 @@
     </div>
     <search-result-section
       id="search-result-container"
-      :class="(showSearchResultSection ? resultSectionOffset : 'invisible') + ' absolute z-10' "
+      :class="(showSearchResultSection ? resultSectionOffset : 'invisible') + ' absolute searchbar-bg z-10' "
       :events="feedResults.value"
       @select="value => {onResultSectionSelect(value)}"
     />
@@ -118,5 +118,11 @@ const onResultSectionSelect = (value) => {
 <style scoped>
 #search-result-container {
     transition: visibility 0.2s ease-in-out 0.2s, transform 0.2s ease-in-out 0.2s;
+}
+
+.searchbar-bg {
+    background-image: url('~/assets/images/white.png');
+    background-repeat: repeat;
+    background-size: 50px 50px;
 }
 </style>
