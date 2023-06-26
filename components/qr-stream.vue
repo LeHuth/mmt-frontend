@@ -7,6 +7,9 @@
     <p class="validation-success">
       Validation success: {{ validationSuccess }}
     </p>
+    <p class="validation-date">
+      Validation success: {{ validationDate }}
+    </p>
 
     <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit">
       <div v-show="showScanConfirmation" class="scan-confirmation">
@@ -27,6 +30,7 @@ export default {
       showScanConfirmation: false,
       validationMessage: null,
       validationSuccess: null,
+      validationDate: null
     };
   },
 
@@ -63,6 +67,7 @@ export default {
 
         this.validationSuccess = response.data.success;
         this.validationMessage = response.data.message;
+        this.validationDate = response.data.validatedAt;
 
       } catch (err) {
         console.error(err);
