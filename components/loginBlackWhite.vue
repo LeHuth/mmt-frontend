@@ -5,7 +5,7 @@
     </button>
 
     <div class="">
-      <form v-if="!authStore.isLoggedIn" class="flex flex-col" @submit.prevent="login">
+      <form v-if="!isLoggedIn" class="flex flex-col" @submit.prevent="login">
         <div class="form-control">
           <label class="label">
             <span class="label-text">E-MAIL</span>
@@ -41,7 +41,7 @@
         <h1 class="popup-logged-in">
           LOGGED IN
         </h1>
-        <button v-if="authStore.isLoggedIn" class="btn rounded-b-none" @click="authStore.logout()">
+        <button v-if="isLoggedIn" class="btn rounded-b-none" @click="authStore.logout()">
           Logout
         </button>
       </div>
@@ -69,6 +69,12 @@ const props = defineProps(['visible'])
 const hide = () => {
   emits('close') // Das Popup-Fenster ausblenden
 }
+
+const isLoggedIn = ref(false)
+
+authStore.verifyToken().then((res) => {
+  isLoggedIn.value = res
+})
 const login = async () => {
   authStore
     .login(email.value, password.value)

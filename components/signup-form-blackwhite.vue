@@ -5,7 +5,7 @@
     </button>
 
     <div class="">
-      <form v-if="!authStore.isLoggedIn" class="flex flex-col" @submit.prevent="login">
+      <form v-if="!authStore.verifyToken()" class="flex flex-col" @submit.prevent="login">
         <div class="form-control">
           <label class="label">
             <span class="label-text">FIRST NAME</span>
@@ -77,7 +77,7 @@
         <h1 class="popup-logged-in">
           LOGGED IN
         </h1>
-        <button v-if="authStore.isLoggedIn" class="btn rounded-b-none" @click="authStore.logout()">
+        <button v-if="authStore.verifyToken()" class="btn rounded-b-none" @click="authStore.logout()">
           Logout
         </button>
       </div>

@@ -15,7 +15,7 @@
       >
         MY
       </h1>
-      <div v-if="authStore.isLoggedIn" id="nav-username" class="fixed top-10 bg-black text-white rotate-12">
+      <div v-if="authStore.verifyToken()" id="nav-username" class="fixed top-10 bg-black text-white rotate-12">
         <h1>User's</h1>
       </div>
     </div>
@@ -59,7 +59,7 @@ const addOutline = (path) => {
 
 <style scoped>
 h1.nav-item {
-    transition: transform 0.2s ease-in-out, border 0.2s ease-in-out;
+    transition: transform 0.1s ease-in-out, border 0.1s ease-in-out;
 }
 
 h1:hover {

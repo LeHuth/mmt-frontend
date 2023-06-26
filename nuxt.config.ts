@@ -18,7 +18,8 @@ export default defineNuxtConfig({
     public: {
       jwtSecret: process.env.JWT_SECRET,
       baseUrl: process.env.BASE_URL
-    }
+    },
+    server_jwtSecret: process.env.JWT_SECRET
   },
 
   app: {},

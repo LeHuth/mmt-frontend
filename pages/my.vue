@@ -2,7 +2,7 @@
   <div class="grid grid-cols-2">
     <div class="mmt-outline">
       <form
-        v-if="!authStore.isLoggedIn"
+        v-if="!authStore.verifyToken()"
         class="flex flex-col"
         @submit.prevent="login"
       >
@@ -41,7 +41,7 @@
           LOGGED IN
         </h1>
         <button
-          v-if="authStore.isLoggedIn"
+          v-if="authStore.verifyToken()"
           class="btn"
           @click="authStore.logout()"
         >

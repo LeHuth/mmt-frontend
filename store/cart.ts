@@ -41,7 +41,7 @@ export const useCartStore = defineStore('cart', {
         }
       })
 
-      return data
+      return data.value
     },
     async updateItem (event_id: string, amount: number) {
       this.loading = true
@@ -89,8 +89,8 @@ export const useCartStore = defineStore('cart', {
       this.loading = true
       console.log('ADD TO CART')
       const authStore = useAuthStore()
-      console.log(authStore.isLoggedIn, authStore.getUserId)
-      const isLogged = authStore.isLoggedIn
+      console.log(authStore.verifyToken(), authStore.getUserId)
+      const isLogged = authStore.verifyToken()
       if (isLogged) {
         console.log('LOGGED IN')
         const userId = authStore.getUserId

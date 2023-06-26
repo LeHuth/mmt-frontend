@@ -26,9 +26,9 @@
                 Total: <span class="pl-3 font-bold">{{ backendCart.shoppingCart.totalPrice }}$</span>
               </h5>
               <button
-                v-if="authStore.isLoggedIn"
+                v-if="authStore.verifyToken()"
                 class="btn bg-black text-white hover:bg-white hover:border-black hover:text-black rounded-none ml-auto"
-                @click="cartStore.checkout('')"
+                @click="navigateTo('/checkout')"
               >
                 Checkout
               </button>
@@ -78,8 +78,7 @@ const cart = computed(() => {
 })
 
 const fetchCart = async () => {
-  const temp = await cartStore.fetchCart(authStore.getUserId)
-  backendCart.value = temp._rawValue
+  backendCart.value = await cartStore.fetchCart(authStore.getUserId) as object
   showBackendCart.value = true
 }
 
