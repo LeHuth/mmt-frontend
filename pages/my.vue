@@ -88,7 +88,7 @@ const prod = reactive({
 
 const getOrderHistory = async () => {
   const userId = authStore.getUserId
-  const url = `${config.public.jwtSecret}/users/get-order-history/${userId}`
+  const url = `${config.public.baseUrl}/users/get-order-history/${userId}`
   const { data } = await useFetch(url)
   prod.products = data.value.products
 }

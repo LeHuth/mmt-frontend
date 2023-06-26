@@ -65,7 +65,7 @@ definePageMeta({
 const config = useRuntimeConfig()
 const tags = ref([])
 const fetchTags = async () => {
-  const { data } = await useFetch(`${config.public.jwtSecret}/tags/`)
+  const { data } = await useFetch(`${config.public.baseUrl}/tags/`)
   tags.value = data._rawValue.tags
 }
 fetchTags()

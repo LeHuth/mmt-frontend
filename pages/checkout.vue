@@ -25,7 +25,7 @@ const authStore = useAuthStore()
 const config = useRuntimeConfig()
 const fetchCart = async () => {
   // @ts-ignore
-  const { data } = await useFetch(`${config.public.jwtSecret}/payment/prepare-checkout/`, {
+  const { data } = await useFetch(`${config.public.baseUrl}/payment/prepare-checkout/`, {
 
     headers: {
       'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const fetchCart = async () => {
 
 const placeOrder = async () => {
   // @ts-ignore
-  const { data } = await useFetch(`${config.public.jwtSecret}/payment/checkout/`, {
+  const { data } = await useFetch(`${config.public.baseUrl}/payment/checkout/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

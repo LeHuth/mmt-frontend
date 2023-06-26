@@ -44,7 +44,7 @@ const loading = ref(false)
 const loadOrder = async () => {
   loading.value = true
   const config = useRuntimeConfig()
-  const { data } = await useFetch(`${config.public.jwtSecret}/users/my/orders/`, {
+  const { data } = await useFetch(`${config.public.baseUrl}/users/my/orders/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -104,7 +104,7 @@ export const useEventsStore = defineStore({
       const auth = useAuthStore()
       try {
         const config = useRuntimeConfig()
-        const response = await useFetch(`${config.public.jwtSecret}/events/update/${event._id}`, {
+        const response = await useFetch(`${config.public.baseUrl}/events/update/${event._id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ export const useEventsStore = defineStore({
       const auth = useAuthStore()
       try {
         const config = useRuntimeConfig()
-        await useFetch(`${config.public.jwtSecret}/events/delete/${id}`, {
+        await useFetch(`${config.public.baseUrl}/events/delete/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

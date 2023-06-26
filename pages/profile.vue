@@ -38,7 +38,7 @@ const authStore = useAuthStore()
 const config = useRuntimeConfig()
 // fetch user data
 // @ts-ignore
-const response = useFetch(`${config.public.jwtSecret}/users/user/get/${authStore.user.id}`, {
+const response = useFetch(`${config.public.baseUrl}/users/user/get/${authStore.user.id}`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',

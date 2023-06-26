@@ -89,7 +89,7 @@ const runFilter = async () => {
     return
   }
   const config = useRuntimeConfig()
-  const { data } = await useFetch(`${config.public.jwtSecret}/events/filter`, {
+  const { data } = await useFetch(`${config.public.baseUrl}/events/filter`, {
     query: {
       name: searchQuery.value
     }
