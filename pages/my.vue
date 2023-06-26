@@ -80,6 +80,7 @@ const cartStore = useCartStore()
 const authStore = useAuthStore()
 const eventStore = useEventsStore()
 const email = ref<string>('')
+const config = useRuntimeConfig()
 const password = ref<string>('')
 const prod = reactive({
   products: null
@@ -87,7 +88,7 @@ const prod = reactive({
 
 const getOrderHistory = async () => {
   const userId = authStore.getUserId
-  const url = `http://localhost:8080/users/get-order-history/${userId}`
+  const url = `${config.public.jwtSecret}/users/get-order-history/${userId}`
   const { data } = await useFetch(url)
   prod.products = data.value.products
 }

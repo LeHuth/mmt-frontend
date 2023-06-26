@@ -27,7 +27,8 @@ export const useCartStore = defineStore('cart', {
     async fetchCart (id: string) {
       this.loading = true
       const authStore = useAuthStore()
-      const { data } = await useFetch(`http://localhost:8080/cart/get/${id}`, {
+      const config = useRuntimeConfig()
+      const { data } = await useFetch(`${config.public.baseUrl}/cart/get/${id}`, {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + authStore.getToken
@@ -46,7 +47,8 @@ export const useCartStore = defineStore('cart', {
     async updateItem (event_id: string, amount: number) {
       this.loading = true
       const authStore = useAuthStore()
-      const { data } = await useFetch(`http://localhost:8080/cart/update-item/${event_id}?amount=${amount}`, {
+      const config = useRuntimeConfig()
+      const { data } = await useFetch(`${config.public.baseUrl}/cart/update-item/${event_id}?amount=${amount}`, {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + authStore.getToken
@@ -95,7 +97,8 @@ export const useCartStore = defineStore('cart', {
         console.log('LOGGED IN')
         const userId = authStore.getUserId
         try {
-          const { data } = await useFetch(`http://localhost:8080/cart/add/${userId}`, {
+          const config = useRuntimeConfig()
+          const { data } = await useFetch(`${config.public.baseUrl}/cart/add/${userId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -124,7 +127,8 @@ export const useCartStore = defineStore('cart', {
       this.loading = true
       if (!anonymous) {
         try {
-          const response = await useFetch(`http://localhost:8080/cart/remove/${id}`, {
+          const config = useRuntimeConfig()
+          const response = await useFetch(`${config.public.baseUrl}/cart/remove/${id}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -151,7 +155,8 @@ export const useCartStore = defineStore('cart', {
       this.loading = true
       if (!anonymous) {
         try {
-          const response = await useFetch(`http://localhost:8080/cart/clear/${id}`, {
+          const config = useRuntimeConfig()
+          const response = await useFetch(`${config.public.baseUrl}/cart/clear/${id}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

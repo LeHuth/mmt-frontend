@@ -43,7 +43,8 @@ const loading = ref(false)
 
 const loadOrder = async () => {
   loading.value = true
-  const { data } = await useFetch('http://localhost:8080/users/my/orders/', {
+  const config = useRuntimeConfig()
+  const { data } = await useFetch(`${config.public.jwtSecret}/users/my/orders/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

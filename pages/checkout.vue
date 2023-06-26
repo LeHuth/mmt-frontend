@@ -22,8 +22,11 @@ definePageMeta({
 const loading = ref(false)
 const cart = ref([])
 const authStore = useAuthStore()
+const config = useRuntimeConfig()
 const fetchCart = async () => {
-  const { data } = await useFetch('http://localhost:8080/payment/prepare-checkout/', {
+
+}
+  const { data } = await useFetch(`${config.public.jwtSecret}/payment/prepare-checkout/`, {
 
     headers: {
       'Content-Type': 'application/json',
@@ -35,7 +38,7 @@ const fetchCart = async () => {
 }
 
 const placeOrder = async () => {
-  const { data } = await useFetch('http://localhost:8080/payment/checkout/', {
+  const { data } = await useFetch(`${config.public.jwtSecret}/payment/checkout/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

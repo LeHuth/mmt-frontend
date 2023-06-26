@@ -62,10 +62,10 @@ definePageMeta({
   description: 'Tickets'
 
 })
-
+const config = useRuntimeConfig()
 const tags = ref([])
 const fetchTags = async () => {
-  const { data } = await useFetch('http://localhost:8080/tags/')
+  const { data } = await useFetch(`${config.public.jwtSecret}/tags/`)
   tags.value = data._rawValue.tags
 }
 fetchTags()

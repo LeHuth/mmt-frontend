@@ -57,8 +57,9 @@ export const useEventsStore = defineStore({
     },
     async fetchEvent (id: string) {
       this.loading = true
+      const config = useRuntimeConfig()
       try {
-        const response = await useFetch(`http://localhost:8080/events/get/${id}`)
+        const response = await useFetch(`${config.public.baseUrl}/events/get/${id}`)
         // @ts-ignore
         this.event = response.data
         this.loading = false
@@ -79,7 +80,8 @@ export const useEventsStore = defineStore({
         return
       }
       try {
-        const response = await useFetch('http://localhost:8080/events/create', {
+        const config = useRuntimeConfig()
+        const response = await useFetch(`${config.public.baseUrl}/events/create`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -101,7 +103,8 @@ export const useEventsStore = defineStore({
       this.loading = true
       const auth = useAuthStore()
       try {
-        const response = await useFetch(`http://localhost:8080/events/update/${event._id}`, {
+        const config = useRuntimeConfig()
+        const response = await useFetch(`${config.public.jwtSecret}/events/update/${event._id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -123,7 +126,8 @@ export const useEventsStore = defineStore({
       this.loading = true
       const auth = useAuthStore()
       try {
-        await useFetch(`http://localhost:8080/events/delete/${id}`, {
+        const config = useRuntimeConfig()
+        await useFetch(`${config.public.jwtSecret}/events/delete/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
