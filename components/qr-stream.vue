@@ -67,7 +67,7 @@ export default {
 
         this.validationSuccess = response.data.success;
         this.validationMessage = response.data.message;
-        this.validationDate = response.data.validatedAt;
+        this.validationDate = response.data.usage;
 
       } catch (err) {
         console.error(err);
