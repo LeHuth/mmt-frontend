@@ -8,6 +8,14 @@ export default defineNuxtConfig({
     dataValue: 'theme', // activate data-theme in <html> tag
     classSuffix: '',
   },
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config.js',
+    exposeConfig: false,
+    config: {},
+    injectPosition: 0,
+    viewer: true,
+  },
   css: ['~/assets/Fonts.css','~/assets/index.scss'],
   runtimeConfig: {
     // Will be available in both server and client

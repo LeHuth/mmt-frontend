@@ -1,14 +1,21 @@
 <template>
-    <div>
-        <client-only>
-                <MMTMap />
-            <SeSection />
-        </client-only>
+  <div :class="{ dark: darkMode }">
+    <div class="wrap-2"><canvas id="liquid"></canvas></div>
+      <client-only>
+              <MMTMap />
+          <SeSection />
+      </client-only>
 
-    </div>
+      <!-- Schaltfläche zum Umschalten des Dunkelmodus -->
+      <button class="dark-mode-toggle" @click="darkMode = !darkMode">
+          Switch to {{ darkMode ? 'Light' : 'Dark' }} Mode
+      </button>
+  </div>
 </template>
 
+
 <script setup lang="ts">
+
 import {useAuthStore} from '~/store/auth';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import {useEventsStore} from '~/store/events';
@@ -29,6 +36,8 @@ await eventStore.fetchEvents();
 const previewImage = ref<File | null>(null);
 const raw = ref<File | null>(null);
 const liveURL = ref<string | null>(null);
+
+
 
 const eventObj = {
     title: 'Brutalismus 3000',
@@ -63,6 +72,8 @@ const login = () => {
             console.log(err);
         });
 };
+// Dark Mode Zustand
+const darkMode = ref(false);
 </script>
 
 <style>
@@ -71,6 +82,9 @@ body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
+    background-image: url('~/tickets/Hintergrund.png');
+    background-size: 100%; /* Damit das Bild den gesamten Bereich abdeckt */
+    background-repeat: no-repeat; /* Damit das Bild nicht wiederholt wird */
 }
 
 body::-webkit-scrollbar {
@@ -92,9 +106,24 @@ body::-webkit-scrollbar-thumb {
     width: 100%;
     height: 1000px;
 }
-</style>
 
-<style scoped>
+/* Stil für Dunkelmodus */
+.dark {
+    background: #333;
+    color: #fff;
+}
+.dark::v-deep {
+    background: #333;
+    color: #fff;
+}
+
+/* Schaltfläche zum Umschalten des Dunkelmodus */
+.dark-mode-toggle {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
 .slide-right-enter-from {
     opacity: 0;
     transform: translate(-150px, 0);

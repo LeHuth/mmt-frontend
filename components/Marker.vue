@@ -101,7 +101,7 @@
   <script setup lang="ts">
   </script>
 
-  <style>
+  <style scoped>
   body,
   html {
     width: 100%;

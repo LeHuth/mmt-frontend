@@ -5,7 +5,7 @@
                 <label tabindex="0" class="btn btn-ghost btn-circle">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
                 </label>
-                <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                <ul tabindex="0" class="glitch">
                     <li><a>Homepage</a></li>
                     <li><a>Portfolio</a></li>
                     <li><a>About</a></li>
@@ -13,7 +13,7 @@
                 </ul>
             </div>
         </div>
-        <div class="navbar-center">
+        <div class="goo">
             <a @click="navigateTo('/')" class="btn btn-ghost normal-case text-xl">MapMyTickets</a>
         </div>
         <div class="navbar-end">
@@ -75,10 +75,96 @@ const addOutline = (path) => {
 
 </script>
 
-<style scoped>
+
+<style lang="scss" scoped>
+$hue: #007fed;
+$hue-light: lighten($hue, 40%);
+$hue-dark: darken($hue, 30%);
+
+body {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  font-family: sans-serif;
+  background: $hue-light;
+}
 
 h1 {
-    font-family: "Arial", sans-serif;
-    /* oder eine andere gewünschte Schriftart */
+  margin: 0;
+  font-weight: bold;
+  font-size: 240px;
+  text-align: center;
+  color: $hue;
+  text-shadow: 2px 2px 0 $hue-dark;
 }
+
+.goo {
+  position: relative;
+  top: 40%;
+  width: 600px;
+  margin: auto;
+  transform: translateY(-60%);
+  filter: url(#goo);
+}
+
+.drop {
+  opacity: 0;
+  width: 30px;
+  height: 40px;
+  background: adjust-hue($hue, -6deg);
+  border-radius: 1000px;
+  position: absolute;
+  animation: drip 8s infinite;
+  border: 2px solid $hue-dark;
+  border-top: none;
+  top: 170px;
+  left: 70px;
+
+  &:nth-child(2) {
+    left: 130px;
+    animation-delay: 3s;
+  }
+
+  &:nth-child(3) {
+    left: 297px;
+    animation-delay: 2s;
+  }
+
+  &:nth-child(4) {
+    left: 203px;
+    animation-delay: 4s;
+  }
+
+  &:nth-child(5) {
+    left: 415px;
+    animation-delay: 1.5s;
+  }
+
+  &:nth-child(6) {
+    left: 509px;
+    animation-delay: 5s;
+  }
+}
+
+@keyframes drip {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  35% {
+    opacity: 1;
+    transform: translateY(30px);
+  }
+
+  50% {
+    transform: translateY(110vh);
+  }
+
+  100% {
+    transform: translateY(110vh);
+  }
+}
+
+
 </style>
