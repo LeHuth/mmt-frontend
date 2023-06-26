@@ -72,6 +72,11 @@ export const useAuthStore = defineStore('auth', {
       const config = useRuntimeConfig()
       try {
         if (!this.token) {
+          console.log('no token')
+          return false
+        }
+        if (!config.public.jwtSecret) {
+          console.log('no jwt secret')
           return false
         }
         await jwtVerify(this.token as string, new TextEncoder().encode(config.public.jwtSecret))
