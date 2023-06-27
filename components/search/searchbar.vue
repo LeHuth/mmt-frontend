@@ -19,6 +19,7 @@
       </button>
     </div>
     <search-result-section
+      v-if="showResultSection"
       id="search-result-container"
       :class="(showSearchResultSection ? resultSectionOffset : 'invisible') + ' absolute searchbar-bg z-10' "
       :events="feedResults.value"
@@ -47,6 +48,10 @@ defineComponent({
     isBordered: {
       type: Boolean,
       default: true
+    },
+    showResultSection: {
+      type: Boolean,
+      default: false
     }
   }
 })
@@ -72,6 +77,10 @@ const props = defineProps({
   resultsAreHyperLinks: {
     type: Boolean,
     default: false
+  },
+  showResultSection: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -81,13 +90,14 @@ const searchQuery = ref('')
 const showSearchResultSection = ref(false)
 
 const runFilter = async () => {
-  if (searchQuery.value == '') {
-    return results.value = []
-  }
   if (props.emitInput) {
     emit('input', searchQuery.value)
     return
   }
+  if (searchQuery.value == '') {
+    return results.value = []
+  }
+
   const config = useRuntimeConfig()
   const { data } = await useFetch(`${config.public.baseUrl}/events/filter`, {
     query: {
