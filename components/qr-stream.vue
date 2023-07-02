@@ -1,17 +1,14 @@
 <template>
-  <div>
-    <p class="decode-result">Last result: {{ result }}</p>
-    <p class="validation-message">
-      Validation message: {{ validationMessage }}
-    </p>
-    <p class="validation-success">
-      Validation success: {{ validationSuccess }}
-    </p>
-    <p class="validation-date">
-      Validation success: {{ validationDate }}
-    </p>
+  <div class="app-container" :class="backgroundColorStatus">
+    <p class="validation-message">{{ validationMessage }}</p>
+    <p class="validation-message">{{ validationDate }}</p>
 
-    <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit">
+    <qrcode-stream
+      class="qr-preview"
+      :camera="camera"
+      @decode="onDecode"
+      @init="onInit"
+    >
       <div v-show="showScanConfirmation" class="scan-confirmation">
         <img alt="Checkmark" width="128px" />
       </div>
@@ -29,8 +26,8 @@ export default {
       result: null,
       showScanConfirmation: false,
       validationMessage: null,
-      validationSuccess: null,
-      validationDate: null
+      validationDate: null,
+      backgroundColorStatus: null,
     };
   },
 
@@ -51,6 +48,8 @@ export default {
       this.pause();
 
       await this.validateTicket(content);
+
+      this.resumeAfterPause();
     },
 
     async validateTicket(uuid) {
@@ -65,19 +64,18 @@ export default {
           }
         );
 
-        this.validationSuccess = response.data.success;
+        this.backgroundColorStatus = response.data.success ? "success" : "failure";
         this.validationMessage = response.data.message;
         this.validationDate = response.data.usage;
-
       } catch (err) {
         console.error(err);
-        this.validationSuccess = false;
         this.validationMessage = "Fehler beim Validieren des Tickets";
+        this.backgroundColorStatus = "failure";
       }
     },
 
     unpause() {
-      this.camera = "auto";
+      this.camera = "HD Camera";
     },
 
     pause() {
@@ -89,6 +87,54 @@ export default {
         window.setTimeout(resolve, ms);
       });
     },
+
+    async resumeAfterPause() {
+      await this.timeout(2000);
+      this.unpause();
+    },
   },
 };
 </script>
+
+<style scoped>
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 80vw;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.qr-preview {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+}
+
+.decode-result,
+.validation-message,
+.validation-success,
+.validation-date {
+  font-size: 16px;
+}
+
+.scan-confirmation {
+  width: 100px;
+  height: 100px;
+}
+
+.validation-message {
+  color: white;
+  font-size: large;
+}
+
+.success {
+  background-color: green;
+}
+
+.failure {
+  background-color: red;
+}
+</style>
