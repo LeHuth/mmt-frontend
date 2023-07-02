@@ -1,5 +1,6 @@
 <template>
-  <div class="noise" style="max-width: 1920px; margin: auto">
+  <div class="noise" :style="{background: backgroundColor}" style="max-width: 1920px; margin: auto">
+
     <MMTNavbar />
     <div>
       <slot />
@@ -30,9 +31,22 @@
   </div>
 </template>
 <script>
+import { ref, provide } from 'vue';
+
 export default {
-  name: 'Default'
-}
+  name: 'Default',
+  setup() {
+    const backgroundColor = ref('white');
+
+    provide('changeBackground', (color) => {
+      backgroundColor.value = color;
+    });
+
+    return {
+      backgroundColor,
+    };
+  },
+};
 </script>
 
 <style>
