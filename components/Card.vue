@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div
+    class="card-container"
+    @mouseenter="showCartButton = !showCartButton"
+    @mouseleave="showCartButton = !showCartButton"
+  >
     <div class="p-3">
       <nuxt-img :src="props.eventData?.images[0]" format="webp" quality="10" />
     </div>
@@ -20,6 +24,7 @@
 <script lang="ts" setup>
 import { PropType } from 'vue'
 import { IEvent } from '~/types'
+import { useCartStore } from '~/store/cart'
 
 defineComponent({
   name: 'Card',
@@ -37,7 +42,18 @@ const props = defineProps({
     required: true
   }
 })
+
+const showCartButton = ref(false)
+const cartStore = useCartStore()
+
 </script>
 
 <style scoped>
+button {
+    transition: visibility 0.2s ease-in-out, opacity 0.2s ease-in-out, display 0.2s ease-in-out;
+}
+
+.card-container button {
+    left: calc(50% - 63px);
+}
 </style>

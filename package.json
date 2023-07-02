@@ -40,6 +40,7 @@
     "pinia": "^2.0.35",
     "typescript": "^5.0.4",
     "vue": "^3.3.4",
-    "vue-chartjs": "^5.2.0"
+    "vue-chartjs": "^5.2.0",
+    "vue-simple-range-slider": "^1.1.0"
   }
 }

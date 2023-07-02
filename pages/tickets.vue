@@ -2,7 +2,7 @@
   <div class="mt-6">
     <!--    <SearchBar :events="events" :results-are-hyper-links="true" :show-result-count="true" />-->
     <div class="flex justify-center gap-6">
-      <div class="grid border-black gap-6" style="grid-template-columns: 480px 480px">
+      <div class="grid border-black gap-3" style="grid-template-columns: 480px 480px">
         <div
           v-for="event in filteredEvents"
           :key="event._id"
@@ -25,25 +25,33 @@
           />
         </div>
         <h4>Price Range:</h4>
-        <div class="flex mt-6 mb-12">
-          <span class="pr-3 self-center">000$</span>
-          <div class="relative w-full h-[20px]">
-            <input class="" max="100" min="0" type="range" value="20">
-            <input class="absolute top-0 left-0" max="100" min="0" type="range" value="80">
-          </div>
-          <span class="pl-3 self-center">100$</span>
+        <div class="grid mt-6 mb-12" style="grid-template-columns: 40px auto 40px">
+          <span class="pr-3 self-center">{{ priceRange[0] }}$</span>
+          <client-only>
+            <range-slider :max="maxPrice" :min="0" @range="args => priceRange = args" />
+          </client-only>
+          <span class="pl-3 self-center">{{ priceRange[1] }}$</span>
         </div>
 
-        <button class="btn bg-black text-white hover:bg-white hover:border-black hover:text-black rounded-none w-full mb-12">
-          Apply filter
+        <button
+          class="btn bg-black text-white hover:bg-white hover:border-black hover:text-black rounded-none w-full mb-12"
+          @click="resetFilter"
+        >
+          reset filter
         </button>
 
         <div>
           <h4>Categories:</h4>
-          <a class="block mt-6">Konzert (3)</a>
-          <a class="block mt-3">Museum (1)</a>
-          <a class="block mt-3">Gallery (2)</a>
-          <a class="block mt-3">Fetival (0)</a>
+          <div class="flex flex-col">
+            <a
+              v-for="category in categories"
+              :key="category._id"
+              :class="{'font-bold': isInActiveCategory(category)}"
+              class="mt-6 link inline max-w-fit"
+              @click="setActiveCategory(category)"
+            >
+              {{ category.name }} ({{ category.amount }})</a>
+          </div>
         </div>
         <div class="mt-12">
           <h4>Tags:</h4>
@@ -68,38 +76,125 @@
 
 import { useEventsStore } from '~/store/events'
 import SearchBar from '~/components/search/searchbar.vue'
+import { useCartStore } from '~/store/cart'
 
 definePageMeta({
   title: 'Tickets',
   description: 'Tickets'
 
 })
+const cartStore = useCartStore()
 const config = useRuntimeConfig()
 const tags = ref([])
+const categories = ref([])
+const activeCategory = ref('')
 const activeTags = ref([])
 const events = ref([])
+const priceRange = ref([0, 100])
 const filterValue = ref('')
 const filteredEvents = ref([])
 const fetchTags = async () => {
   const { data } = await useFetch(`${config.public.baseUrl}/tags/`)
   tags.value = data._rawValue.tags
 }
+
+const fetchCategories = async () => {
+  const { data } = await useFetch(`${config.public.baseUrl}/categories/get/active/`)
+  categories.value = data.value.value as Array<any>
+}
 fetchTags()
+fetchCategories()
 const eventStore = useEventsStore()
 eventStore.fetchEvents()
-events.value = eventStore.getEvents
-filteredEvents.value = eventStore.getEvents
+events.value = eventStore.events
+// get max and min price
+const maxPrice = computed(() => {
+  return Math.max(...events.value.map(event => event.price))
+})
+
+const minPrice = computed(() => {
+  return Math.min(...events.value.map(event => event.price))
+})
+priceRange.value = [0, maxPrice.value]
+filteredEvents.value = eventStore.events
+
+const keywordFilter = (newfiltervalue) => {
+  if (newfiltervalue === '') {
+    return events.value
+  }
+  return events.value.filter((event) => {
+    return event.name.toLowerCase().includes(newfiltervalue.toLowerCase())
+  })
+}
+
+const tagFilter = () => {
+  if (activeTags.value.length !== 0) {
+    return filteredEvents.value.filter(event =>
+      event.tags.some(tag => activeTags.value.includes(tag))
+    )
+  } else {
+    console.log('no tags')
+    return events.value
+  }
+}
+
+const priceFilter = () => {
+  return events.value.filter((event) => {
+    return event.price >= priceRange.value[0] && event.price <= priceRange.value[1]
+  })
+}
+
+const categoryFilter = () => {
+  if (activeCategory.value === '') {
+    return events.value
+  } else {
+    return events.value.filter(event => event.category === activeCategory.value._id)
+  }
+}
 
 watch(filterValue, (newValue) => {
-  filterEvents(newValue)
+  filteredEvents.value = keywordFilter(newValue)
+})
+
+watch(activeTags, () => {
+  filteredEvents.value = tagFilter()
+})
+
+watch(priceRange, () => {
+  filteredEvents.value = priceFilter()
+})
+
+watch(activeCategory, () => {
+  filteredEvents.value = categoryFilter()
+})
+
+watch(filteredEvents, () => {
+  filteredEvents.value.sort((a, b) => levenshtein(b.name, filterValue.value) - levenshtein(a.name, filterValue.value))
 })
 const addTagToActive = (tag) => {
   if (activeTags.value.includes(tag)) {
     activeTags.value = activeTags.value.filter(activeTag => activeTag !== tag)
   } else {
-    activeTags.value.push(tag)
+    activeTags.value = [...activeTags.value, tag]
   }
-  filterEvents(filterValue.value)
+}
+
+const setActiveCategory = (category) => {
+  if (isInActiveCategory(category)) {
+    activeCategory.value = ''
+  } else {
+    activeCategory.value = category
+  }
+}
+const favDialog = ref(null)
+const openDialogForXTimne = () => {
+  favDialog.value.showModal()
+  /* setTimeout(() => {
+                                                                                                                 }, 2000) */
+}
+
+const isInActiveCategory = (category) => {
+  return activeCategory.value === category
 }
 
 const isInActiveTags = (tag) => {
@@ -137,26 +232,11 @@ function levenshtein (a, b) {
   return matrix[b.length][a.length]
 }
 
-const filterEvents = (filtervalue: string) => {
-  const allEvents = events.value
-  let tagEvents = []
-  if (activeTags.value.length !== 0) {
-    tagEvents = allEvents.filter(event =>
-      event.tags.some(tag => activeTags.value.includes(tag))
-    )
-    console.log(tagEvents)
-  } else {
-    tagEvents = allEvents
-  }
-
-  if (filtervalue === '') {
-    filteredEvents.value = tagEvents
-    return
-  }
-  filteredEvents.value = tagEvents.filter((event) => {
-    return event.name.toLowerCase().includes(filtervalue.toLowerCase())
-  })
-  filteredEvents.value.sort((a, b) => levenshtein(b.name, filtervalue) - levenshtein(a.name, filtervalue))
+const resetFilter = () => {
+  activeTags.value = []
+  activeCategory.value = ''
+  filterValue.value = ''
+  filteredEvents.value = events.value
 }
 </script>
 
@@ -187,78 +267,6 @@ const filterEvents = (filtervalue: string) => {
     background-repeat: repeat;
     pointer-events: none;
     z-index: -1;
-}
-
-input[type=range] {
-    height: 0px;
-    -webkit-appearance: none;
-    margin: 10px 0;
-    width: 100%;
-    background-color: transparent;
-}
-
-input[type=range]:focus {
-    outline: none;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 1px;
-    cursor: pointer;
-    pointer-events: none;
-    animate: 0.2s;
-    box-shadow: 0px 0px 0px #000000;
-    background: #000000;
-    border-radius: 0px;
-    border: 0px solid #000000;
-    z-index: 0;
-}
-
-input[type=range]::-webkit-slider-thumb {
-    box-shadow: 0px 0px 0px #000000;
-    border: 1px solid #000000;
-    height: 10px;
-    width: 10px;
-    border-radius: 30px;
-    background: #da3636;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -5px;
-    z-index: 99;
-}
-
-input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #000000;
-    pointer-events: none;
-}
-
-input[type=range]::-moz-range-track {
-    width: 100%;
-    height: 1px;
-    cursor: pointer;
-    animate: 0.2s;
-    box-shadow: 0px 0px 0px #000000;
-    background: #000000;
-    border-radius: 0px;
-    border: 0px solid #000000;
-    pointer-events: none;
-}
-
-input[type=range]::-moz-range-thumb {
-    box-shadow: 0px 0px 0px #000000;
-    border: 1px solid #000000;
-    height: 10px;
-    width: 10px;
-    border-radius: 30px;
-    background: #ffffff;
-    cursor: pointer;
-    position: absolute;
-    z-index: 5;
-}
-
-input[type=range]::-ms-thumb {
-    position: absolute;
-    z-index: 5;
 }
 
 </style>
