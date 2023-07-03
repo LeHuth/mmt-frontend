@@ -27,6 +27,7 @@
     >
       TICKETS
     </h1>
+    <LiquidButton />
   </div>
 </template>
 
