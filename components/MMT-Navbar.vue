@@ -15,7 +15,7 @@
       >
         MY
       </h1>
-      <div v-if="authStore.verifyToken()" id="nav-username" class="fixed top-10 bg-black text-white rotate-12">
+      <div v-if="isAuth" id="nav-username" class="fixed top-10 bg-black text-white rotate-12">
         <h1>User's</h1>
       </div>
     </div>
@@ -47,6 +47,7 @@ defineComponent({
 })
 const active = 'tickets'
 const authStore = useAuthStore()
+const isAuth = await authStore.verifyToken()
 
 const addOutline = (path) => {
   if (router.currentRoute.value.path != path) {

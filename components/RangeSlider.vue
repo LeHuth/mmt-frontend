@@ -59,8 +59,28 @@ watch(range, (newVal) => {
 
 </script>
 
-<style scoped>
-.simple-range-slider-popover {
+<style>
+.simple-range-slider-popover, .simple-range-slider-popover-arrow {
     display: none;
+}
+
+.simple-range-slider-bg-bar {
+    margin: 10px !important;
+}
+
+.simple-range-slider-anchor {
+    box-shadow: none !important;
+    border: 1px solid black !important;
+}
+
+.simple-range-slider-bg-bar {
+    border-radius: 0px !important;
+    height: 2px !important;
+}
+
+.simple-range-slider-bar {
+    border-radius: 0px !important;
+    background: black !important;
+    height: 3px !important;
 }
 </style>
