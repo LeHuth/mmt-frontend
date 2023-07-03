@@ -84,6 +84,7 @@ definePageMeta({
 
 })
 const cartStore = useCartStore()
+const eventStore = useEventsStore()
 const config = useRuntimeConfig()
 const tags = ref([])
 const categories = ref([])
@@ -104,8 +105,8 @@ const fetchCategories = async () => {
 }
 fetchTags()
 fetchCategories()
-const eventStore = useEventsStore()
-eventStore.fetchEvents()
+
+await eventStore.fetchEvents()
 events.value = eventStore.events
 // get max and min price
 const maxPrice = computed(() => {
@@ -190,7 +191,7 @@ const favDialog = ref(null)
 const openDialogForXTimne = () => {
   favDialog.value.showModal()
   /* setTimeout(() => {
-                                                                                                                 }, 2000) */
+                                                                                                                   }, 2000) */
 }
 
 const isInActiveCategory = (category) => {

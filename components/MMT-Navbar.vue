@@ -1,5 +1,5 @@
 <template>
-  <div class="whitespace-nowrap flex justify-between overflow-visible max-w-[1475px] ml-auto mr-auto">
+  <div class="whitespace-nowrap flex justify-between overflow-visible max-w-[1475px] h-[174px] ml-auto mr-auto">
     <h1
       :class="{ 'active-tab': router.currentRoute.value.path == '/'}"
       class="huge inline-block text-outline cursor-pointer nav-item"
@@ -23,7 +23,7 @@
     <h1
       :class="{'active-tab': router.currentRoute.value.path == '/tickets/'}"
       class="huge inline-block text-outline cursor-pointer nav-item"
-      @click="navigateTo('/tickets/')"
+      @click="navigateTo('/tickets')"
     >
       TICKETS
     </h1>
