@@ -3,11 +3,13 @@
     <client-only>
       <MMTMap />
     </client-only>
-    <button @click="changeBackground">Change Background</button>
+    <LiquidButton @click="changeBackground" />
   </div>
 </template>
 
 <script lang="ts" setup>
+import LiquidButton from '@/components/LiquidButton.vue'
+
 import { inject, ref } from 'vue';
 import { useAuthStore } from '~/store/auth'
 import '@maptiler/sdk/dist/maptiler-sdk.css'
