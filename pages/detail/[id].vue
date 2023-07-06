@@ -163,8 +163,8 @@
             </transition-expand>
             <transition-expand>
                 <div v-if="showReviews">
-                    <review-list class="mb-12"/>
-                    <add-review v-if="isAuthorized"/>
+                    <review-list :event_id="event._id" class="mb-12"/>
+                    <add-review v-if="isAuthorized" :event_id="event._id"/>
                 </div>
 
             </transition-expand>

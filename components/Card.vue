@@ -14,9 +14,9 @@
           {{ props.eventData?.price }}$
         </span>
       </div>
-      <a class="mt-3 block">
+      <p class="mt-3">
         Event Category
-      </a>
+      </p>
     </div>
   </div>
 </template>
