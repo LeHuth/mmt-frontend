@@ -13,7 +13,6 @@
 </template>
 <script lang="ts" setup>
 import VueSimpleRangeSlider from 'vue-simple-range-slider'
-import 'vue-simple-range-slider/css'
 
 defineComponent({
   name: 'RangeSlider',

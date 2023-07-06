@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     classSuffix: ''
   },
 
-  css: ['~/assets/Fonts.css', '~/assets/index.scss'],
+  css: ['~/assets/Fonts.css', '~/assets/index.scss', 'vue-simple-range-slider/css'],
 
   runtimeConfig: {
     // Will be available in both server and client
