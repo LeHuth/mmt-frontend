@@ -22,7 +22,8 @@
     "@vueuse/nuxt": "^10.1.2",
     "eslint": "^8.39.0",
     "nuxt": "^3.4.2",
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "vue-stripe-js": "^1.0.1"
   },
   "dependencies": {
     "@maptiler/sdk": "^1.0.12",
@@ -33,6 +34,7 @@
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.6.7",
     "@pinia/nuxt": "^0.4.9",
+    "@stripe/stripe-js": "^1.54.1",
     "@vueuse/core": "^10.1.2",
     "chart.js": "^4.3.0",
     "daisyui": "3.1.0",

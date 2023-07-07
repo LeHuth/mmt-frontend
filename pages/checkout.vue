@@ -1,54 +1,39 @@
 <template>
   <div>
-    <h1>Checkout</h1>
-    <div v-for="item in cart.events" v-if="loading" :key="item._id">
-      <p>{{ item.name }} x {{ item.amount }}</p>
-    </div>
-    <button class="btn " @click="placeOrder">
-      Place Order
-    </button>
+    <client-only>
+      <CardElement :client-secret="clientSecret" />
+    </client-only>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useAuthStore } from '@/store/auth'
+
+import { useAuthStore } from '~/store/auth'
 
 definePageMeta({
   title: 'Checkout',
+  ssr: false,
   description: 'Checkout page',
   middleware: ['checkout']
 
 })
-const loading = ref(false)
-const cart = ref([])
-const authStore = useAuthStore()
 const config = useRuntimeConfig()
-const fetchCart = async () => {
+const authStore = useAuthStore()
+const clientSecret = ref('')
+const sendPaymentIntent = async () => {
   // @ts-ignore
-  const { data } = await useFetch(`${config.public.baseUrl}/payment/prepare-checkout/`, {
-
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${authStore.getToken}`
-    }
-  })
-  cart.value = data.value
-  loading.value = true
-}
-
-const placeOrder = async () => {
-  // @ts-ignore
-  const { data } = await useFetch(`${config.public.baseUrl}/payment/checkout/`, {
+  const { data } = await useFetch(`${config.public.baseUrl}/payment/create-payment-intent/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${authStore.getToken}`
+      authorization: `Bearer ${authStore.token}`
     }
   })
   console.log(data)
+  clientSecret.value = data.value.clientSecret
+  return data
 }
-
-fetchCart()
+sendPaymentIntent()
 </script>
 
 <style scoped>
