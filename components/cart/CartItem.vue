@@ -18,7 +18,7 @@
         <p class="self-center">
           {{ props.amount }}
         </p>
-        <div class="flex align-middle flex-col justify-center">
+        <div v-if="props.showAmountChanger" class="flex align-middle flex-col justify-center">
           <button
             class="btn btn-xs rounded-none border-black"
             @click="$emit('updateAmount', {'amount':amount+1, event_id: props.event?._id})"
@@ -37,7 +37,11 @@
         {{ props.event.price * props.amount }}$
       </p>
     </div>
-    <button class="ml-auto self-end" @click="cartStore.removeFromCart('',props.event?._id, true)">
+    <button
+      v-if="props.showAmountChanger"
+      class="ml-auto self-end"
+      @click="cartStore.removeFromCart('',props.event?._id, true)"
+    >
       <span class="link">REMOVE</span>
     </button>
   </div>
@@ -59,6 +63,10 @@ defineComponent({
     amount: {
       type: Number,
       default: 1
+    },
+    showAmountChanger: {
+      type: Boolean,
+      default: true
     }
   }
 })
@@ -71,6 +79,10 @@ const props = defineProps({
   amount: {
     type: Number,
     default: 1
+  },
+  showAmountChanger: {
+    type: Boolean,
+    default: true
   }
 })
 

@@ -11,16 +11,17 @@
       ref="card"
       :elements="elements"
       :options="cardOptions"
+      class="input rounded-none border-black pt-[13.4px]"
     />
   </StripeElements>
-  <button type="button" @click="pay">
+  <button class="btn mt-3 rounded-none border-black w-full" type="button" @click="pay">
     Pay
   </button>
 </template>
 
 <script lang="ts" setup>
-import { StripeElement, StripeElements } from 'vue-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import { StripeElement, StripeElements } from 'vue-stripe-js'
 
 defineComponent({
   name: 'CardOnly',
@@ -41,6 +42,7 @@ const props = defineProps({
     required: true
   }
 })
+const router = useRouter()
 const stripeKey = 'pk_test_51NAw6TI4xbizdZ9kng3EHWZIQIiwpHiA0L9IfcBCnmVyGfMOnJixBepX4W3u7wcdpeIPtgYaoY0wuNSAmRZDPV7a00nkzfGvoF'
 const instanceOptions = ref({
   // https://stripe.com/docs/js/initializing#init_stripe_js-options
@@ -50,6 +52,14 @@ const elementsOptions = ref({
 })
 const cardOptions = ref({
   // https://stripe.com/docs/stripe.js#element-options
+  style: {
+    base: {
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: 'antialiased',
+      padding: '16px',
+      fontSize: '16px'
+    }
+  },
   value: {
     postalCode: '12345'
   }
@@ -81,6 +91,7 @@ const pay = () => {
       console.log(result.error)
     } else {
       console.log(result.paymentIntent)
+      navigateTo('/payment/success')
     }
   })
 }
