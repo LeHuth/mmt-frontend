@@ -21,56 +21,44 @@
     </div>
   </template>
 
-  <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
-  import Popup from '~/components/Popup.vue';
-  import { config, Map, MapOptions, Marker } from '@maptiler/sdk';
-  import '@maptiler/sdk/dist/maptiler-sdk.css';
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import Popup from '~/components/Popup.vue';
+import { config, Map, MapOptions, Marker } from '@maptiler/sdk';
+import '@maptiler/sdk/dist/maptiler-sdk.css';
 
-  const showPopup = ref(false);
-  const showPopup1 = ref(false);
+const showPopup = ref(false);
+const showPopup1 = ref(false);
 
-  onMounted(() => {
-    config.apiKey = 'tQT7W72zRJXId5YzduvP';
-    const options: MapOptions = {
-      container: document.getElementById('map') as HTMLElement,
-      style: 'https://api.maptiler.com/maps/04bc556e-f94b-4d84-9756-95b3d862dc15/style.json?key=luHiVJHYFAkokuoL2QwT',
-      center: [13.4, 52.5],
-      pitch: 85,
-      zoom: 12,
-    };
-    const myMap = new Map(options);
+onMounted(async () => {
+  config.apiKey = 'tQT7W72zRJXId5YzduvP';
+  const options: MapOptions = {
+    container: document.getElementById('map') as HTMLElement,
+    style: 'https://api.maptiler.com/maps/04bc556e-f94b-4d84-9756-95b3d862dc15/style.json?key=luHiVJHYFAkokuoL2QwT',
+    center: [13.4, 52.5],
+    pitch: 85,
+    zoom: 12,
+  };
+  const myMap = new Map(options);
 
-    const marker3 = new Marker({
+  const response = await fetch('/path/to/markers.json');
+  const markers = await response.json();
+
+  markers.forEach(markerData => {
+    const marker = new Marker({
       color: '#fc1414',
       draggable: false,
-      element: document.getElementById('map-btn'),
+      element: document.getElementById(markerData.id),
       scale: 2,
-    })
-      .setLngLat([13.4, 52.6])
-      .addTo(myMap);
-
-    const marker4 = new Marker({
-      color: '#fc1414',
-      draggable: false,
-      element: document.getElementById('map1-btn'),
-      scale: 2,
-    })
-      .setLngLat([13.3, 52.4])
-      .addTo(myMap);
-
-    const marker5 = new Marker({
-      color: '#fc1414',
-      draggable: false,
-      element: document.getElementById('map2-btn'),
-      scale: 2,
-    })
-      .setLngLat([13.4, 52.5])
-      .addTo(myMap);
+    });
+    marker.setLngLat(markerData.lngLat);
+    marker.addTo(myMap);
   });
-  </script>
+});
+</script>
 
-  <style scoped>
+<style scoped>
+
   .map-and-popup {
     display: flex;
     height: 800px;
