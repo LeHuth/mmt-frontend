@@ -17,7 +17,7 @@ import {config, Map, MapOptions, Marker} from '@maptiler/sdk';
 import EventMapCard from '~/components/EventMapCard.vue';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import {useEventsStore} from "~/store/events";
-import markers from "~/assets/markers.json"; 
+import markers from "~/assets/markers.json";
 
 const eventStore = useEventsStore()
 eventStore.fetchEvents()
@@ -47,7 +47,7 @@ onMounted(() => {
         zoom: 12,
     };
     let myMap = new Map(options);
-    markers.features.forEach((marker: any) => { // iterate over the markers
+    markers.features.forEach((marker: any) => { 
         const { coordinates } = marker.geometry;
         new Marker({
             color: '#fc1414',
