@@ -1,16 +1,5 @@
 <template>
     <div>
-      <div class="map-buttons">
-        <div id="map-btn">
-          <button class="btn btn-e1" @click="showPopup = true">E1</button>
-        </div>
-        <div id="map1-btn">
-          <button class="btn btn-e2" @click="showPopup1 = true">E2</button>
-        </div>
-        <div id="map2-btn">
-          <button class="btn btn-e3">E2</button>
-        </div>
-      </div>
       <div class="map-and-popup">
         <div ref="map" id="map"></div>
         <Popup v-if="showPopup" :show="showPopup" image="/tickets/fusion-festival-20131.jpg" imageAlt="Popup Image"
@@ -21,41 +10,56 @@
     </div>
   </template>
 
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
+<script lang="ts" setup>
+import {defineComponent, onMounted, ref} from 'vue';
 import Popup from '~/components/Popup.vue';
-import { config, Map, MapOptions, Marker } from '@maptiler/sdk';
+import {config, Map, MapOptions, Marker} from '@maptiler/sdk';
+import EventMapCard from '~/components/EventMapCard.vue';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
+import {useEventsStore} from "~/store/events";
+import markers from "~/assets/markers.json"; 
 
-const showPopup = ref(false);
-const showPopup1 = ref(false);
+const eventStore = useEventsStore()
+eventStore.fetchEvents()
+const events = eventStore.getEvents
 
-onMounted(async () => {
-  config.apiKey = 'tQT7W72zRJXId5YzduvP';
-  const options: MapOptions = {
-    container: document.getElementById('map') as HTMLElement,
-    style: 'https://api.maptiler.com/maps/04bc556e-f94b-4d84-9756-95b3d862dc15/style.json?key=luHiVJHYFAkokuoL2QwT',
-    center: [13.4, 52.5],
-    pitch: 85,
-    zoom: 12,
-  };
-  const myMap = new Map(options);
+const selectedEvent = ref({})
 
-  const response = await fetch('/path/to/markers.json');
-  const markers = await response.json();
+defineComponent({
+    name: 'MMT-Map',
+    components: {
+        EventMapCard,
+    },
+});
 
-  markers.forEach(markerData => {
-    const marker = new Marker({
-      color: '#fc1414',
-      draggable: false,
-      element: document.getElementById(markerData.id),
-      scale: 2,
+const setEvent = (event: any) => {
+    selectedEvent.value = event
+    console.log(selectedEvent.value)
+}
+
+onMounted(() => {
+    config.apiKey = 'tQT7W72zRJXId5YzduvP';
+    let options: MapOptions = {
+        container: document.getElementById('map') as HTMLElement,
+        style: 'https://api.maptiler.com/maps/16709723-1898-467b-bc2b-083dbe94dcfa/style.json?key=luHiVJHYFAkokuoL2QwT',
+        center: [13.4, 52.5],
+        pitch: 85,
+        zoom: 12,
+    };
+    let myMap = new Map(options);
+    markers.features.forEach((marker: any) => { // iterate over the markers
+        const { coordinates } = marker.geometry;
+        new Marker({
+            color: '#fc1414',
+            draggable: false,
+            scale: 2,
+        })
+            .setLngLat(coordinates)
+            .addTo(myMap);
     });
-    marker.setLngLat(markerData.lngLat);
-    marker.addTo(myMap);
-  });
 });
 </script>
+
 
 <style scoped>
 
