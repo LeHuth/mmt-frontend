@@ -1,18 +1,13 @@
 <template>
     <div>
-      <div class="map-and-popup">
-        <div ref="map" id="map"></div>
-        <Popup v-if="showPopup" :show="showPopup" image="/tickets/fusion-festival-20131.jpg" imageAlt="Popup Image"
-          description="Fusion: 07-07 bis 11-07" @close="showPopup = false" />
-        <Popup v-if="showPopup1" :show="showPopup1" image="/tickets/peter-fox-tickets-poster.jpg"
-          imageAlt="Popup Image" description="Fusion: 07-07 bis 11-07" @close="showPopup1 = false" />
-      </div>
+        <div class="map-and-popup">
+            <div ref="map" id="map"></div>
+        </div>
     </div>
-  </template>
+</template>
 
 <script lang="ts" setup>
 import {defineComponent, onMounted, ref} from 'vue';
-import Popup from '~/components/Popup.vue';
 import {config, Map, MapOptions, Marker} from '@maptiler/sdk';
 import EventMapCard from '~/components/EventMapCard.vue';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
@@ -47,19 +42,23 @@ onMounted(() => {
         zoom: 12,
     };
     let myMap = new Map(options);
-    markers.features.forEach((marker: any) => { 
+
+    markers.features.forEach((marker: any) => { // iterate over the markers
         const { coordinates } = marker.geometry;
-        new Marker({
+        const newMarker = new Marker({
             color: '#fc1414',
             draggable: false,
             scale: 2,
         })
             .setLngLat(coordinates)
             .addTo(myMap);
+
+        newMarker.getElement().addEventListener('click', () => {
+            setEvent(marker.properties);
+        });
     });
 });
 </script>
-
 
 <style scoped>
 
