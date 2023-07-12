@@ -1,5 +1,6 @@
 import { jwtVerify } from 'jose'
 import { defineStore } from 'pinia'
+import { useCookie } from '~/.nuxt/imports'
 
 const baseUrl = 'localhost:8000'
 
@@ -83,6 +84,7 @@ export const useAuthStore = defineStore('auth', {
         return true
       } catch (err) {
         console.log(err)
+        await this.logout()
         return false
       }
     }

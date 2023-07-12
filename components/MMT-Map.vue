@@ -1,34 +1,13 @@
 <template>
   <div class="max-w-[1475px] ml-auto mr-auto my-6">
-    <div class="map-buttons">
-      <div id="map-btn">
-        <div id="drawbtn1">
-          <label class="drawer-button btn btn-primary" for="my-drawer-4" @click="setEvent(events[0])">{{
-            events[0].title
-          }}</label>
-        </div>
-      </div>
-      <div id="map1-btn">
-        <div id="drawbtn">
-          <label class="drawer-button btn btn-primary" for="my-drawer-4" @click="setEvent(events[1])">{{
-            events[1].title
-          }}</label>
-        </div>
-      </div>
-      <div id="map2-btn">
-        <div id="drawbtn2">
-          <label class="drawer-button btn btn-primary" for="my-drawer-4" @click="setEvent(events[2])">{{
-            events[2].title
-          }}</label>
-        </div>
-      </div>
-    </div>
     <div class="grid gap-3" style="grid-template-columns: 980px 480px">
       <div class="map-and-popup max-w-[980px] border border-black">
         <div id="map" ref="map" />
       </div>
       <div id="event-scoll" class="max-w-[480px] overflow-y-scroll">
-        <Card v-for="event in events" :event-data="event" />
+        <transition-scale v-for="(event,index) in filteredEvents">
+          <Card :key="index + rerender_hack" :event-data="event" />
+        </transition-scale>
       </div>
     </div>
   </div>
@@ -44,8 +23,10 @@ import { useEventsStore } from '~/store/events'
 const eventStore = useEventsStore()
 eventStore.fetchEvents()
 const events = eventStore.getEvents
-
-const selectedEvent = ref({})
+const filteredEvents = ref([])
+// eslint-disable-next-line camelcase
+const runtime_config = useRuntimeConfig()
+const eventLocations = ref([])
 
 defineComponent({
   name: 'MMTMap',
@@ -54,80 +35,65 @@ defineComponent({
   }
 })
 
-const setEvent = (event: any) => {
-  selectedEvent.value = event
-  console.log(selectedEvent.value)
-}
-
-const showPopup = ref(false)
-const showPopup1 = ref(false)
-
 const mapZoom = ref(10)
 let mapOptions: MapOptions
 let myMap: Map
 let marker: Marker
-/*
-const logZoom = () => {
-    //console.log(Math.floor(myMap.getZoom()))
-    mapZoom.value = myMap.getZoom() || 10;
-    //marker._element.style.transform = `transform(scale(${myMap.getZoom() / 10}))`
-};
+const bounds = ref()
+const rerender_hack = ref(0)
 
-const readZoom = computed(() => {
-    try {
-        return myMap.getZoom();
-    } catch (e) {
-        return 10;
-    }
+const filterEventsOnBounds = () => {
+  filteredEvents.value = events.filter((event: any) => {
+    const eventLocation = event.happenings[0].place.location
+    // @ts-ignore
+    const test = bounds.value.contains([eventLocation.longitude, eventLocation.latitude])
+
+    return !!test
+  })
+} // Adjust the delay as needed
+
+watch(filteredEvents, (value, oldValue, onCleanup) => {
+  if (value.length !== oldValue.length) {
+    rerender_hack.value = rerender_hack.value + 1
+  }
 })
-*/
-onMounted(() => {
+
+onMounted(async () => {
   let myMap: Map
   config.apiKey = 'tQT7W72zRJXId5YzduvP'
   const options: MapOptions = {
     container: document.getElementById('map') as HTMLElement, // container's id or the HTML element in which SDK will render the map
-    style: 'https://api.maptiler.com/maps/backdrop/style.json?key=tQT7W72zRJXId5YzduvP',
+    /* style: 'https://api.maptiler.com/maps/backdrop/style.json?key=tQT7W72zRJXId5YzduvP', */
     center: [13.4, 52.5],
-    pitch: 85,
+    pitch: 0,
     zoom: 12
   }
   myMap = new Map(options)
   // myMap.on('zoom', logZoom)
-  const marker3 = new Marker({
-    color: '#fc1414',
-    draggable: false,
-    element: document.getElementById('drawbtn'),
-    scale: 2
+  const response = await fetch(`${runtime_config.public.baseUrl}/event-locations`)
+  eventLocations.value = await response.json()
+  eventLocations.value.forEach((location: any) => {
+    const marker = new Marker({
+      color: '#fc1414',
+      draggable: false,
+      element: document.getElementById('map-tip')
+    })
+      .setLngLat([location.location.longitude, location.location.latitude])
+      .addTo(myMap)
   })
-    .setLngLat([13.4, 52.6])
-    .addTo(myMap)
+  bounds.value = myMap.getBounds()
+  myMap.on('dragend', (e) => {
+    bounds.value = myMap.getBounds()
+    filterEventsOnBounds()
+  })
 
-  const marker4 = new Marker({
-    color: '#fc1414',
-    draggable: false,
-    element: document.getElementById('drawbtn1'),
-    scale: 2
+  myMap.on('zoomend', (e) => {
+    bounds.value = myMap.getBounds()
+    filterEventsOnBounds()
   })
-    .setLngLat([13.3, 52.4])
-    .addTo(myMap)
-
-  const marker5 = new Marker({
-    color: '#fc1414',
-    draggable: false,
-    element: document.getElementById('drawbtn2'),
-    scale: 2
-  })
-    .setLngLat([13.4, 52.5])
-    .addTo(myMap)
-
-  const marker2 = new Marker({
-    color: '#fc1414',
-    draggable: false,
-    element: document.getElementById('map-tip')
-  })
-    .setLngLat([13.3, 52.5])
-    .addTo(myMap)
+  filteredEvents.value = events
 })
+
 </script>
 
 <style scoped>
@@ -147,5 +113,13 @@ onMounted(() => {
 #map, #event-scoll {
     flex: 2;
     height: calc(100vh - 240px);
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
 }
 </style>
