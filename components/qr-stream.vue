@@ -64,8 +64,9 @@ export default {
 
     async validateTicket (uuid) {
       try {
+        const config = useRuntimeConfig()
         const response = await axios.post(
-                    `http://localhost:8080/tickets/validate/${uuid}`,
+                    `${config.public.baseUrl}/tickets/validate/${uuid}`,
                     {},
                     {
                       validateStatus: function (status) {
