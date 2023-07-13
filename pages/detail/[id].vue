@@ -4,10 +4,9 @@
              style="grid-template-columns: 960px 480px;">
             <div class="grid gap-3" style="grid-template-columns: 708px 228px">
                 <img :src="event.images[0]" alt="prodimage" class="w-full"/>
-                <div>
-                    <nuxt-img :src="event.images[1]" class="mb-3" format="webp" quality="10"/>
-                    <nuxt-img :src="event.images[2]" class="mb-3" format="webp" quality="10"/>
-                    <nuxt-img :src="event.images[1]" format="webp" quality="10"/>
+                <div class="flex flex-col justify-between">
+                    <nuxt-img v-for="img in event.images.slice(1)" :src="img" format="webp"
+                              quality="10"/>
                 </div>
             </div>
             <div>
@@ -23,7 +22,7 @@
                         <select class="select border-black select-bordered w-full max-w-full rounded-none mb-6">
                             <option disabled selected>Select event date</option>
                             <option v-for="happenig in event.happenings">{{ formatDate(happenig.date) }} --
-                                {{ happenig.time }} Uhr
+                                {{ happenig.time }} Uhr @ {{ happenig.place.name }} in {{ happenig.place.address.city }}
                             </option>
                         </select>
                         <div class="flex gap-3 justify-between" style="flex-wrap: nowrap;">
@@ -163,8 +162,10 @@
             </transition-expand>
             <transition-expand>
                 <div v-if="showReviews">
-                    <review-list :event_id="event._id" class="mb-12"/>
-                    <add-review v-if="isAuthorized" :event_id="event._id"/>
+                    <review-list :key="rerenderhack" :event_id="event._id" class="mb-12"/>
+                    <add-review v-if="isAuthorized"
+                                :event_id="event._id" @review-submitted_success="args => rerenderhack++"
+                    />
                 </div>
 
             </transition-expand>
@@ -192,6 +193,7 @@ const showAdditionalInfo = ref(false)
 const showReviews = ref(false)
 const showRelatedEvents = ref(false)
 const isAuthorized = ref(false)
+const rerenderhack = ref(0)
 
 isAuthorized.value = await authStore.verifyToken()
 
@@ -223,9 +225,17 @@ const toggleVisibility = (section) => {
     }
 }
 
+const fetchEventDetail = async () => {
+    const config = useRuntimeConfig()
+    console.log(`${config.public.baseUrl}/events/get/${route.params.id}`)
+    const {data} = await useFetch(`${config.public.baseUrl}/events/get/${route.params.id}`)
+    console.log(data)
+    return data
+}
+
 await EventStore.fetchEvent(<string>route.params.id)
 
-const event = computed(() => EventStore.event)
+const event = await fetchEventDetail()
 await EventStore.fetchEvents()
 relatedEvents.value = EventStore.events
 

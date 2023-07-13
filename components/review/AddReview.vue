@@ -9,8 +9,8 @@
       <option disabled selected>
         Select ticekt for review
       </option>
-      <option v-for="ticket in ticketsToReview.value" @click="setTicket(ticket.ticket_id)">
-        {{ ticket.name }} @ {{ ticket.location_name }}
+      <option v-for="ticket in ticketsToReview.value" @click="setTicket(ticket._id)">
+        {{ ticket.name }} @ {{ ticket.location_id.name }}
       </option>
     </select>
     <div class="mb-3">
@@ -66,13 +66,15 @@ const config = useRuntimeConfig()
 const authStore = useAuthStore()
 const loading = ref(true)
 const showReviewForm = ref(false)
-
+const emit = defineEmits(['reviewSubmitted_loading', 'reviewSubmitted_success'])
 const review = ref({
   title: '',
   comment: '',
   rating: 0,
   ticket_id: ''
 })
+
+const showSpinner = ref(false)
 
 const setRating = (rating: number) => {
   review.value.rating = rating
@@ -99,13 +101,12 @@ const fetchTickets = async () => {
   console.log(data)
   ticketsToReview.value = data as Array<object>
   console.log(data.value.length)
-  if (data.value.length > 0) {
-    showReviewForm.value = true
-  }
+  showReviewForm.value = data.value.length > 0
 }
 
 const submitReview = async () => {
   console.log('submitting')
+
   // @ts-ignore
   const { data } = await useFetch(`${config.public.baseUrl}/reviews/create`, {
     method: 'POST',
@@ -122,10 +123,9 @@ const submitReview = async () => {
       comment: review.value.comment
     })
   })
+  await fetchTickets()
+  emit('reviewSubmitted_success')
 }
-onMounted(() => {
-  fetchTickets()
-})
 
 fetchTickets()
 </script>

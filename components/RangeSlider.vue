@@ -50,7 +50,7 @@ const props = defineProps({
   }
 })
 const emit = defineEmits(['range'])
-const range = ref([0, 100])
+const range = ref([0, props.max])
 
 watch(range, (newVal) => {
   emit('range', newVal)

@@ -15,7 +15,7 @@
         </span>
       </div>
       <p class="mt-3">
-        Event Category
+        {{ props.eventData.category?.name || 'No category' }}
       </p>
     </div>
   </div>

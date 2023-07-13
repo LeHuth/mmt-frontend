@@ -46,9 +46,9 @@
             <a
               v-for="category in categories"
               :key="category._id"
-              :class="{'font-bold': isInActiveCategory(category)}"
+              :class="{'font-bold': isInActiveCategory(category._id)}"
               class="mt-6 link inline max-w-fit"
-              @click="setActiveCategory(category)"
+              @click="setActiveCategory(category._id)"
             >
               {{ category.name }} ({{ category.amount }})</a>
           </div>
@@ -98,7 +98,9 @@ const fetchTags = async () => {
   const { data } = await useFetch(`${config.public.baseUrl}/tags/`)
   tags.value = data._rawValue.tags
 }
-
+const runSort = () => {
+  filteredEvents.value.sort((a, b) => levenshtein(b.name, filterValue.value) - levenshtein(a.name, filterValue.value))
+}
 const fetchCategories = async () => {
   const { data } = await useFetch(`${config.public.baseUrl}/categories/get/active/`)
   categories.value = data.value.value as Array<any>
@@ -118,6 +120,7 @@ const minPrice = computed(() => {
 })
 priceRange.value = [0, maxPrice.value]
 filteredEvents.value = eventStore.events
+runSort()
 
 const keywordFilter = (newfiltervalue) => {
   if (newfiltervalue === '') {
@@ -134,7 +137,6 @@ const tagFilter = () => {
       event.tags.some(tag => activeTags.value.includes(tag))
     )
   } else {
-    console.log('no tags')
     return events.value
   }
 }
@@ -149,7 +151,7 @@ const categoryFilter = () => {
   if (activeCategory.value === '') {
     return events.value
   } else {
-    return events.value.filter(event => event.category === activeCategory.value._id)
+    return events.value.filter(event => event.category?._id === activeCategory.value)
   }
 }
 
@@ -191,7 +193,7 @@ const favDialog = ref(null)
 const openDialogForXTimne = () => {
   favDialog.value.showModal()
   /* setTimeout(() => {
-                                                                                                                   }, 2000) */
+                                                                                                                                       }, 2000) */
 }
 
 const isInActiveCategory = (category) => {

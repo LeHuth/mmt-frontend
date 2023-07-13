@@ -5,7 +5,7 @@
     </button>
 
     <div class="">
-      <form v-if="!authStore.verifyToken()" class="flex flex-col" @submit.prevent="login">
+      <form v-if="true" class="flex flex-col" @submit.prevent="login">
         <div class="form-control">
           <label class="label">
             <span class="label-text">FIRST NAME</span>

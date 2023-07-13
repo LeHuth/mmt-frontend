@@ -4,10 +4,15 @@
       <div class="map-and-popup max-w-[980px] border border-black">
         <div id="map" ref="map" />
       </div>
-      <div id="event-scoll" class="max-w-[480px] overflow-y-scroll">
-        <transition-scale v-for="(event,index) in filteredEvents">
-          <Card :key="index + rerender_hack" :event-data="event" />
-        </transition-scale>
+      <div id="event-scoll" class="max-w-[480px] overflow-y-scroll border-y border-black">
+        <transition-fade v-for="(event,index) in filteredEvents">
+          <Card
+            :key="index + rerender_hack"
+            :event-data="event"
+            class="hover:cursor-pointer"
+            @click="navigateTo(`/detail/${event._id}`)"
+          />
+        </transition-fade>
       </div>
     </div>
   </div>
@@ -15,7 +20,7 @@
 
 <script lang="ts" setup>
 import { defineComponent, onMounted, ref } from 'vue'
-import { config, Map, MapOptions, Marker } from '@maptiler/sdk'
+import { config, Map, MapOptions, Marker, Popup } from '@maptiler/sdk'
 import EventMapCard from '~/components/EventMapCard.vue'
 import '@maptiler/sdk/dist/maptiler-sdk.css'
 import { useEventsStore } from '~/store/events'
@@ -79,6 +84,7 @@ onMounted(async () => {
       element: document.getElementById('map-tip')
     })
       .setLngLat([location.location.longitude, location.location.latitude])
+      .setPopup(new Popup().setHTML(`<div><h3 class="mb-1">${location.name}</h3><p>${location.description}</p></div>`)) // add popup
       .addTo(myMap)
   })
   bounds.value = myMap.getBounds()

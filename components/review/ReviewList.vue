@@ -3,7 +3,10 @@
     <div v-for="review in reviews" :key="review" class="border-b border-black mb-3 pb-3">
       <review-item :review="review" />
     </div>
-    <button class="btn bg-black text-white hover:bg-white hover:border-black hover:text-black w-full rounded-none">
+    <button
+      v-if="false"
+      class="btn bg-black text-white hover:bg-white hover:border-black hover:text-black w-full rounded-none"
+    >
       load more
     </button>
   </div>

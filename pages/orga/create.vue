@@ -54,6 +54,7 @@
               :results-are-hyper-links="false"
               :show-filter="false"
               :show-result-count="false"
+              :show-result-section="true"
               class="join-item w-full"
               @input="value => filterPlaces(value)"
               @select="value => eventplace = value"
@@ -89,6 +90,15 @@
             placeholder="Description"
             @change="description = $event.target.value"
           />
+
+          <select class="select select-bordered w-full max-w-xs">
+            <option disabled selected>
+              Who shot first?
+            </option>
+            <option v-for="category in categories.value" @click="selectedCategory = category._id">
+              {{ category.name }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
@@ -121,6 +131,11 @@ const happenings: IEventHappening = ref([])
 const time = ref('')
 const date = ref('')
 const description = ref('')
+const categories = ref([])
+const selectedCategory = ref('')
+
+const { data } = await useFetch('http://localhost:8080/categories/get/all')
+categories.value = data.value as Array<object>
 
 // show the image
 const upload = (e) => {
@@ -176,7 +191,8 @@ const sumbitEvent = () => {
     description: description.value,
     images: uploadImgArray.value,
     organizer: useAuthStore().getUserId,
-    available: 100
+    available: 100,
+    category: selectedCategory.value
   } as IEvent
   console.log(event)
   const eventsStore = useEventsStore()
