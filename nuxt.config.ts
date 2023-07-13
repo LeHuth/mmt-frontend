@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/color-mode',
-    '@pinia-plugin-persistedstate/nuxt', '@nuxt/devtools', '@nuxt/image', '@morev/vue-transitions/nuxt'],
+    '@pinia-plugin-persistedstate/nuxt', '@nuxt/devtools', '@nuxt/image', '@morev/vue-transitions/nuxt', '@tailvue/nuxt'],
 
   // @ts-ignore
   colorMode: {

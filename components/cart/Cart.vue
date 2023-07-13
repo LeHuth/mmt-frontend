@@ -24,7 +24,9 @@
             />
             <div class="mt-6 flex">
               <h5 class="inline-block self-center">
-                Total: <span class="pl-3 font-bold">{{ backendCart.shoppingCart.totalPrice }}$</span>
+                Total: <span v-if="backendCart.shoppingCart.items.length > 0" class="pl-3 font-bold">{{
+                  backendCart.shoppingCart.totalPrice
+                }}$</span><span v-else class="pl-3 font-bold">0$</span>
               </h5>
               <div v-if="props.showAmountChanger">
                 <button

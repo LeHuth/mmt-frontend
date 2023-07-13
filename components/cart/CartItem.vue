@@ -1,6 +1,6 @@
 <template>
   <div class="top-bottom-outline flex p-3">
-    <div class="grid w-full" style="grid-template-columns: 70px 300px 100px 100px 100px">
+    <div class="grid w-full" style="grid-template-columns: 70px 300px 100px 100px 100px auto">
       <img
         :src="props.event?.images[0]"
         alt="event image"
@@ -36,6 +36,14 @@
       <p class="self-center">
         {{ props.event.price * props.amount }}$
       </p>
+      <div v-if="props.showIfUsed" class="flex align-baseline">
+        <p v-if="props.used" class="self-center">
+          yes
+        </p>
+        <p v-else class="self-center">
+          no
+        </p>
+      </div>
     </div>
     <button
       v-if="props.showAmountChanger"
@@ -67,6 +75,14 @@ defineComponent({
     showAmountChanger: {
       type: Boolean,
       default: true
+    },
+    showIfUsed: {
+      type: Boolean,
+      default: false
+    },
+    used: {
+      type: Boolean,
+      default: false
     }
   }
 })
@@ -83,6 +99,14 @@ const props = defineProps({
   showAmountChanger: {
     type: Boolean,
     default: true
+  },
+  showIfUsed: {
+    type: Boolean,
+    default: false
+  },
+  used: {
+    type: Boolean,
+    default: false
   }
 })
 

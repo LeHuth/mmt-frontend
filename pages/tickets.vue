@@ -193,7 +193,7 @@ const favDialog = ref(null)
 const openDialogForXTimne = () => {
   favDialog.value.showModal()
   /* setTimeout(() => {
-                                                                                                                                       }, 2000) */
+                                                                                                                                           }, 2000) */
 }
 
 const isInActiveCategory = (category) => {

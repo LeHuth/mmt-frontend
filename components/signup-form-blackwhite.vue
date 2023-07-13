@@ -68,7 +68,7 @@
           </button>
           <div>
             <span class="nofont max-w-2xl ">
-              {{ backendMessage }}
+              {{ backendMessage.msg }}
             </span>
           </div>
         </div>

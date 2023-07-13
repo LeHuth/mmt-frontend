@@ -16,6 +16,7 @@
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
+    "@tailvue/nuxt": "^1.0.0",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
@@ -42,13 +43,13 @@
     "lodash": "^4.17.21",
     "node-fetch-native": "^1.2.0",
     "pinia": "^2.0.35",
+    "qrcode-reader-vue3": "^3.1.2",
     "typescript": "^5.0.4",
     "vue": "^3.3.4",
     "vue-chartjs": "^5.2.0",
+    "vue-qrcode-reader": "^3.1.6",
     "vue-simple-range-slider": "^1.1.0",
     "vue-stripe-js": "^1.0.1",
-    "qrcode-reader-vue3": "^3.1.2",
-    "vue-qrcode-reader": "^3.1.6",
     "vue3-qr-reader": "^1.0.0"
   }
 }

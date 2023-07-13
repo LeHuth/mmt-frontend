@@ -4,7 +4,7 @@
       Related Events
     </h4>
     <div class="max-w-[1475px] flex gap-12">
-      <div v-for="event in props.events" :key="event._id" class="card-elem mb-[12px]">
+      <div v-for="event in props.events?.slice(0,4)" :key="event._id" class="card-elem mb-[12px]">
         <Card :event-data="event" class="card-component" />
       </div>
     </div>

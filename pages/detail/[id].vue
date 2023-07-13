@@ -175,11 +175,22 @@
 </template>
 
 <script lang="ts" setup>
+import {useModal, useToast} from 'tailvue'
 import {useEventsStore} from "~/store/events";
 import {useCartStore} from "~/store/cart";
 import RelatedEvents from "~/components/detail/RelatedEvents.vue";
 import AddReview from "~/components/review/AddReview.vue";
 import {useAuthStore} from "~/store/auth";
+
+let $toast
+
+onMounted(() => {
+    $toast = useToast()
+    const $modal = useModal()
+
+
+})
+
 
 const EventStore = useEventsStore()
 const CartStore = useCartStore()
@@ -245,11 +256,20 @@ const formatDate = (isodate: string) => {
 }
 
 const addToCart = () => {
+
+    $toast.success('Added to cart')
+
     CartStore.addToCart(event.value._id, true, amount.value, event.value.price)
     amount.value = 1
 }
 </script>
 
-<style scoped>
+<style>
+#toasts > div > div > div {
+    @apply relative w-full bg-white  shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden;
+}
 
+#toasts > div > div > div > div:first-child {
+    @apply absolute left-0 bottom-0 right-0 h-1 rounded bg-gray-200;
+}
 </style>
